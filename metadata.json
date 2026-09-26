@@ -1,0 +1,8 @@
+{
+  "name": "Remix Gen-Folio",
+  "description": "Hệ thống tạo Portfolio Landing Page 1 chạm từ CV chuẩn hóa cho Tech, Creative và Business.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --primary-color: #10b981;
+  --primary-rgb: 16, 185, 129;
+  --primary-glow: rgba(16, 185, 129, 0.25);
+  --primary-light: rgba(16, 185, 129, 0.12);
+  --primary-border: rgba(16, 185, 129, 0.3);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: #f5f5f5;
+  background-color: #08080a;
+  overflow-x: hidden;
+}
+
+/* Custom font utilities */
+.font-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.font-creative {
+  font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-business {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* Dynamic Primary Accent Helpers based on CSS variables (<100ms instant switch) */
+.theme-accent-bg {
+  background-color: var(--primary-color) !important;
+}
+
+.theme-accent-text {
+  color: var(--primary-color) !important;
+}
+
+.theme-accent-border {
+  border-color: var(--primary-border) !important;
+}
+
+.theme-accent-subtle-bg {
+  background-color: var(--primary-light) !important;
+}
+
+.theme-accent-ring:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.theme-accent-glow {
+  box-shadow: 0 0 25px var(--primary-glow);
+}
+
+.theme-accent-glow-subtle {
+  box-shadow: 0 4px 20px -2px var(--primary-glow);
+}
+
+/* Noise & Mesh Texture helpers */
+.tech-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.creative-mesh-bg {
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(var(--primary-rgb), 0.15) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(120, 119, 198, 0.12) 0px, transparent 50%);
+}
+
+.business-canvas-bg {
+  background-color: #0b0f17;
+  background-image: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.08) 0%, transparent 60%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0e12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
