@@ -39,6 +39,10 @@ export const SAMPLE_CVS: SampleCvOption[] = [
 // Creates a valid minimal PDF buffer containing the text resume
 export function createTextPdfDataUri(title: string, content: string): string {
   // A clean minimal valid single-page PDF with readable text
+  const cleanTitle = title
+    .replace(/[^\x20-\x7E\n]/g, ' ')
+    .replace(/\(/g, '\\(')
+    .replace(/\)/g, '\\)');
   const cleanContent = content
     .replace(/[^\x20-\x7E\n]/g, ' ')
     .replace(/\(/g, '\\(')
@@ -60,7 +64,7 @@ stream
 BT
 /F1 16 Tf
 50 720 Td
-(${title}) Tj
+(${cleanTitle}) Tj
 /F1 10 Tf
 0 -30 Td
 (${cleanContent.slice(0, 200)}) Tj
@@ -88,5 +92,12 @@ startxref
 530
 %%EOF`;
 
-  return `data:application/pdf;base64,${btoa(pdfBody)}`;
+  // Unicode-safe base64 encoding (btoa only supports Latin1)
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(pdfBody);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return `data:application/pdf;base64,${btoa(binary)}`;
 }
