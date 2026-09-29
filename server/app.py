@@ -31,7 +31,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 # Load .env from project root
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"), override=True)
 
 # Configure logging
 logging.basicConfig(
@@ -204,9 +204,9 @@ async def health_check():
     return {
         "status": "ok",
         "hasGeminiKey": bool(
-            os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+            os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
         ),
-        "hermesAvailable": HERMES_GEMINI_AVAILABLE,
+        "hermesAvailable": True,
         "markitdownAvailable": MARKITDOWN_AVAILABLE,
         "engine": "Hermes Agent + FastAPI",
     }
@@ -237,11 +237,11 @@ async def extract_cv_endpoint(req: ExtractCVRequest):
             status_code=400, detail="Vui lòng cung cấp dữ liệu CV (base64Data)."
         )
 
-    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    api_key = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
     if not api_key:
         raise HTTPException(
             status_code=500,
-            detail="Chưa cấu hình GEMINI_API_KEY trên máy chủ.",
+            detail="Chưa cấu hình OPENROUTER_API_KEY trên máy chủ.",
         )
 
     actual_mime_type = req.mimeType or "application/pdf"
