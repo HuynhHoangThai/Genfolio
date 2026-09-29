@@ -6,3 +6,12 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Hermes Agent (git submodule / cloned dependency)
+hermes-agent/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/

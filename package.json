@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
+    "dev:api": "python -m server.run",
+    "dev:vite": "vite --port 5173",
     "build": "vite build",
-    "start": "tsx server.ts",
+    "start": "python -m server.run",
+    "start:legacy": "tsx server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
