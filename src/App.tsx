@@ -5,18 +5,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, ArrowRight, AlertTriangle, Loader2 } from 'lucide-react';
+import { Clock, ArrowRight, Loader2 } from 'lucide-react';
 import { IndustryType, LayoutConcept, MockProfile, ProjectItem } from './types/portfolio';
 import { MOCK_PROFILES_MAP } from './data/mockProfiles';
 import { HomeHero } from './components/home/HomeHero';
 import { AiProcessingModal, UploadedFilePayload } from './components/loading/AiProcessingModal';
 import { FloatingWidget } from './components/portfolio/FloatingWidget';
 import { TechPortfolio } from './components/portfolio/TechPortfolio';
-import { CreativePortfolio } from './components/portfolio/CreativePortfolio';
-import { BusinessPortfolio } from './components/portfolio/BusinessPortfolio';
-import { BrutalistPortfolio } from './components/portfolio/BrutalistPortfolio';
-import { CyberpunkHoloPortfolio } from './components/portfolio/CyberpunkHoloPortfolio';
-import { SwissEditorialPortfolio } from './components/portfolio/SwissEditorialPortfolio';
+import { CyberNeonPortfolio } from './components/portfolio/CyberNeonPortfolio';
+import { GlassMorphPortfolio } from './components/portfolio/GlassMorphPortfolio';
+import { HolographicGridPortfolio } from './components/portfolio/HolographicGridPortfolio';
 import { ProjectModal } from './components/portfolio/ProjectModal';
 import { ResumeModal } from './components/portfolio/ResumeModal';
 import { AiVisualModal } from './components/portfolio/AiVisualModal';
@@ -24,11 +22,11 @@ import { generateProceduralVisual, generateProceduralAvatar } from './utils/aiVi
 
 export default function App() {
   const [appStage, setAppStage] = useState<'home' | 'processing' | 'result'>('home');
-  const [selectedIndustry, setSelectedIndustry] = useState<IndustryType>('tech');
-  const [currentConcept, setCurrentConcept] = useState<LayoutConcept>('terminal');
-  const [activeProfile, setActiveProfile] = useState<MockProfile>(MOCK_PROFILES_MAP.tech);
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryType>('tech-dev');
+  const [currentConcept, setCurrentConcept] = useState<LayoutConcept>('cyber-neon');
+  const [activeProfile, setActiveProfile] = useState<MockProfile>(MOCK_PROFILES_MAP['tech-dev']);
   const [pendingUploadedFile, setPendingUploadedFile] = useState<UploadedFilePayload | null>(null);
-  const [primaryColor, setPrimaryColor] = useState<string>('#10b981');
+  const [primaryColor, setPrimaryColor] = useState<string>('#06b6d4');
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>('desktop');
   
   // Modals
@@ -48,7 +46,7 @@ export default function App() {
 
   // Apply default CSS variables on mount & check for ?share= query param
   useEffect(() => {
-    applyCssVariables('#10b981', '16, 185, 129');
+    applyCssVariables('#06b6d4', '6, 182, 212');
 
     // Parse URL for ?share= parameter
     const params = new URLSearchParams(window.location.search);
@@ -66,7 +64,7 @@ export default function App() {
       const b = parseInt(clean.substring(4, 6), 16);
       return `${r}, ${g}, ${b}`;
     }
-    return '16, 185, 129';
+    return '6, 182, 212';
   };
 
   const loadSharedPortfolio = async (id: string) => {
@@ -114,9 +112,9 @@ export default function App() {
     const root = document.documentElement;
     root.style.setProperty('--primary-color', hex);
     root.style.setProperty('--primary-rgb', rgb);
-    root.style.setProperty('--primary-glow', `rgba(${rgb}, 0.25)`);
-    root.style.setProperty('--primary-light', `rgba(${rgb}, 0.12)`);
-    root.style.setProperty('--primary-border', `rgba(${rgb}, 0.35)`);
+    root.style.setProperty('--primary-glow', `rgba(${rgb}, 0.35)`);
+    root.style.setProperty('--primary-light', `rgba(${rgb}, 0.15)`);
+    root.style.setProperty('--primary-border', `rgba(${rgb}, 0.45)`);
   };
 
   const handleStartGeneration = (
@@ -128,35 +126,29 @@ export default function App() {
     setSelectedIndustry(industry);
     
     // Determine layout concept
-    let targetConcept: LayoutConcept = concept || 'terminal';
+    let targetConcept: LayoutConcept = concept || 'cyber-neon';
     if (!concept) {
-      if (industry === 'tech') targetConcept = 'terminal';
-      else if (industry === 'creative') targetConcept = 'bento-glass';
-      else targetConcept = 'executive-kpi';
+      targetConcept = 'cyber-neon';
     }
     setCurrentConcept(targetConcept);
 
     if (customProfile) {
       setActiveProfile(customProfile);
     } else {
-      setActiveProfile(MOCK_PROFILES_MAP[industry]);
+      setActiveProfile(MOCK_PROFILES_MAP[industry] || MOCK_PROFILES_MAP['tech-dev']);
     }
 
     setPendingUploadedFile(uploadedFile || null);
 
-    // Adjust theme color per concept/industry
-    if (targetConcept === 'brutalist') {
-      handleColorChange('#facc15', '250, 204, 21');
-    } else if (targetConcept === 'cyberpunk-holo') {
-      handleColorChange('#06b6d4', '6, 182, 212');
-    } else if (targetConcept === 'bento-glass' || industry === 'creative') {
-      handleColorChange('#f43f5e', '244, 63, 94');
-    } else if (targetConcept === 'executive-kpi' || industry === 'business') {
-      handleColorChange('#f59e0b', '245, 158, 11');
-    } else if (targetConcept === 'swiss-editorial') {
-      handleColorChange('#ededed', '237, 237, 237');
+    // Adjust theme color per concept
+    if (targetConcept === 'cyber-neon') {
+      handleColorChange('#06b6d4', '6, 182, 212'); // Cyan
+    } else if (targetConcept === 'glass-morph') {
+      handleColorChange('#8b5cf6', '139, 92, 246'); // Purple
+    } else if (targetConcept === 'holographic-grid') {
+      handleColorChange('#f43f5e', '244, 63, 94'); // Rose
     } else {
-      handleColorChange('#10b981', '16, 185, 129');
+      handleColorChange('#10b981', '16, 185, 129'); // Emerald
     }
 
     setAppStage('processing');
@@ -164,16 +156,12 @@ export default function App() {
 
   const handleProcessingComplete = (extractedProfile: MockProfile) => {
     // Generate AI visual assets for any project without an image
-    const themeForVisuals = 
-      currentConcept === 'brutalist' ? 'brutalist' :
-      currentConcept === 'cyberpunk-holo' ? 'cyberpunk' :
-      selectedIndustry === 'creative' ? 'creative' :
-      selectedIndustry === 'business' ? 'business' : 'tech';
+    const themeForVisuals = 'tech';
 
     const enrichedProjects: ProjectItem[] = (extractedProfile.projects || []).map((proj) => ({
       ...proj,
       imageUrl: proj.imageUrl || generateProceduralVisual({
-        theme: themeForVisuals,
+        theme: themeForVisuals as any,
         title: proj.title,
         category: proj.category,
         primaryColor,
@@ -186,7 +174,7 @@ export default function App() {
       concept: currentConcept,
       avatarImage: extractedProfile.avatarImage || generateProceduralAvatar(
         extractedProfile.fullName, 
-        selectedIndustry, 
+        'tech-dev', 
         primaryColor
       ),
       projects: enrichedProjects,
@@ -194,7 +182,7 @@ export default function App() {
 
     setActiveProfile(enrichedProfile);
 
-    if (extractedProfile.industry && ['tech', 'creative', 'business'].includes(extractedProfile.industry)) {
+    if (extractedProfile.industry) {
       setSelectedIndustry(extractedProfile.industry);
     }
     if (extractedProfile.concept) {
@@ -216,18 +204,6 @@ export default function App() {
       ...prev,
       industry: newIndustry,
     }));
-    
-    // Auto-adjust default concept and color
-    if (newIndustry === 'tech') {
-      setCurrentConcept('terminal');
-      handleColorChange('#10b981', '16, 185, 129');
-    } else if (newIndustry === 'creative') {
-      setCurrentConcept('bento-glass');
-      handleColorChange('#f43f5e', '244, 63, 94');
-    } else {
-      setCurrentConcept('executive-kpi');
-      handleColorChange('#f59e0b', '245, 158, 11');
-    }
   };
 
   const handleConceptChange = (newConcept: LayoutConcept) => {
@@ -238,18 +214,14 @@ export default function App() {
     }));
 
     // Auto-align default accents
-    if (newConcept === 'terminal') {
-      handleColorChange('#10b981', '16, 185, 129');
-    } else if (newConcept === 'bento-glass') {
-      handleColorChange('#f43f5e', '244, 63, 94');
-    } else if (newConcept === 'brutalist') {
-      handleColorChange('#facc15', '250, 204, 21');
-    } else if (newConcept === 'cyberpunk-holo') {
+    if (newConcept === 'cyber-neon') {
       handleColorChange('#06b6d4', '6, 182, 212');
-    } else if (newConcept === 'executive-kpi') {
-      handleColorChange('#f59e0b', '245, 158, 11');
-    } else if (newConcept === 'swiss-editorial') {
-      handleColorChange('#ededed', '237, 237, 237');
+    } else if (newConcept === 'glass-morph') {
+      handleColorChange('#8b5cf6', '139, 92, 246');
+    } else if (newConcept === 'holographic-grid') {
+      handleColorChange('#f43f5e', '244, 63, 94');
+    } else if (newConcept === 'terminal') {
+      handleColorChange('#10b981', '16, 185, 129');
     }
   };
 
@@ -270,21 +242,15 @@ export default function App() {
       {appStage === 'result' && sharedMeta?.isShared && (
         <div className="sticky top-0 z-40 bg-neutral-950/95 border-b border-neutral-800 backdrop-blur-md px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md">
           <div className="flex items-center gap-2 text-neutral-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse" />
             <span className="text-xs font-medium">
               Đang xem Portfolio của <strong className="text-white font-bold">{activeProfile.fullName}</strong>
             </span>
-            {sharedMeta.expiresAt && (
-              <span className="text-[11px] text-amber-300/95 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1 font-mono">
-                <Clock className="w-3 h-3 text-amber-400" />
-                <span>Hết hạn sau: ~{Math.max(0, Math.round((sharedMeta.expiresAt - Date.now()) / (1000 * 60 * 60)))}h</span>
-              </span>
-            )}
           </div>
           <button
             type="button"
             onClick={handleResetToHome}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-emerald-400 to-teal-300 text-neutral-950 hover:opacity-95 transition-all shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary-color)] text-neutral-950 hover:opacity-95 transition-all shadow-sm cursor-pointer"
           >
             <span>Tự tạo Portfolio của bạn</span>
             <ArrowRight className="w-3 h-3" />
@@ -296,10 +262,9 @@ export default function App() {
       {isLoadingShared && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950/95 backdrop-blur-md">
           <div className="flex flex-col items-center gap-4 text-center p-6">
-            <Loader2 className="w-10 h-10 text-emerald-400 animate-spin" />
+            <Loader2 className="w-10 h-10 text-[var(--primary-color)] animate-spin" />
             <div className="space-y-1">
               <h3 className="text-base font-bold text-white">Đang tải Portfolio được chia sẻ...</h3>
-              <p className="text-xs text-neutral-400">Đang phục hồi cấu hình và phong cách giao diện</p>
             </div>
           </div>
         </div>
@@ -316,11 +281,7 @@ export default function App() {
               <h3 className="text-base font-bold text-white mb-1.5">
                 {sharedError.expired ? 'Liên kết chia sẻ tạm thời đã hết hạn' : 'Không tìm thấy hồ sơ'}
               </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                {sharedError.expired
-                  ? 'Hồ sơ portfolio này được bảo vệ bởi cơ chế liên kết tạm thời và đã quá thời hạn hiệu lực. Bạn có thể tự tạo cho mình một trang Portfolio chuyên nghiệp chỉ trong 1 chạm!'
-                  : sharedError.message}
-              </p>
+              <p className="text-xs text-neutral-400 leading-relaxed">{sharedError.message}</p>
             </div>
             <button
               type="button"
@@ -329,7 +290,7 @@ export default function App() {
                 window.history.replaceState({}, '', window.location.pathname);
                 handleResetToHome();
               }}
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-neutral-950 transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-[var(--primary-color)] text-neutral-950 transition-all cursor-pointer"
             >
               Tự tạo Portfolio cho bạn ngay (Miễn phí)
             </button>
@@ -367,16 +328,7 @@ export default function App() {
                 : 'w-full'
             }`}
           >
-            {/* Mobile Status Bar simulation */}
-            {viewportMode === 'mobile' && (
-              <div className="sticky top-0 z-50 bg-neutral-950/90 backdrop-blur-md px-6 py-2 flex items-center justify-between text-[11px] font-mono text-neutral-400 border-b border-neutral-800">
-                <span>9:41</span>
-                <div className="w-16 h-3 rounded-full bg-neutral-800 self-center" />
-                <span>5G · 100%</span>
-              </div>
-            )}
-
-            {/* Dynamic Layout Concept Routing (6 Unique Architectural Concepts with Framer Motion fluid transitions) */}
+            {/* Dynamic Layout Concept Routing */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentConcept}
@@ -394,45 +346,24 @@ export default function App() {
                     onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
                   />
                 )}
-
-                {currentConcept === 'bento-glass' && (
-                  <CreativePortfolio
+                {currentConcept === 'cyber-neon' && (
+                  <CyberNeonPortfolio
                     profile={activeProfile}
                     onOpenProject={(proj) => setSelectedProject(proj)}
                     onOpenResume={() => setIsResumeModalOpen(true)}
                     onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
                   />
                 )}
-
-                {currentConcept === 'brutalist' && (
-                  <BrutalistPortfolio
+                {currentConcept === 'glass-morph' && (
+                  <GlassMorphPortfolio
                     profile={activeProfile}
                     onOpenProject={(proj) => setSelectedProject(proj)}
                     onOpenResume={() => setIsResumeModalOpen(true)}
                     onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
                   />
                 )}
-
-                {currentConcept === 'cyberpunk-holo' && (
-                  <CyberpunkHoloPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-
-                {currentConcept === 'executive-kpi' && (
-                  <BusinessPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-
-                {currentConcept === 'swiss-editorial' && (
-                  <SwissEditorialPortfolio
+                {currentConcept === 'holographic-grid' && (
+                  <HolographicGridPortfolio
                     profile={activeProfile}
                     onOpenProject={(proj) => setSelectedProject(proj)}
                     onOpenResume={() => setIsResumeModalOpen(true)}

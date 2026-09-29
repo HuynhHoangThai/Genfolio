@@ -124,12 +124,10 @@ export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
     label: string;
     icon: React.ElementType;
   }[] = [
-    { id: 'terminal', label: 'Terminal Dev', icon: Terminal },
-    { id: 'bento-glass', label: 'Spatial Bento', icon: Palette },
-    { id: 'brutalist', label: 'Neo-Brutalist', icon: Flame },
-    { id: 'cyberpunk-holo', label: 'Cyber Holo', icon: Radio },
-    { id: 'executive-kpi', label: 'Executive KPI', icon: Building2 },
-    { id: 'swiss-editorial', label: 'Swiss Edit', icon: Layers },
+    { id: 'cyber-neon', label: 'Cyber Neon', icon: Terminal },
+    { id: 'glass-morph', label: 'Glass Morph', icon: Palette },
+    { id: 'holographic-grid', label: 'Holo Grid', icon: Layers },
+    { id: 'terminal', label: 'Classic Term', icon: Terminal },
   ];
 
   return (

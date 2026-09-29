@@ -47,70 +47,50 @@ export const CONCEPTS_METADATA: {
   color: string;
 }[] = [
   {
-    id: 'terminal',
-    industry: 'tech',
-    title: 'Terminal Dev HUD',
-    badge: 'Kỹ thuật · Monospace',
-    desc: 'Bố cục dòng lệnh CLI, sơ đồ hệ phân tán, telemetry server và git commit log.',
-    wireframeHighlight: 'CLI interactive runner & status ping',
+    id: 'cyber-neon',
+    industry: 'tech-dev',
+    title: 'Cyber Neon HUD',
+    badge: 'Kỹ thuật · Cyberpunk',
+    desc: 'Lưới neon động, viền glowing rực rỡ, phông chữ monospace, tương tác quét laser.',
+    wireframeHighlight: 'Dynamic grid & laser scanlines',
     icon: Terminal,
-    color: '#10b981',
-  },
-  {
-    id: 'bento-glass',
-    industry: 'creative',
-    title: 'Spatial Bento Glass',
-    badge: 'Sáng tạo · Glassmorphism',
-    desc: 'Lưới Bento đa kích thước, chiều sâu thị giác 3D, quả cầu ambient phản chiếu ánh sáng.',
-    wireframeHighlight: 'Asymmetric Bento grid & lightbox',
-    icon: Palette,
-    color: '#f43f5e',
-  },
-  {
-    id: 'brutalist',
-    industry: 'tech',
-    title: 'Neo-Brutalist Raw',
-    badge: 'Phá cách · High-Contrast',
-    desc: 'Viền đậm 4px, sọc chéo hazard cảnh báo, bóng offset 3D và typography bản in nổi bật.',
-    wireframeHighlight: 'Sticker badges & raw ticker banner',
-    icon: Flame,
-    color: '#facc15',
-  },
-  {
-    id: 'cyberpunk-holo',
-    industry: 'tech',
-    title: 'Cyberpunk Holo-Deck',
-    badge: 'Tương lai · Hex Matrix',
-    desc: 'Lưới ma trận neon, thước ngắm điện tử HUD, sóng vi mạch và hiệu ứng quét quang học.',
-    wireframeHighlight: 'Real-time telemetry HUD & cyber scanline',
-    icon: Radio,
     color: '#06b6d4',
   },
   {
-    id: 'executive-kpi',
-    industry: 'business',
-    title: 'Executive Boardroom',
-    badge: 'Kinh doanh · Bảng điều khiển',
-    desc: 'Thẻ định lượng $65M+ Pipeline, đồ thị tăng trưởng ARR, chứng thực từ ban giám đốc.',
-    wireframeHighlight: 'Financial scorecard & enterprise milestones',
-    icon: Building2,
-    color: '#f59e0b',
+    id: 'glass-morph',
+    industry: 'tech-uiux',
+    title: 'Glassmorphism Studio',
+    badge: 'Sáng tạo · Kính mờ',
+    desc: 'Thiết kế kính mờ đa sắc (glassmorphism), mesh gradients, thẻ nổi 3D, animation mượt mà.',
+    wireframeHighlight: 'Frosted glass & mesh gradient backing',
+    icon: Palette,
+    color: '#8b5cf6',
   },
   {
-    id: 'swiss-editorial',
-    industry: 'creative',
-    title: 'Swiss Minimalist Editorial',
-    badge: 'Tối giản · Monograph',
-    desc: 'Lưới bất đối xứng Thụy Sĩ, đường kẻ mảnh hairline, đánh số lưu trữ bảo tàng.',
-    wireframeHighlight: 'Fine-line grid & monograph archive index',
+    id: 'holographic-grid',
+    industry: 'tech-devops',
+    title: 'Holo-Tech Grid',
+    badge: 'Hiện đại · Isometric',
+    desc: 'Mặt phẳng lưới isometric, hiệu ứng nhám holographic, màu sắc tươi sáng.',
+    wireframeHighlight: 'Isometric panels & holo foils',
     icon: Layers,
-    color: '#ededed',
+    color: '#f43f5e',
+  },
+  {
+    id: 'terminal',
+    industry: 'tech-sec',
+    title: 'Classic Terminal',
+    badge: 'Bảo mật · CLI',
+    desc: 'Giao diện CLI cổ điển nhưng được nâng cấp với các chi tiết gradient accent tinh tế.',
+    wireframeHighlight: 'CLI interactive runner',
+    icon: Terminal,
+    color: '#10b981',
   },
 ];
 
 export const HomeHero: React.FC<HomeHeroProps> = ({ onGenerate }) => {
-  const [selectedConcept, setSelectedConcept] = useState<LayoutConcept>('terminal');
-  const [selectedIndustry, setSelectedIndustry] = useState<IndustryType>('tech');
+  const [selectedConcept, setSelectedConcept] = useState<LayoutConcept>('cyber-neon');
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryType>('tech-dev');
   const [uploadedFilePayload, setUploadedFilePayload] = useState<UploadedFilePayload | null>(null);
   const [customProfileData, setCustomProfileData] = useState<MockProfile | null>(null);
   const [dragActive, setDragActive] = useState<boolean>(false);
@@ -150,7 +130,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onGenerate }) => {
       reader.onload = (event) => {
         try {
           const parsed = JSON.parse(event.target?.result as string);
-          if (parsed.industry && ['tech', 'creative', 'business'].includes(parsed.industry)) {
+          if (parsed.industry) {
             setSelectedIndustry(parsed.industry);
           }
           if (parsed.concept) {
@@ -182,9 +162,10 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onGenerate }) => {
   const handleSelectSampleCv = (sample: typeof SAMPLE_CVS[0]) => {
     setSelectedIndustry(sample.industry);
     // map concept matching industry
-    if (sample.industry === 'tech') setSelectedConcept('terminal');
-    else if (sample.industry === 'creative') setSelectedConcept('bento-glass');
-    else setSelectedConcept('executive-kpi');
+    if (sample.industry === 'tech-dev') setSelectedConcept('cyber-neon');
+    else if (sample.industry === 'tech-uiux') setSelectedConcept('glass-morph');
+    else if (sample.industry === 'tech-devops') setSelectedConcept('holographic-grid');
+    else setSelectedConcept('terminal');
 
     const pdfDataUri = createTextPdfDataUri(sample.name, sample.textSnippet);
     setUploadedFilePayload({

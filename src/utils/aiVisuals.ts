@@ -1,7 +1,7 @@
 // AI Visual Asset Engine: generates high-fidelity thematic artworks & mockups
 
 export interface GeneratedVisualOptions {
-  theme: 'tech' | 'creative' | 'business' | 'cyberpunk' | 'brutalist';
+  theme: string;
   title: string;
   category?: string;
   primaryColor?: string;
@@ -193,7 +193,7 @@ export function generateProceduralVisual(options: GeneratedVisualOptions): strin
 /**
  * Procedurally generates handsome, minimalist modern executive avatars
  */
-export function generateProceduralAvatar(fullName: string, industry: 'tech' | 'creative' | 'business', primaryColor: string = '#10b981'): string {
+export function generateProceduralAvatar(fullName: string, industry: string, primaryColor: string = '#10b981'): string {
   const initials = fullName
     .split(' ')
     .filter(Boolean)

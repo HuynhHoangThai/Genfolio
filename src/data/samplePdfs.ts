@@ -4,7 +4,7 @@ export interface SampleCvOption {
   id: string;
   name: string;
   role: string;
-  industry: 'tech' | 'creative' | 'business';
+  industry: 'tech-dev' | 'tech-devops' | 'tech-uiux' | 'tech-sec' | 'tech-data';
   filename: string;
   textSnippet: string;
 }
@@ -14,25 +14,25 @@ export const SAMPLE_CVS: SampleCvOption[] = [
     id: 'sample-ai-engineer',
     name: 'Phạm Hoàng Nam',
     role: 'Senior Full-Stack & AI Engineer',
-    industry: 'tech',
+    industry: 'tech-dev',
     filename: 'CV_Pham_Hoang_Nam_FullStack_AI.pdf',
     textSnippet: 'Senior Full-Stack & Generative AI Engineer với 6+ năm phát triển ứng dụng Next.js, Python FastAPI, Vector DB (Pinecone, pgvector) và tối ưu hóa LLM serving (vLLM, Ollama)...',
   },
   {
     id: 'sample-product-designer',
     name: 'Đặng Ngọc Uyên',
-    role: 'Lead Product & Spatial Experience Designer',
-    industry: 'creative',
-    filename: 'CV_Dang_Ngoc_Uyen_Product_Designer.pdf',
-    textSnippet: 'Lead Product Designer với hơn 7 năm thiết kế Design Systems cho Fintech và E-commerce, đoạt giải Best UI Design 2024, thành thạo Figma Tokens, Micro-interactions và 3D Spline...',
+    role: 'Lead UI/UX & Spatial Experience Designer',
+    industry: 'tech-uiux',
+    filename: 'CV_Dang_Ngoc_Uyen_UIUX_Designer.pdf',
+    textSnippet: 'Lead Product Designer với hơn 7 năm thiết kế Design Systems cho SaaS và E-commerce, đoạt giải Best UI Design 2024, thành thạo Figma Tokens, Micro-interactions và 3D Spline...',
   },
   {
-    id: 'sample-growth-director',
+    id: 'sample-devops',
     name: 'Lê Quốc Bảo',
-    role: 'Head of Growth & Enterprise B2B Sales',
-    industry: 'business',
-    filename: 'CV_Le_Quoc_Bao_Head_of_Growth.pdf',
-    textSnippet: 'Head of Growth với 9 năm kinh nghiệm mở rộng thị trường SaaS khu vực Đông Nam Á, tăng trưởng ARR từ $2M lên $15M trong 3 năm, lãnh đạo 30+ nhân sự Sales & Customer Success...',
+    role: 'Cloud Infrastructure & SRE Architect',
+    industry: 'tech-devops',
+    filename: 'CV_Le_Quoc_Bao_DevOps_SRE.pdf',
+    textSnippet: 'Cloud Architect với 9 năm kinh nghiệm mở rộng hạ tầng K8s khu vực Đông Nam Á, tự động hóa 100% bằng Terraform, CI/CD GitHub Actions, chịu tải hơn 15M concurrent users...',
   },
 ];
 

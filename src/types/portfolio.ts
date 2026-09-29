@@ -1,12 +1,10 @@
-export type IndustryType = 'tech' | 'creative' | 'business';
+export type IndustryType = 'tech-dev' | 'tech-devops' | 'tech-uiux' | 'tech-sec' | 'tech-data';
 
 export type LayoutConcept =
-  | 'terminal'        // Cyber-Terminal & Distributed Systems
-  | 'brutalist'       // Neo-Brutalist Avant-Garde & High-Contrast
-  | 'bento-glass'     // Spatial Bento & Glassmorphism Studio
-  | 'swiss-editorial' // Swiss Minimalist Luxury Editorial
-  | 'executive-kpi'   // Executive Corporate & Wall-Street KPI
-  | 'cyberpunk-holo'; // Futuristic Cyberpunk Holo-Deck & AI Nodes
+  | 'cyber-neon'       // Dynamic multi-color neon gradients & Cyberpunk vibes
+  | 'glass-morph'      // Vibrant mesh gradients with frosted glass cards
+  | 'holographic-grid' // Holographic foils, isometric grids, bright techy
+  | 'terminal';        // Classic terminal but enhanced with dynamic accents
 
 export interface SkillItem {
   name: string;

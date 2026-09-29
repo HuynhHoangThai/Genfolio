@@ -44,9 +44,7 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
       desc: 'Trích xuất chính xác thành tựu, các con số định lượng và công nghệ sử dụng.',
     },
     {
-      title: `Ánh xạ và nội suy kiến trúc giao diện ngành ${
-        industry === 'tech' ? 'Kỹ thuật (Tech)' : industry === 'creative' ? 'Sáng tạo (Creative)' : 'Kinh doanh (Business)'
-      }...`,
+      title: `Ánh xạ và nội suy kiến trúc giao diện ngành Kỹ thuật Công nghệ (Tech)...`,
       desc: 'Tự động phân bổ typography, component hiển thị và bảng màu tương thích.',
     },
     {

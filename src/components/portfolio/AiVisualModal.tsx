@@ -29,14 +29,14 @@ export const AiVisualModal: React.FC<AiVisualModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const [selectedStyle, setSelectedStyle] = useState<'tech' | 'creative' | 'business' | 'cyberpunk' | 'brutalist'>('tech');
+  const [selectedStyle, setSelectedStyle] = useState<string>('tech');
   const [accentColor, setAccentColor] = useState<string>('#10b981');
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const stylePresets: {
-    id: 'tech' | 'creative' | 'business' | 'cyberpunk' | 'brutalist';
+    id: string;
     name: string;
     desc: string;
     defaultColor: string;
@@ -99,7 +99,7 @@ export const AiVisualModal: React.FC<AiVisualModalProps> = ({
       // Generate new avatar
       const updatedAvatar = generateProceduralAvatar(
         profile.fullName,
-        selectedStyle === 'creative' ? 'creative' : selectedStyle === 'business' ? 'business' : 'tech',
+        'tech-dev',
         accentColor
       );
 

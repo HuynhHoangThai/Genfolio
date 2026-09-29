@@ -17,7 +17,7 @@
 
 Gen-Folio là hệ thống cho phép người dùng tự động khởi tạo một website Landing Page Portfolio hoàn chỉnh chỉ từ dữ liệu CV và lựa chọn ngành nghề. Hệ thống sử dụng Gemini AI để trích xuất thông tin từ CV thật, sau đó engine nội suy tự động ráp nối dữ liệu thành giao diện tràn viền (full-screen) sinh động. MVP tập trung vào ba kết quả: **thao tác đầu vào tối giản; tốc độ sinh giao diện tức thì; và kết quả đầu ra bám sát đặc thù ngành nghề (Tech/Creative/Business)**.
 
-Sản phẩm hướng đến nhân sự nội bộ (Developer, Designer, Sales) muốn xây dựng thương hiệu cá nhân. Toàn bộ dữ liệu trong sản phẩm là **dữ liệu giả** (Mock/Seed Data). Hệ thống có cơ sở dữ liệu thật để lưu trữ portfolio đã tạo và liên kết chia sẻ tạm thời.
+Sản phẩm hướng đến nhân sự nội bộ khối Kỹ thuật (Developer, DevOps, BA, UI/UX, Security) muốn xây dựng thương hiệu cá nhân. Hệ thống sử dụng dữ liệu trích xuất chính xác 100% từ CV thật qua Microsoft MarkItDown. Tuyệt đối không sử dụng thông tin bịa đặt (hallucinate). Khuyến khích các UI sáng tạo, màu sắc độc đáo và nói KHÔNG với các giao diện rập khuôn kiểu "AI slop".
 
 ## 2. Bối cảnh, bài toán và cơ hội
 
@@ -27,7 +27,7 @@ Tôi và đồng nghiệp ở các phòng ban kỹ thuật, thiết kế và kin
 
 - **Tần suất:** Trung bình mỗi quý 1 lần (khi có đợt review, thuyên chuyển, hoặc sự kiện kết nối). Riêng team Sales cần cập nhật khi có deal mới.
 - **Thời gian tiêu tốn:** 4–6 giờ mỗi lần — kể cả khi đã có CV sẵn, vẫn phải tự điền lại từng ô dữ liệu vào nền tảng tạo web.
-- **Kết quả hiện tại:** Không đồng nhất chất lượng. Developer thì trang quá đơn giản, Designer thì mất quá nhiều thời gian chau chuốt, Sales thì bỏ cuộc vì không biết code.
+- **Kết quả hiện tại:** Không đồng nhất chất lượng. Trang web thường quá đơn giản, giao diện lỗi thời, code bằng HTML/CSS thô sơ hoặc quá mất thời gian chau chuốt. Khó khăn lớn nhất là các giao diện thường rất nhàm chán (chỉ dùng 1 màu) và giống hệt nhau (rập khuôn AI slop).
 - **Ước lượng:** Khoảng 30–50 nhân sự ở các phòng ban có nhu cầu tương tự.
 
 ### 2.2. Tuyên bố vấn đề
@@ -46,7 +46,7 @@ Tôi và đồng nghiệp ở các phòng ban kỹ thuật, thiết kế và kin
 | --- | --- | --- | --- | --- |
 | G-01 | Giảm thiểu thao tác đầu vào | Số bước từ lúc bắt đầu đến khi ra kết quả | Tối đa 2 bước (Chọn ngành -> Bấm tạo) | Điều kiện bắt buộc |
 | G-02 | Trải nghiệm sinh giao diện nhanh | Thời gian hiển thị màn hình chờ (Loading) | ≤ 3 giây (Mock processing) | Điều kiện thi đấu |
-| G-03 | Đa dạng hóa hiển thị | Số lượng Template render từ cùng 1 cấu trúc JSON | Tối thiểu 3 (Tech, Creative, Business) | Bắt buộc |
+| G-03 | Đa dạng hóa hiển thị | Số lượng Theme UI cho dân Tech | Tối thiểu 3 Theme sáng tạo (Cyberpunk, Glassmorphism, Brutalist) | Bắt buộc |
 | G-04 | Responsive Design | Giao diện tự động co giãn theo Viewport (Desktop/Mobile) | 100% không vỡ layout | Mục tiêu UI/UX |
 | G-05 | Tùy biến nhanh | Thời gian cập nhật màu sắc qua Widget nổi | ≤ 100ms (Real-time) | Bắt buộc |
 
@@ -54,9 +54,10 @@ Tôi và đồng nghiệp ở các phòng ban kỹ thuật, thiết kế và kin
 
 | Nhóm | Nhu cầu | Tác vụ chính |
 | --- | --- | --- |
-| Nhân sự khối Tech (Dev/QA) | Layout tối giản, hiển thị luồng code, dự án Git, kỹ năng logic | Chọn ngành Tech, nạp CV Mock |
-| Nhân sự khối Creative (Design/Marketing) | Layout trực quan, màu sắc nổi bật, dạng lưới (Grid) hiển thị hình ảnh | Chọn ngành Creative, nạp CV Mock |
-| Nhân sự khối Business (Sales/HR) | Layout chuẩn mực, hiển thị rõ lộ trình thăng tiến và số liệu KPIs | Chọn ngành Business, nạp CV Mock |
+| Nhân sự DevOps / System | Layout tập trung vào các luồng hạ tầng, kỹ năng quản trị server | Chọn ngành Tech, nạp CV DevOps |
+| Nhân sự Software Developer | Layout hiển thị luồng code, dự án Git, technical stack | Chọn ngành Tech, nạp CV Dev |
+| Nhân sự UI/UX & BA | Layout sáng tạo, hiển thị wireframe/flow rõ ràng, bắt mắt | Chọn ngành Tech, nạp CV UI/UX |
+| Nhân sự Security | Layout bảo mật, hiển thị công cụ hacking/phòng thủ | Chọn ngành Tech, nạp CV Security |
 
 ## 5. Phạm vi sản phẩm
 
