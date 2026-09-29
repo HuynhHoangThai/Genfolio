@@ -96,6 +96,7 @@ export interface MockProfile {
   certifications?: string[];
   philosophy?: string;
   markitdownMarkdown?: string;
+  layoutConfig?: string[];
 }
 
 export interface ThemeConfig {

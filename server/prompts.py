@@ -22,12 +22,19 @@ CRITICAL REQUIREMENTS (STRICT ENFORCEMENT):
    - For projects: include projects explicitly stated. Formulate clear titles, problem/solution taglines, descriptions, and technology tags based on the text.
    - For experiences: list roles chronologically, with company name, location, time period, clear description, bullet achievements, and skills used.
 
+5. DYNAMIC LAYOUT ARCHITECTURE:
+   - Based on the candidate's strengths, construct an optimal array of UI sections for their portfolio in `layoutConfig`.
+   - Available sections: "hero", "metrics", "skills", "projects", "experience", "education", "testimonials".
+   - Example 1 (DevOps with heavy experience): ["hero", "metrics", "skills", "experience", "projects", "education"]
+   - Example 2 (Junior UI/UX with lots of projects): ["hero", "projects", "skills", "education", "experience"]
+
 CRITICAL: Return ONLY a valid JSON object matching the exact schema below, without any markdown code blocks or additional text.
 
 JSON Schema:
 {
   "id": "string",
   "industry": "tech-dev" | "tech-devops" | "tech-uiux" | "tech-sec" | "tech-data",
+  "layoutConfig": ["string"],
   "fullName": "string",
   "title": "string",
   "tagline": "string",
