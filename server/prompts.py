@@ -18,15 +18,20 @@ CRITICAL REQUIREMENTS (STRICT ENFORCEMENT):
 3. QUANTIFIABLE METRICS:
    - Extract 4 key metrics that capture their impact ONLY based on the CV content (e.g. years of experience, projects delivered, team size, SLA uptime). Do not invent numbers.
 4. RICH EXPANSION (STRICTLY FROM SOURCE):
-   - For skills: list technical/domain skills extracted, assign a realistic level (70-98) based on their experience duration with it, categorize them, and set highlight: true for the core ones.
-   - For projects: include projects explicitly stated. Formulate clear titles, problem/solution taglines, descriptions, and technology tags based on the text.
-   - For experiences: list roles chronologically, with company name, location, time period, clear description, bullet achievements, and skills used.
+   - For skills: list technical/domain skills extracted, assign a realistic level (70-98).
+   - For projects: include projects explicitly stated. Formulate clear titles and brief descriptions.
+   - For experiences: list roles chronologically, keep descriptions brief.
 
-5. DYNAMIC LAYOUT ARCHITECTURE:
+5. OPTIMIZE FOR SPEED & CONCISENESS (CRITICAL):
+   - Limit "skills" to the top 10 most important ones.
+   - Limit "projects" to top 3-4 most relevant.
+   - Limit "experiences" to the 3 most recent ones.
+   - Keep descriptions and summaries brief (1-2 short sentences max).
+
+6. DYNAMIC LAYOUT ARCHITECTURE:
    - Based on the candidate's strengths, construct an optimal array of UI sections for their portfolio in `layoutConfig`.
    - Available sections: "hero", "metrics", "skills", "projects", "experience", "education", "testimonials".
-   - Example 1 (DevOps with heavy experience): ["hero", "metrics", "skills", "experience", "projects", "education"]
-   - Example 2 (Junior UI/UX with lots of projects): ["hero", "projects", "skills", "education", "experience"]
+   - Example 1: ["hero", "metrics", "skills", "experience", "projects", "education"]
 
 CRITICAL: Return ONLY a valid JSON object matching the exact schema below, without any markdown code blocks or additional text.
 

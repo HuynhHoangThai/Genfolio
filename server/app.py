@@ -92,10 +92,12 @@ class ConvertRequest(BaseModel):
 
 
 class ExtractCVRequest(BaseModel):
-    base64Data: str
+    base64Data: Optional[str] = None
     mimeType: Optional[str] = None
     fileName: Optional[str] = None
     industryOverride: Optional[str] = None
+    uploadedFile: Optional[Dict[str, Any]] = None
+    industry: Optional[str] = None
 
 
 class ShareCreateRequest(BaseModel):
@@ -223,6 +225,7 @@ async def convert_markitdown_endpoint(req: ConvertRequest):
 
 
 @app.post("/api/extract-cv")
+@app.post("/api/gemini/extract-profile")
 async def extract_cv_endpoint(req: ExtractCVRequest):
     """
     Main CV extraction endpoint — powered by Hermes Agent + Gemini AI.
@@ -232,7 +235,17 @@ async def extract_cv_endpoint(req: ExtractCVRequest):
     3. Parse and validate the JSON response
     4. Return structured profile data
     """
-    if not req.base64Data:
+    base64_data = req.base64Data
+    mime_type = req.mimeType
+    file_name = req.fileName
+    industry = req.industryOverride or req.industry
+
+    if not base64_data and req.uploadedFile:
+        base64_data = req.uploadedFile.get("base64Data")
+        mime_type = mime_type or req.uploadedFile.get("mimeType")
+        file_name = file_name or req.uploadedFile.get("fileName")
+
+    if not base64_data:
         raise HTTPException(
             status_code=400, detail="Vui lòng cung cấp dữ liệu CV (base64Data)."
         )
@@ -244,16 +257,16 @@ async def extract_cv_endpoint(req: ExtractCVRequest):
             detail="Chưa cấu hình OPENROUTER_API_KEY trên máy chủ.",
         )
 
-    actual_mime_type = req.mimeType or "application/pdf"
-    clean_b64 = re.sub(r"^data:[^;]+;base64,", "", req.base64Data)
+    actual_mime_type = mime_type or "application/pdf"
+    clean_b64 = re.sub(r"^data:[^;]+;base64,", "", base64_data)
 
     # Step 1: Pre-process with MarkItDown
     logger.info(
-        f"[CV Extractor] Pre-processing {req.fileName or 'document'} "
+        f"[CV Extractor] Pre-processing {file_name or 'document'} "
         f"with Microsoft MarkItDown..."
     )
     markitdown_result = convert_with_markitdown(
-        req.base64Data, req.fileName, actual_mime_type
+        base64_data, file_name, actual_mime_type
     )
     has_markdown = (
         markitdown_result.get("success")
@@ -263,12 +276,12 @@ async def extract_cv_endpoint(req: ExtractCVRequest):
 
     # Step 2: Build Gemini contents payload
     industry_note = ""
-    if req.industryOverride:
-        industry_note = f"The user requested industry classification: '{req.industryOverride}'."
+    if industry:
+        industry_note = f"The user requested industry classification: '{industry}'."
 
     if has_markdown:
         user_text = f"""### MICROSOFT MARKITDOWN STRUCTURED CONVERSION:
-Document: {req.fileName or 'Resume Document'}
+Document: {file_name or 'Resume Document'}
 Engine: {markitdown_result.get('engine', 'Microsoft MarkItDown')}
 
 ```markdown
@@ -349,6 +362,7 @@ Ensure you specifically extract:
 
         return {
             "success": True,
+            "status": "success",
             "profile": parsed_profile,
             "markitdownMarkdown": markitdown_result.get("markdown"),
             "markitdownEngine": markitdown_result.get("engine"),

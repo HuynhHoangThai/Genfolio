@@ -9,6 +9,7 @@ coverage/
 
 # Hermes Agent (git submodule / cloned dependency)
 hermes-agent/
+lobe-chat-ref/
 
 # Python cache
 __pycache__/

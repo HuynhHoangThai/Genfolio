@@ -36,12 +36,13 @@ export const SkillsCloudGridSection: React.FC<SkillsCloudGridSectionProps> = ({
     : skills.filter(s => s.category?.toLowerCase() === activeCategory.toLowerCase());
 
   // Concept styles
+  const cStr = concept as string;
   const isTerminal = concept === 'terminal';
-  const isBrutalist = concept === 'brutalist';
-  const isCyberpunk = concept === 'cyberpunk-holo';
-  const isBento = concept === 'bento-glass';
-  const isSwiss = concept === 'swiss-editorial';
-  const isExecutive = concept === 'executive-kpi';
+  const isBrutalist = cStr === 'brutalist';
+  const isCyberpunk = cStr === 'cyberpunk-holo' || concept === 'cyber-neon' || concept === 'holographic-grid';
+  const isBento = cStr === 'bento-glass' || concept === 'glass-morph';
+  const isSwiss = cStr === 'swiss-editorial';
+  const isExecutive = cStr === 'executive-kpi';
 
   const accentColorClass = 
     isTerminal ? 'text-emerald-400' :

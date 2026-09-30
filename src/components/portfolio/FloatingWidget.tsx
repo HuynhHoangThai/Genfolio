@@ -37,15 +37,9 @@ interface FloatingWidgetProps {
   onOpenResumeModal: () => void;
 }
 
-export const COLOR_PALETTES = [
-  { name: 'Emerald', hex: '#10b981', rgb: '16, 185, 129' },
-  { name: 'Cyber Cyan', hex: '#06b6d4', rgb: '6, 182, 212' },
-  { name: 'Electric Indigo', hex: '#6366f1', rgb: '99, 102, 241' },
-  { name: 'Solar Amber', hex: '#f59e0b', rgb: '245, 158, 11' },
-  { name: 'Cinnabar Rose', hex: '#f43f5e', rgb: '244, 63, 94' },
-  { name: 'Electric Lime', hex: '#84cc16', rgb: '132, 204, 22' },
-  { name: 'Imperial Gold', hex: '#eab308', rgb: '234, 179, 8' },
-];
+import { LOBE_PRIMARY_COLORS } from '../../styles/lobeColors';
+
+export const COLOR_PALETTES = Object.values(LOBE_PRIMARY_COLORS);
 
 export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
   currentIndustry,
@@ -152,12 +146,43 @@ export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
             </button>
           </div>
 
-          {/* Section 1: Concept Wireframe Switcher (New feature!) */}
-          <div className="mt-3.5">
+          {/* Section 0: PRD Industry Group Switcher (PRD Section 5.1 #2 & BR-01..BR-03) */}
+          <div className="mt-3">
             <span className="text-xs font-semibold text-neutral-300 block mb-2">
-              Phong cách &amp; Bố cục Layout (5 Concepts)
+              Nhóm ngành nghề (PRD Section 6.1)
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { id: 'tech-dev' as IndustryType, label: 'Kỹ thuật', desc: 'Tech' },
+                { id: 'tech-uiux' as IndustryType, label: 'Sáng tạo', desc: 'Creative' },
+                { id: 'tech-devops' as IndustryType, label: 'Kinh doanh', desc: 'Business' },
+              ].map((ind) => {
+                const isSelected = currentIndustry === ind.id;
+                return (
+                  <button
+                    key={ind.id}
+                    type="button"
+                    onClick={() => onIndustryChange(ind.id)}
+                    className={`py-1.5 px-2 rounded-lg text-[11px] font-medium border flex flex-col items-center justify-center transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'theme-accent-border theme-accent-subtle-bg theme-accent-text font-bold shadow-sm'
+                        : 'border-neutral-800 text-neutral-400 hover:bg-neutral-800 hover:text-white'
+                    }`}
+                  >
+                    <span>{ind.label}</span>
+                    <span className="text-[9px] opacity-70">({ind.desc})</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Section 1: Concept Wireframe Switcher */}
+          <div className="mt-3.5 pt-3 border-t border-neutral-800">
+            <span className="text-xs font-semibold text-neutral-300 block mb-2">
+              Phong cách &amp; Bố cục Layout (4 Concepts)
+            </span>
+            <div className="grid grid-cols-2 gap-1.5">
               {concepts.map((c) => {
                 const Icon = c.icon;
                 const isSelected = currentConcept === c.id;
@@ -180,16 +205,16 @@ export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
             </div>
           </div>
 
-          {/* Section 2: Color Palette Switcher */}
+          {/* Section 2: Color Palette Switcher (Official 12 LobeChat Colors - <100ms instant switch) */}
           <div className="mt-3.5 pt-3 border-t border-neutral-800">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-neutral-300">Màu chủ đạo (&lt; 100ms)</span>
+              <span className="text-xs font-semibold text-neutral-300">12 Màu LobeChat (&lt; 100ms)</span>
               <span className="text-[11px] font-mono theme-accent-text font-bold">
                 {currentColor.toUpperCase()}
               </span>
             </div>
 
-            <div className="grid grid-cols-7 gap-2">
+            <div className="grid grid-cols-6 gap-2">
               {COLOR_PALETTES.map((palette) => {
                 const isSelected = currentColor.toLowerCase() === palette.hex.toLowerCase();
                 return (

@@ -4,11 +4,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from '@lobehub/ui';
+import { Flexbox } from 'react-layout-kit';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, ArrowRight, Loader2 } from 'lucide-react';
+import { Clock, ArrowRight, Loader2, RotateCcw, Share2, FileText, Smartphone, Monitor } from 'lucide-react';
 import { IndustryType, LayoutConcept, MockProfile, ProjectItem } from './types/portfolio';
 import { MOCK_PROFILES_MAP } from './data/mockProfiles';
-import { HomeHero } from './components/home/HomeHero';
 import { AiProcessingModal, UploadedFilePayload } from './components/loading/AiProcessingModal';
 import { FloatingWidget } from './components/portfolio/FloatingWidget';
 import { TechPortfolio } from './components/portfolio/TechPortfolio';
@@ -17,24 +18,46 @@ import { GlassMorphPortfolio } from './components/portfolio/GlassMorphPortfolio'
 import { HolographicGridPortfolio } from './components/portfolio/HolographicGridPortfolio';
 import { ProjectModal } from './components/portfolio/ProjectModal';
 import { ResumeModal } from './components/portfolio/ResumeModal';
+import { ShareModal } from './components/portfolio/ShareModal';
 import { AiVisualModal } from './components/portfolio/AiVisualModal';
 import { generateProceduralVisual, generateProceduralAvatar } from './utils/aiVisuals';
 
+// LobeChat Official Color Tokens & Global Style
+import { LOBE_PRIMARY_COLORS, getLobeThemeKey, GlobalStyle } from './styles';
+
+// LobeChat UI Components
+import { LobeSideNav, LobeTabKey } from './components/lobe/LobeSideNav';
+import { LobeSidebar } from './components/lobe/LobeSidebar';
+import { LobeHeader } from './components/lobe/LobeHeader';
+import { LobeChatStudio } from './components/lobe/LobeChatStudio';
+import { LobeTemplatesMarket } from './components/lobe/LobeTemplatesMarket';
+import { LobeDossierView } from './components/lobe/LobeDossierView';
+import { LobeSettingsModal } from './components/lobe/LobeSettingsModal';
+import { LobeDragUpload } from './components/lobe/LobeDragUpload';
+import { LobeErrorBoundary } from './components/lobe/LobeErrorBoundary';
+
 export default function App() {
+  const [activeTab, setActiveTab] = useState<LobeTabKey>('chat');
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [activeModel, setActiveModel] = useState<string>('nvidia/nemotron-3.5-lightning:free');
+
+  // PRD Business Stages: 'home' (Input) | 'processing' (Loading <= 3s) | 'result' (Full-screen Output)
   const [appStage, setAppStage] = useState<'home' | 'processing' | 'result'>('home');
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryType>('tech-dev');
   const [currentConcept, setCurrentConcept] = useState<LayoutConcept>('cyber-neon');
   const [activeProfile, setActiveProfile] = useState<MockProfile>(MOCK_PROFILES_MAP['tech-dev']);
   const [pendingUploadedFile, setPendingUploadedFile] = useState<UploadedFilePayload | null>(null);
-  const [primaryColor, setPrimaryColor] = useState<string>('#06b6d4');
+  const [primaryColor, setPrimaryColor] = useState<string>(LOBE_PRIMARY_COLORS.cyan.hex);
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>('desktop');
   
   // Modals
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isAiVisualModalOpen, setIsAiVisualModalOpen] = useState<boolean>(false);
 
-  // Temporary Shared Portfolio State
+  // Temporary Shared Portfolio State (PRD Section 5.2 #7 & Section 9.1)
   const [isLoadingShared, setIsLoadingShared] = useState<boolean>(false);
   const [sharedMeta, setSharedMeta] = useState<{
     isShared: boolean;
@@ -44,11 +67,10 @@ export default function App() {
   } | null>(null);
   const [sharedError, setSharedError] = useState<{ expired: boolean; message: string } | null>(null);
 
-  // Apply default CSS variables on mount & check for ?share= query param
+  // Apply default LobeChat CSS variables on mount & check for ?share= query param
   useEffect(() => {
-    applyCssVariables('#06b6d4', '6, 182, 212');
+    applyCssVariables(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
 
-    // Parse URL for ?share= parameter
     const params = new URLSearchParams(window.location.search);
     const shareParam = params.get('share');
     if (shareParam) {
@@ -64,7 +86,7 @@ export default function App() {
       const b = parseInt(clean.substring(4, 6), 16);
       return `${r}, ${g}, ${b}`;
     }
-    return '6, 182, 212';
+    return '149, 243, 217';
   };
 
   const loadSharedPortfolio = async (id: string) => {
@@ -117,6 +139,7 @@ export default function App() {
     root.style.setProperty('--primary-border', `rgba(${rgb}, 0.45)`);
   };
 
+  // PRD G-01: 2-step generation flow
   const handleStartGeneration = (
     industry: IndustryType,
     customProfile?: MockProfile,
@@ -125,10 +148,12 @@ export default function App() {
   ) => {
     setSelectedIndustry(industry);
     
-    // Determine layout concept
+    // Auto-map concept per industry (PRD BR-01, BR-02, BR-03)
     let targetConcept: LayoutConcept = concept || 'cyber-neon';
     if (!concept) {
-      targetConcept = 'cyber-neon';
+      if (industry === 'tech-dev' || industry === 'tech-sec') targetConcept = 'cyber-neon';
+      else if (industry === 'tech-uiux') targetConcept = 'glass-morph';
+      else targetConcept = 'holographic-grid';
     }
     setCurrentConcept(targetConcept);
 
@@ -140,28 +165,25 @@ export default function App() {
 
     setPendingUploadedFile(uploadedFile || null);
 
-    // Adjust theme color per concept
+    // Auto-align LobeChat color palette per concept
     if (targetConcept === 'cyber-neon') {
-      handleColorChange('#06b6d4', '6, 182, 212'); // Cyan
+      handleColorChange(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
     } else if (targetConcept === 'glass-morph') {
-      handleColorChange('#8b5cf6', '139, 92, 246'); // Purple
+      handleColorChange(LOBE_PRIMARY_COLORS.purple.hex, LOBE_PRIMARY_COLORS.purple.rgb);
     } else if (targetConcept === 'holographic-grid') {
-      handleColorChange('#f43f5e', '244, 63, 94'); // Rose
+      handleColorChange(LOBE_PRIMARY_COLORS.magenta.hex, LOBE_PRIMARY_COLORS.magenta.rgb);
     } else {
-      handleColorChange('#10b981', '16, 185, 129'); // Emerald
+      handleColorChange(LOBE_PRIMARY_COLORS.green.hex, LOBE_PRIMARY_COLORS.green.rgb);
     }
 
     setAppStage('processing');
   };
 
   const handleProcessingComplete = (extractedProfile: MockProfile) => {
-    // Generate AI visual assets for any project without an image
-    const themeForVisuals = 'tech';
-
     const enrichedProjects: ProjectItem[] = (extractedProfile.projects || []).map((proj) => ({
       ...proj,
       imageUrl: proj.imageUrl || generateProceduralVisual({
-        theme: themeForVisuals as any,
+        theme: 'tech',
         title: proj.title,
         category: proj.category,
         primaryColor,
@@ -200,10 +222,20 @@ export default function App() {
 
   const handleIndustryChange = (newIndustry: IndustryType) => {
     setSelectedIndustry(newIndustry);
-    setActiveProfile((prev) => ({
-      ...prev,
-      industry: newIndustry,
-    }));
+    if (!pendingUploadedFile && MOCK_PROFILES_MAP[newIndustry]) {
+      const mock = MOCK_PROFILES_MAP[newIndustry];
+      setActiveProfile(mock);
+      let targetConcept: LayoutConcept = 'cyber-neon';
+      if (newIndustry === 'tech-dev' || newIndustry === 'tech-sec') targetConcept = 'cyber-neon';
+      else if (newIndustry === 'tech-uiux') targetConcept = 'glass-morph';
+      else targetConcept = 'holographic-grid';
+      handleConceptChange(targetConcept);
+    } else {
+      setActiveProfile((prev) => ({
+        ...prev,
+        industry: newIndustry,
+      }));
+    }
   };
 
   const handleConceptChange = (newConcept: LayoutConcept) => {
@@ -213,16 +245,25 @@ export default function App() {
       concept: newConcept,
     }));
 
-    // Auto-align default accents
     if (newConcept === 'cyber-neon') {
-      handleColorChange('#06b6d4', '6, 182, 212');
+      handleColorChange(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
     } else if (newConcept === 'glass-morph') {
-      handleColorChange('#8b5cf6', '139, 92, 246');
+      handleColorChange(LOBE_PRIMARY_COLORS.purple.hex, LOBE_PRIMARY_COLORS.purple.rgb);
     } else if (newConcept === 'holographic-grid') {
-      handleColorChange('#f43f5e', '244, 63, 94');
+      handleColorChange(LOBE_PRIMARY_COLORS.magenta.hex, LOBE_PRIMARY_COLORS.magenta.rgb);
     } else if (newConcept === 'terminal') {
-      handleColorChange('#10b981', '16, 185, 129');
+      handleColorChange(LOBE_PRIMARY_COLORS.green.hex, LOBE_PRIMARY_COLORS.green.rgb);
     }
+  };
+
+  const handleSelectPreset = (industry: IndustryType, concept: LayoutConcept) => {
+    setSelectedIndustry(industry);
+    setCurrentConcept(concept);
+    setActiveProfile(MOCK_PROFILES_MAP[industry] || MOCK_PROFILES_MAP['tech-dev']);
+    setPendingUploadedFile(null);
+    handleConceptChange(concept);
+    setAppStage('result');
+    setActiveTab('chat');
   };
 
   const handleResetToHome = () => {
@@ -230,51 +271,67 @@ export default function App() {
     setPendingUploadedFile(null);
     setViewportMode('desktop');
     setSharedMeta(null);
+    setActiveTab('chat');
     if (window.location.search) {
       window.history.replaceState({}, '', window.location.pathname);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col justify-start">
-      {/* Shared Portfolio Top Banner */}
-      {appStage === 'result' && sharedMeta?.isShared && (
-        <div className="sticky top-0 z-40 bg-neutral-950/95 border-b border-neutral-800 backdrop-blur-md px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md">
-          <div className="flex items-center gap-2 text-neutral-300">
-            <span className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse" />
-            <span className="text-xs font-medium">
-              Đang xem Portfolio của <strong className="text-white font-bold">{activeProfile.fullName}</strong>
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={handleResetToHome}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary-color)] text-neutral-950 hover:opacity-95 transition-all shadow-sm cursor-pointer"
-          >
-            <span>Tự tạo Portfolio của bạn</span>
-            <ArrowRight className="w-3 h-3" />
-          </button>
-        </div>
-      )}
+  const handleGlobalFileUpload = (file: File) => {
+    const reader = new FileReader();
 
+    if (file.name.endsWith('.json')) {
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target?.result as string);
+          handleStartGeneration(
+            parsed.industry || selectedIndustry,
+            parsed,
+            undefined,
+            parsed.concept || currentConcept
+          );
+        } catch {
+          alert('File JSON không hợp lệ');
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string;
+        const payload: UploadedFilePayload = {
+          base64Data: base64,
+          mimeType: file.type || 'application/pdf',
+          fileName: file.name,
+          fileSize: (file.size / 1024).toFixed(1) + ' KB',
+        };
+        handleStartGeneration(selectedIndustry, undefined, payload, currentConcept);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <LobeErrorBoundary>
+      <ThemeProvider themeMode="dark" customTheme={{ primaryColor: getLobeThemeKey(primaryColor) as any }}>
+        <GlobalStyle />
+        {/* Full-Window Drag & Drop Overlay (Cloned from LobeChat DragUpload) */}
+        <LobeDragUpload onUploadFile={handleGlobalFileUpload} />
       {/* Loading Shared Portfolio Overlay */}
       {isLoadingShared && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950/95 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md">
           <div className="flex flex-col items-center gap-4 text-center p-6">
             <Loader2 className="w-10 h-10 text-[var(--primary-color)] animate-spin" />
-            <div className="space-y-1">
-              <h3 className="text-base font-bold text-white">Đang tải Portfolio được chia sẻ...</h3>
-            </div>
+            <h3 className="text-base font-bold text-white">Đang tải Portfolio được chia sẻ...</h3>
           </div>
         </div>
       )}
 
       {/* Shared Portfolio Expired or Not Found Modal */}
       {sharedError && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="max-w-md w-full bg-neutral-900 border border-neutral-800 rounded-3xl p-6 text-center space-y-4 shadow-2xl">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-inner">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto">
               <Clock className="w-7 h-7" />
             </div>
             <div>
@@ -298,12 +355,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Stage 1: Home Generator Screen */}
-      {appStage === 'home' && (
-        <HomeHero onGenerate={handleStartGeneration} />
-      )}
-
-      {/* Stage 2: AI Loading / Gemini PDF Extraction Modal */}
+      {/* PRD Stage 2: AI Loading / Gemini & MarkItDown Extraction Modal (<= 3s) */}
       {appStage === 'processing' && (
         <AiProcessingModal
           industry={selectedIndustry}
@@ -313,68 +365,132 @@ export default function App() {
         />
       )}
 
-      {/* Stage 3: Full-Screen Portfolio Output (Tràn viền, independent scroll) */}
-      {appStage === 'result' && (
-        <div className={`w-full min-h-screen transition-all duration-300 ${
-          viewportMode === 'mobile'
-            ? 'py-8 px-4 flex justify-center bg-neutral-900/90'
-            : ''
-        }`}>
-          {/* Container: 100% full-screen on desktop; 375px centered simulated phone on mobile mode */}
-          <div
-            className={`transition-all duration-300 ${
-              viewportMode === 'mobile'
-                ? 'w-[375px] max-w-full rounded-[40px] border-[10px] border-neutral-800 shadow-2xl overflow-y-auto max-h-[850px] relative bg-neutral-950'
-                : 'w-full'
-            }`}
-          >
-            {/* Dynamic Layout Concept Routing */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentConcept}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full"
+      {/* 
+        PRD Stage 3: FULL-SCREEN OUTPUT (Tràn viền 100% width, không có Sidebar - Section 5.1 #2, Section 7 FR-03, Section 12.1 AC-02)
+      */}
+      {appStage === 'result' ? (
+        <div className="w-full min-h-screen bg-black text-neutral-100 flex flex-col justify-start relative overflow-x-hidden">
+          {/* Top Sticky Minimalist Bar */}
+          <div className="sticky top-0 z-40 bg-black/85 backdrop-blur-xl border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between gap-3 text-xs shadow-md">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse" />
+              <span className="text-neutral-300">
+                Portfolio của <strong className="text-white font-bold">{activeProfile.fullName}</strong> ({activeProfile.title || activeProfile.tagline})
+              </span>
+              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.08] text-[10px] text-neutral-400 font-mono">
+                {currentConcept.toUpperCase()}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Desktop / Mobile Viewport Toggle (PRD FR-05, AC-S01) */}
+              <div className="hidden sm:flex items-center bg-neutral-900 border border-white/[0.1] p-0.5 rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setViewportMode('desktop')}
+                  className={`p-1 px-2 rounded text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer ${
+                    viewportMode === 'desktop' ? 'bg-white/[0.15] text-white font-bold' : 'text-neutral-400 hover:text-white'
+                  }`}
+                  title="Desktop tràn viền 100%"
+                >
+                  <Monitor className="w-3 h-3" />
+                  <span>Desktop</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewportMode('mobile')}
+                  className={`p-1 px-2 rounded text-[11px] font-medium flex items-center gap-1 transition-all cursor-pointer ${
+                    viewportMode === 'mobile' ? 'bg-white/[0.15] text-white font-bold' : 'text-neutral-400 hover:text-white'
+                  }`}
+                  title="Mobile giả lập 375px"
+                >
+                  <Smartphone className="w-3 h-3" />
+                  <span>Mobile</span>
+                </button>
+              </div>
+
+              {/* Share Button (PRD Section 5.2 #7) */}
+              <button
+                type="button"
+                onClick={() => setIsShareModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/[0.1] transition-all cursor-pointer"
               >
-                {currentConcept === 'terminal' && (
-                  <TechPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-                {currentConcept === 'cyber-neon' && (
-                  <CyberNeonPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-                {currentConcept === 'glass-morph' && (
-                  <GlassMorphPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-                {currentConcept === 'holographic-grid' && (
-                  <HolographicGridPortfolio
-                    profile={activeProfile}
-                    onOpenProject={(proj) => setSelectedProject(proj)}
-                    onOpenResume={() => setIsResumeModalOpen(true)}
-                    onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
+                <Share2 className="w-3.5 h-3.5" />
+                <span>Chia sẻ link</span>
+              </button>
+
+              {/* Return to LobeChat Studio Button */}
+              <button
+                type="button"
+                onClick={handleResetToHome}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary-color)] text-black hover:opacity-90 transition-all cursor-pointer shadow-md"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Về Studio LobeChat</span>
+              </button>
+            </div>
           </div>
 
-          {/* Floating Customization Widget */}
+          {/* Full-Screen Landing Page Container (Desktop: 100% full width, Mobile: 375px frame) */}
+          <div className={`w-full flex-1 transition-all duration-300 ${
+            viewportMode === 'mobile'
+              ? 'py-8 px-4 flex justify-center bg-neutral-950/90'
+              : ''
+          }`}>
+            <div
+              className={`transition-all duration-300 ${
+                viewportMode === 'mobile'
+                  ? 'w-[375px] max-w-full rounded-[40px] border-[10px] border-neutral-800 shadow-2xl overflow-y-auto max-h-[860px] relative bg-neutral-950'
+                  : 'w-full'
+              }`}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentConcept}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full"
+                >
+                  {currentConcept === 'terminal' && (
+                    <TechPortfolio
+                      profile={activeProfile}
+                      onOpenProject={(proj) => setSelectedProject(proj)}
+                      onOpenResume={() => setIsResumeModalOpen(true)}
+                      onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
+                    />
+                  )}
+                  {currentConcept === 'cyber-neon' && (
+                    <CyberNeonPortfolio
+                      profile={activeProfile}
+                      onOpenProject={(proj) => setSelectedProject(proj)}
+                      onOpenResume={() => setIsResumeModalOpen(true)}
+                      onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
+                    />
+                  )}
+                  {currentConcept === 'glass-morph' && (
+                    <GlassMorphPortfolio
+                      profile={activeProfile}
+                      onOpenProject={(proj) => setSelectedProject(proj)}
+                      onOpenResume={() => setIsResumeModalOpen(true)}
+                      onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
+                    />
+                  )}
+                  {currentConcept === 'holographic-grid' && (
+                    <HolographicGridPortfolio
+                      profile={activeProfile}
+                      onOpenProject={(proj) => setSelectedProject(proj)}
+                      onOpenResume={() => setIsResumeModalOpen(true)}
+                      onGenerateAiVisuals={() => setIsAiVisualModalOpen(true)}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Floating Customization Widget (PRD Section 5.1 #3, FR-04, FR-05, AC-03) */}
           <FloatingWidget
             currentIndustry={selectedIndustry}
             currentConcept={currentConcept}
@@ -390,7 +506,127 @@ export default function App() {
             onOpenResumeModal={() => setIsResumeModalOpen(true)}
           />
         </div>
+      ) : (
+        /* 
+          PRD Stage 1 & Studio: LobeChat 3-Column Studio Workspace
+        */
+        <Flexbox
+          height="100vh"
+          horizontal
+          style={{
+            width: '100vw',
+            overflow: 'hidden',
+            background: 'var(--lobe-bg-root, #000000)',
+            color: '#f5f5f5',
+          }}
+        >
+          {/* LobeChat Activity SideNav */}
+          <LobeSideNav
+            activeTab={activeTab}
+            onTabChange={(tab) => setActiveTab(tab)}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+            primaryColor={primaryColor}
+            onColorChange={handleColorChange}
+            activeModelName={activeModel}
+          />
+
+          {/* LobeChat Session / Presets Sidebar */}
+          <LobeSidebar
+            isOpen={isSidebarOpen}
+            onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+            selectedIndustry={selectedIndustry}
+            currentConcept={currentConcept}
+            activeProfile={activeProfile}
+            uploadedFile={pendingUploadedFile}
+            onSelectPreset={handleSelectPreset}
+            onNewPortfolio={handleResetToHome}
+            onClearUploadedFile={() => setPendingUploadedFile(null)}
+            activeModelName={activeModel}
+          />
+
+          {/* Main Content Pane */}
+          <Flexbox
+            flex={1}
+            height="100%"
+            style={{
+              overflow: 'hidden',
+              position: 'relative',
+              background: 'var(--lobe-bg-layout, #050505)',
+            }}
+          >
+            {/* LobeChat Header */}
+            <LobeHeader
+              appStage={appStage}
+              activeProfile={activeProfile}
+              currentConcept={currentConcept}
+              viewportMode={viewportMode}
+              onViewportToggle={(mode) => setViewportMode(mode)}
+              onOpenSettings={() => setIsSettingsOpen(true)}
+              onOpenShareModal={() => setIsShareModalOpen(true)}
+              onOpenResumeModal={() => setIsResumeModalOpen(true)}
+              onResetToHome={handleResetToHome}
+              activeModelName={activeModel}
+              isSidebarOpen={isSidebarOpen}
+              onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+            />
+
+            {/* Body Content based on Active Tab */}
+            <Flexbox
+              flex={1}
+              style={{
+                overflowY: 'auto',
+                position: 'relative',
+              }}
+            >
+              {/* Tab: Templates Market */}
+              {activeTab === 'market' && (
+                <LobeTemplatesMarket
+                  currentConcept={currentConcept}
+                  onSelectConceptAndLaunch={(concept, industry) => {
+                    handleSelectPreset(industry, concept);
+                  }}
+                />
+              )}
+
+              {/* Tab: Files / Dossier */}
+              {activeTab === 'files' && (
+                <LobeDossierView profile={activeProfile} />
+              )}
+
+              {/* Tab: Studio / Chat */}
+              {activeTab === 'chat' && (
+                <LobeChatStudio
+                  onGenerate={handleStartGeneration}
+                  selectedIndustry={selectedIndustry}
+                  selectedConcept={currentConcept}
+                  onSelectConcept={(concept, industry) => {
+                    handleConceptChange(concept);
+                    setSelectedIndustry(industry);
+                  }}
+                  activeModelName={activeModel}
+                />
+              )}
+            </Flexbox>
+          </Flexbox>
+        </Flexbox>
       )}
+
+      {/* LobeChat Settings Modal */}
+      <LobeSettingsModal
+        open={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        currentModel={activeModel}
+        onSelectModel={(model) => setActiveModel(model)}
+      />
+
+      {/* Share Modal (Temporary 24h/48h Share Link) */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        profile={activeProfile}
+        concept={currentConcept}
+        primaryColor={primaryColor}
+      />
 
       {/* AI Visual Artwork Synthesizer Modal */}
       <AiVisualModal
@@ -411,6 +647,7 @@ export default function App() {
         profile={isResumeModalOpen ? activeProfile : null}
         onClose={() => setIsResumeModalOpen(false)}
       />
-    </div>
+    </ThemeProvider>
+  </LobeErrorBoundary>
   );
 }

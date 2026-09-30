@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "dev:api": "python -m server.run",
+    "server": "python -m server.run",
     "dev:vite": "vite --port 5173",
     "build": "vite build",
     "start": "python -m server.run",
@@ -16,8 +17,13 @@
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
+    "@lobehub/fluent-emoji": "^4.1.1",
+    "@lobehub/icons": "^5.21.0",
+    "@lobehub/ui": "^5.51.2",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
+    "antd": "^6.6.5",
+    "antd-style": "^4.1.0",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "framer-motion": "^13.4.4",
@@ -26,6 +32,7 @@
     "qrcode": "^1.5.4",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-layout-kit": "^2.0.1",
     "vite": "^8.3.0"
   },
   "devDependencies": {

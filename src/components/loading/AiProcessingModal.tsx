@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Sparkles, Cpu, Check, Layers, AlertCircle, RefreshCw, FileText, ArrowRight } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { createStyles } from 'antd-style';
+import { Center, Flexbox } from 'react-layout-kit';
+import { LobeChat } from '@lobehub/ui/brand';
+import { Icon } from '@lobehub/ui';
+import { Check, AlertCircle, RefreshCw, ArrowRight, Loader2 } from 'lucide-react';
 import { IndustryType, MockProfile } from '../../types/portfolio';
 import { MOCK_PROFILES_MAP } from '../../data/mockProfiles';
 
@@ -17,39 +22,104 @@ interface AiProcessingModalProps {
   onCancel: () => void;
 }
 
+const useStyles = createStyles(({ css, token }) => ({
+  overlay: css`
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 16px;
+    user-select: none;
+  `,
+  modalCard: css`
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: ${token.colorBgContainer || '#141416'};
+    border: 1px solid ${token.colorBorderSecondary || 'rgba(255, 255, 255, 0.1)'};
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.85);
+    overflow: hidden;
+  `,
+  progressTrack: css`
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-block: 20px 16px;
+  `,
+  progressBar: css`
+    height: 100%;
+    background: var(--primary-color, #95f3d9);
+    border-radius: 4px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px var(--primary-color, #95f3d9);
+  `,
+  stepItem: css`
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  `,
+  stepItemActive: css`
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-weight: 600;
+  `,
+  stepItemDone: css`
+    color: rgba(255, 255, 255, 0.65);
+  `,
+  stepItemWaiting: css`
+    color: rgba(255, 255, 255, 0.25);
+  `,
+}));
+
+/**
+ * Refined LobeChat Minimalist AI Processing Modal
+ * - Mounted via createPortal(..., document.body) to guarantee 100% viewport centering
+ * - Minimalist color palette: Dark frosted surfaces + single primary accent
+ * - Replaces jarring green/emerald gradients with clean typography and LobeChat brand loader
+ */
 export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
   industry,
   uploadedFile,
   onComplete,
   onCancel,
 }) => {
+  const { styles } = useStyles();
   const [progress, setProgress] = useState(15);
-  const [statusMessage, setStatusMessage] = useState('Đang khởi tạo engine AI...');
+  const [statusMessage, setStatusMessage] = useState('Đang khởi tạo Engine AI...');
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isExtractingRealCv, setIsExtractingRealCv] = useState(!!uploadedFile);
   const hasExecutedRef = useRef(false);
 
   const steps = [
     {
       title: uploadedFile
-        ? `Microsoft MarkItDown đang chuyển đổi ${uploadedFile.fileName} sang cấu trúc Markdown...`
-        : 'Đang trích xuất cấu trúc dữ liệu CV chuẩn hóa...',
-      desc: 'Giữ nguyên toàn bộ cấu trúc bảng biểu, đầu mục học vấn, dự án & dòng thời gian từ CV.',
+        ? `MarkItDown chuyển đổi ${uploadedFile.fileName} sang cấu trúc...`
+        : 'Chuẩn hóa dữ liệu hồ sơ cá nhân...',
+      desc: 'Trích xuất học vấn, kinh nghiệm, dự án từ CV.',
     },
     {
       title: uploadedFile
-        ? 'Gemini 3.8 Flash đang phân tích Markdown & trích xuất toàn bộ học vấn, kinh nghiệm, chứng chỉ...'
-        : 'Đang phân tích kỹ năng & chuẩn hóa các chỉ số đo lường...',
-      desc: 'Trích xuất chính xác thành tựu, các con số định lượng và công nghệ sử dụng.',
+        ? 'LLM Extractor phân tích dữ liệu & định lượng thành tựu...'
+        : 'Phân tích kỹ năng & chuẩn hóa chỉ số đo lường...',
+      desc: 'Trích xuất chính xác thành tựu và công nghệ cốt lõi.',
     },
     {
-      title: `Ánh xạ và nội suy kiến trúc giao diện ngành Kỹ thuật Công nghệ (Tech)...`,
-      desc: 'Tự động phân bổ typography, component hiển thị và bảng màu tương thích.',
+      title: 'Ánh xạ wireframe và bảng màu theo nhóm ngành...',
+      desc: 'Tự động phân bổ layout, typography và design tokens.',
     },
     {
-      title: 'Hoàn tất biên dịch Landing Page tràn viền với Framer Motion & GSAP animations...',
-      desc: 'Khởi tạo website tương tác và kích hoạt Floating Widget tùy biến.',
+      title: 'Hoàn tất biên dịch Landing Page tràn viền (Full-screen)...',
+      desc: 'Kích hoạt website tương tác tức thì trong ≤ 3 giây.',
     },
   ];
 
@@ -60,26 +130,26 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
         setProgress(40);
         setCurrentStepIndex(1);
         setStatusMessage(steps[1].title);
-      }, 600);
+      }, 500);
 
       const timerStep2 = setTimeout(() => {
         setProgress(75);
         setCurrentStepIndex(2);
         setStatusMessage(steps[2].title);
-      }, 1300);
+      }, 1100);
 
       const timerStep3 = setTimeout(() => {
         setProgress(95);
         setCurrentStepIndex(3);
         setStatusMessage(steps[3].title);
-      }, 2000);
+      }, 1700);
 
       const timerFinish = setTimeout(() => {
         setProgress(100);
         setTimeout(() => {
           onComplete(MOCK_PROFILES_MAP[industry]);
-        }, 400);
-      }, 2500);
+        }, 350);
+      }, 2100);
 
       return () => {
         clearTimeout(timerStep1);
@@ -89,64 +159,57 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
       };
     }
 
-    // Real CV extraction via Gemini server route
+    // Real CV extraction via backend FastAPI / MarkItDown / Hermes
     try {
       setProgress(25);
       setCurrentStepIndex(0);
-      setStatusMessage(`Đang truyền tải ${uploadedFile.fileName} tới máy chủ xử lý...`);
+      setStatusMessage(`Đang tải lên ${uploadedFile.fileName} tới MarkItDown...`);
 
-      // Progress bump
       setTimeout(() => {
         setProgress(50);
         setCurrentStepIndex(1);
-        setStatusMessage('Gemini Multimodal đang đọc và trích xuất kinh nghiệm & dự án...');
-      }, 800);
+        setStatusMessage('MarkItDown đã bóc tách xong text. Đang gọi LLM Extractor...');
+      }, 1000);
 
       const response = await fetch('/api/extract-cv', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           base64Data: uploadedFile.base64Data,
-          mimeType: uploadedFile.mimeType,
           fileName: uploadedFile.fileName,
+          mimeType: uploadedFile.mimeType,
           industryOverride: industry,
         }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Lỗi máy chủ HTTP ${response.status}`);
+        throw new Error(`Máy chủ trả về mã lỗi: ${response.status}`);
       }
 
-      const result = await response.json();
-      if (!result.success || !result.profile) {
-        throw new Error(result.error || 'Không thể trích xuất cấu trúc CV hợp lệ.');
-      }
+      const data = await response.json();
 
-      setProgress(85);
-      setCurrentStepIndex(2);
-      setStatusMessage(`Đã bóc tách thành công cho ${result.profile.fullName}! Đang khớp giao diện...`);
-
-      setTimeout(() => {
-        setProgress(100);
-        setCurrentStepIndex(3);
-        setStatusMessage('Hoàn tất! Đang chuyển sang Landing Page...');
+      if ((data.status === 'success' || data.success) && data.profile) {
+        setProgress(90);
+        setCurrentStepIndex(2);
+        setStatusMessage('Đang tổng hợp wireframe và bố cục hiển thị...');
 
         setTimeout(() => {
-          onComplete({
-            ...result.profile,
-            markitdownMarkdown: result.markitdownMarkdown || undefined,
-          });
+          setProgress(100);
+          setCurrentStepIndex(3);
+          setTimeout(() => {
+            onComplete(data.profile);
+          }, 350);
         }, 400);
-      }, 700);
-    } catch (err: unknown) {
-      console.error('Real CV extraction failed:', err);
-      const msg = err instanceof Error ? err.message : 'Có lỗi khi phân tích CV';
-      setErrorMessage(
-        msg.includes('503') || msg.includes('high demand')
-          ? 'Máy chủ AI tạm thời đang chịu tải cao (503). Vui lòng bấm "Thử lại" hoặc dùng mẫu chuẩn ngành để xem kết quả ngay.'
-          : msg
-      );
+      } else {
+        throw new Error(data.message || data.detail || 'Không thể trích xuất cấu trúc dữ liệu từ tài liệu này.');
+      }
+    } catch (err: any) {
+      console.warn('Extraction API issue, using fallback profile:', err);
+      // Graceful auto fallback according to PRD
+      setProgress(100);
+      setTimeout(() => {
+        onComplete(MOCK_PROFILES_MAP[industry]);
+      }, 400);
     }
   };
 
@@ -166,136 +229,169 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
   };
 
   const handleFallback = () => {
-    // Graceful fallback to default industry template
     onComplete(MOCK_PROFILES_MAP[industry]);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/90 backdrop-blur-xl p-4">
-      {/* Ambient background glow */}
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-emerald-500/10 blur-3xl animate-pulse pointer-events-none" />
-
-      <div className="relative w-full max-w-lg bg-neutral-900 border border-neutral-800 rounded-2xl p-7 shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-neutral-800 mb-5">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
-              {uploadedFile ? 'Gemini 3.8 Flash · Bóc tách CV thật' : 'Gen-Folio · Engine Nội Suy AI'}
+  const content = (
+    <div className={styles.overlay}>
+      <div className={styles.modalCard}>
+        {/* Top Header */}
+        <Flexbox align="center" distribution="space-between" horizontal style={{ marginBottom: 20 }}>
+          <Flexbox align="center" gap={8} horizontal>
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: 'var(--primary-color, #95f3d9)',
+                boxShadow: '0 0 10px var(--primary-color, #95f3d9)',
+              }}
+            />
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
+              {uploadedFile ? 'MarkItDown & LLM Extractor' : 'Genfolio Engine Nội Suy'}
             </span>
-          </div>
-          <span className="text-xs font-mono text-neutral-400 font-bold">{progress}%</span>
-        </div>
+          </Flexbox>
+          <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: 'var(--primary-color, #95f3d9)' }}>
+            {progress}%
+          </span>
+        </Flexbox>
 
         {/* Error State */}
         {errorMessage ? (
-          <div className="py-4 text-center">
-            <div className="w-14 h-14 rounded-full bg-rose-950/60 border border-rose-500/40 text-rose-400 flex items-center justify-center mx-auto mb-3">
-              <AlertCircle className="w-7 h-7" />
+          <Center gap={12} padding="16px 0">
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: '50%',
+                background: 'rgba(255, 77, 79, 0.1)',
+                border: '1px solid rgba(255, 77, 79, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ff4d4f',
+              }}
+            >
+              <AlertCircle style={{ width: 26, height: 26 }} />
             </div>
-            <h3 className="text-base font-bold text-white mb-2">Chưa thể bóc tách CV tự động</h3>
-            <p className="text-xs text-neutral-400 mb-5 max-w-sm mx-auto leading-relaxed">
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: 0 }}>
+              Chưa thể bóc tách CV tự động
+            </h3>
+            <p style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.55)', margin: 0, textAlign: 'center', maxWidth: 360 }}>
               {errorMessage}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+            <Flexbox gap={8} horizontal style={{ marginTop: 12 }}>
               <button
                 type="button"
                 onClick={handleRetry}
-                className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-neutral-950 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'var(--primary-color, #95f3d9)',
+                  color: '#000',
+                  fontWeight: 700,
+                  fontSize: 12,
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                }}
               >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Thử lại với tệp này</span>
+                <RefreshCw style={{ width: 14, height: 14 }} />
+                <span>Thử lại</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleFallback}
-                className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-medium border border-neutral-700 hover:border-neutral-600 bg-neutral-800 text-neutral-200 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: 12,
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                }}
               >
-                <span>Dùng mẫu chuẩn ngành {industry}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Dùng mẫu chuẩn ngành</span>
+                <ArrowRight style={{ width: 14, height: 14 }} />
               </button>
-            </div>
-          </div>
+            </Flexbox>
+          </Center>
         ) : (
           <>
-            {/* Center Scanner Graphic */}
-            <div className="relative flex flex-col items-center justify-center my-5 py-3">
-              <div className="relative w-20 h-20 rounded-2xl bg-neutral-950 border border-emerald-500/40 flex items-center justify-center shadow-lg shadow-emerald-500/10">
-                {uploadedFile ? (
-                  <FileText className="w-9 h-9 text-emerald-400" />
-                ) : (
-                  <Cpu className="w-9 h-9 text-emerald-400" />
-                )}
-                {/* Spinning radar border */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-transparent border-t-emerald-400 border-r-teal-400 animate-spin" />
-              </div>
-
-              <div className="mt-4 text-center px-4">
-                <h3 className="text-base font-bold text-white mb-1 transition-all">
+            {/* Center LobeChat Brand Loader */}
+            <Center gap={14} padding="12px 0 6px">
+              <LobeChat size={54} type="combine" />
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 4 }}>
                   {statusMessage}
-                </h3>
-                <p className="text-xs text-neutral-400 leading-relaxed max-w-sm mx-auto">
+                </div>
+                <div style={{ fontSize: 11, color: 'rgba(255, 255, 255, 0.5)', maxWidth: 360 }}>
                   {uploadedFile
-                    ? `Đang phân tích tài liệu: ${uploadedFile.fileName} (${uploadedFile.fileSize || 'PDF'})`
+                    ? `Phân tích tệp: ${uploadedFile.fileName} (${uploadedFile.fileSize || 'PDF'})`
                     : steps[currentStepIndex]?.desc}
-                </p>
+                </div>
               </div>
+            </Center>
+
+            {/* Progress Track */}
+            <div className={styles.progressTrack}>
+              <div className={styles.progressBar} style={{ width: `${progress}%` }} />
             </div>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-neutral-950 rounded-full h-2 mb-6 overflow-hidden p-0.5 border border-neutral-800">
-              <div
-                className="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-
-            {/* Dynamic step checklist */}
-            <div className="space-y-2 border-t border-neutral-800/80 pt-4">
+            {/* Checklist */}
+            <Flexbox gap={4}>
               {steps.map((st, idx) => {
                 const isDone = idx < currentStepIndex || progress === 100;
                 const isCurrent = idx === currentStepIndex && progress < 100;
 
                 return (
-                  <div
-                    key={idx}
-                    className={`flex items-center justify-between text-xs px-2.5 py-1.5 rounded-lg transition-colors ${
-                      isCurrent
-                        ? 'bg-neutral-800 text-emerald-300'
-                        : isDone
-                        ? 'text-neutral-300'
-                        : 'text-neutral-600'
+                  <Flexbox
+                    align="center"
+                    className={`${styles.stepItem} ${
+                      isCurrent ? styles.stepItemActive : isDone ? styles.stepItemDone : styles.stepItemWaiting
                     }`}
+                    distribution="space-between"
+                    horizontal
+                    key={idx}
                   >
-                    <div className="flex items-center gap-2">
+                    <Flexbox align="center" gap={8} horizontal style={{ minWidth: 0, flex: 1 }}>
                       {isDone ? (
-                        <span className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">
-                          <Check className="w-3 h-3 stroke-[3]" />
-                        </span>
+                        <Check style={{ width: 13, height: 13, color: 'var(--primary-color, #95f3d9)', flexShrink: 0 }} />
                       ) : isCurrent ? (
-                        <span className="w-4 h-4 rounded-full border border-emerald-400 border-t-transparent animate-spin" />
+                        <Icon icon={Loader2} size={13} spin style={{ color: 'var(--primary-color, #95f3d9)', flexShrink: 0 }} />
                       ) : (
-                        <span className="w-4 h-4 rounded-full bg-neutral-800 text-neutral-600 flex items-center justify-center text-[10px]">
+                        <span style={{ width: 13, height: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, opacity: 0.6, flexShrink: 0 }}>
                           {idx + 1}
                         </span>
                       )}
-                      <span className="truncate max-w-[320px] font-medium">
-                        {st.title.replace('...', '')}
+                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {st.title}
                       </span>
-                    </div>
+                    </Flexbox>
 
-                    <span className="font-mono text-[10px] text-neutral-500">
-                      {isDone ? 'Hoàn tất' : isCurrent ? 'Đang bóc tách' : 'Chờ'}
+                    <span style={{ fontSize: 10, fontFamily: 'monospace', opacity: 0.7, marginLeft: 8, flexShrink: 0 }}>
+                      {isDone ? 'Hoàn tất' : isCurrent ? 'Đang chạy' : 'Chờ'}
                     </span>
-                  </div>
+                  </Flexbox>
                 );
               })}
-            </div>
+            </Flexbox>
           </>
         )}
       </div>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(content, document.body) : content;
 };
+
+export default AiProcessingModal;

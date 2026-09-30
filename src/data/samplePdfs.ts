@@ -11,28 +11,28 @@ export interface SampleCvOption {
 
 export const SAMPLE_CVS: SampleCvOption[] = [
   {
-    id: 'sample-ai-engineer',
-    name: 'Phạm Hoàng Nam',
-    role: 'Senior Full-Stack & AI Engineer',
+    id: 'sample-tech-kyson',
+    name: 'Huỳnh Kỳ Sơn',
+    role: 'Senior Full-Stack & Cloud Architect',
     industry: 'tech-dev',
-    filename: 'CV_Pham_Hoang_Nam_FullStack_AI.pdf',
-    textSnippet: 'Senior Full-Stack & Generative AI Engineer với 6+ năm phát triển ứng dụng Next.js, Python FastAPI, Vector DB (Pinecone, pgvector) và tối ưu hóa LLM serving (vLLM, Ollama)...',
+    filename: 'CV_Huynh_Ky_Son_Tech.pdf',
+    textSnippet: 'Senior Full-Stack & Cloud System Architect với hơn 8 năm kinh nghiệm chuyên sâu trong hệ sinh thái React, TypeScript, Python FastAPI, Go, Microservices phân tán và Kubernetes...',
   },
   {
-    id: 'sample-product-designer',
-    name: 'Đặng Ngọc Uyên',
-    role: 'Lead UI/UX & Spatial Experience Designer',
+    id: 'sample-creative-alex',
+    name: 'Alex Rivera',
+    role: 'Lead UI/UX & Spatial Designer',
     industry: 'tech-uiux',
-    filename: 'CV_Dang_Ngoc_Uyen_UIUX_Designer.pdf',
-    textSnippet: 'Lead Product Designer với hơn 7 năm thiết kế Design Systems cho SaaS và E-commerce, đoạt giải Best UI Design 2024, thành thạo Figma Tokens, Micro-interactions và 3D Spline...',
+    filename: 'CV_Alex_Rivera_Creative.pdf',
+    textSnippet: 'Lead Product Designer với hơn 7 năm kiến tạo Design Systems toàn diện cho các sản phẩm SaaS cao cấp, đoạt giải Red Dot & Awwwards 2024, thành thạo Figma Tokens, Micro-interactions và 3D Spline...',
   },
   {
-    id: 'sample-devops',
-    name: 'Lê Quốc Bảo',
-    role: 'Cloud Infrastructure & SRE Architect',
+    id: 'sample-business-marcus',
+    name: 'Marcus Vance',
+    role: 'Principal Solution Architect & BA',
     industry: 'tech-devops',
-    filename: 'CV_Le_Quoc_Bao_DevOps_SRE.pdf',
-    textSnippet: 'Cloud Architect với 9 năm kinh nghiệm mở rộng hạ tầng K8s khu vực Đông Nam Á, tự động hóa 100% bằng Terraform, CI/CD GitHub Actions, chịu tải hơn 15M concurrent users...',
+    filename: 'CV_Marcus_Vance_Business.pdf',
+    textSnippet: 'Chuyên gia tư vấn kiến trúc giải pháp Enterprise và phân tích nghiệp vụ kỹ thuật cao cấp (TOGAF, CBAP) với hơn 10 năm kinh nghiệm dẫn dắt các chương trình Chuyển đổi số Quy mô lớn...',
   },
 ];
 

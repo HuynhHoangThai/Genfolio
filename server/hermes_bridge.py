@@ -24,8 +24,8 @@ _API_CLIENT = "genfolio-hermes/1.0"
 
 # Model fallback chain for OpenRouter
 MODEL_FALLBACK_CHAIN = [
-    {"model": "nvidia/nemotron-3.5-lightning:free", "max_attempts": 3, "delay_base_ms": 1000},
-    {"model": "google/gemini-flash-1.5-exp", "max_attempts": 2, "delay_base_ms": 1000},
+    {"model": "openrouter/free", "max_attempts": 3, "delay_base_ms": 1000},
+    {"model": "google/gemma-4-31b-it:free", "max_attempts": 2, "delay_base_ms": 1000},
 ]
 
 def _get_api_key() -> str:
@@ -82,12 +82,8 @@ async def call_gemini_generate_content(
                 payload = {
                     "model": model,
                     "messages": messages,
-                    "temperature": 0.1, # Low temperature for JSON extraction
+                    "temperature": 0.1,
                 }
-                
-                # OpenRouter sometimes supports response_format
-                if response_mime_type == "application/json":
-                    payload["response_format"] = {"type": "json_object"}
 
                 headers = {
                     "Content-Type": "application/json",
