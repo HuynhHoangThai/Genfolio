@@ -5,20 +5,21 @@ import { Theme, css } from 'antd-style';
  */
 export default ({ token }: { prefixCls: string; token: Theme }) => css`
   html,
-  body,
-  #root {
+  body {
     position: relative;
     overscroll-behavior: none;
-    height: 100%;
     min-height: 100dvh;
-    max-height: 100dvh;
     background: ${token.colorBgLayout || '#000000'};
     color: ${token.colorText || '#ffffff'};
     font-family: ${token.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'};
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
-    @media (min-device-width: 576px) {
-      overflow: hidden;
-    }
+  #root {
+    position: relative;
+    min-height: 100dvh;
+    width: 100%;
   }
 
   * {

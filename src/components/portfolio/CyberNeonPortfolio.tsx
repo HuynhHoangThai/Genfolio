@@ -162,7 +162,7 @@ export const CyberNeonPortfolio: React.FC<Props> = ({ profile, onOpenProject, on
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-mono selection:bg-[var(--primary-color)] selection:text-black overflow-hidden relative">
+    <div className="min-h-screen bg-black text-white font-mono selection:bg-[var(--primary-color)] selection:text-black overflow-x-hidden relative">
       {/* Neon Grid Background */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `

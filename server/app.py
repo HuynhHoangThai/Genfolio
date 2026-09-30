@@ -47,6 +47,7 @@ from server.hermes_bridge import (
 )
 from server.prompts import CV_EXTRACTION_SYSTEM_PROMPT, DEFAULT_METRICS
 from server.share_store import share_store
+from server.db import db_manager
 
 # --- MarkItDown integration ---
 try:
@@ -105,6 +106,22 @@ class ShareCreateRequest(BaseModel):
     concept: Optional[str] = "terminal"
     primaryColor: Optional[str] = "#10b981"
     expiresInHours: Optional[int] = 48
+
+
+class GoogleAuthRequest(BaseModel):
+    credential: Optional[str] = None
+    email: Optional[str] = None
+    name: Optional[str] = None
+    avatar: Optional[str] = None
+
+
+class SavePortfolioRequest(BaseModel):
+    title: Optional[str] = None
+    concept: Optional[str] = "cyber-neon"
+    primaryColor: Optional[str] = "#10b981"
+    profile: Dict[str, Any]
+    portfolioId: Optional[str] = None
+    shareId: Optional[str] = None
 
 
 # --- Helper Functions ---
@@ -202,7 +219,7 @@ def ensure_profile_defaults(profile: Dict[str, Any]) -> Dict[str, Any]:
 
 @app.get("/api/health")
 async def health_check():
-    """Health check endpoint."""
+    """Health check endpoint with database status."""
     return {
         "status": "ok",
         "hasGeminiKey": bool(
@@ -210,7 +227,32 @@ async def health_check():
         ),
         "hermesAvailable": True,
         "markitdownAvailable": MARKITDOWN_AVAILABLE,
+        "database": db_manager.get_status(),
         "engine": "Hermes Agent + FastAPI",
+    }
+
+
+@app.get("/api/db/status")
+async def get_db_status():
+    """Get detailed database connection diagnostics."""
+    return {
+        "success": True,
+        "database": db_manager.get_status(),
+    }
+
+
+@app.post("/api/db/reconnect")
+async def reconnect_db():
+    """Hot-reload .env and reconnect to database without restarting server."""
+    status = db_manager.reload_config()
+    return {
+        "success": True,
+        "database": status,
+        "message": (
+            "Đã kết nối thành công tới PostgreSQL!"
+            if status.get("connected")
+            else f"Chưa thể kết nối: {status.get('error')}"
+        ),
     }
 
 
@@ -354,6 +396,16 @@ Ensure you specifically extract:
 
         parsed_profile = json.loads(cleaned)
         parsed_profile = ensure_profile_defaults(parsed_profile)
+
+        # Log CV extraction to PostgreSQL if connected
+        if db_manager.is_connected:
+            db_manager.log_cv_extraction(
+                extraction_id=parsed_profile.get("id", f"cv_{int(time.time()*1000)}"),
+                full_name=parsed_profile.get("fullName", "Unknown"),
+                profile=parsed_profile,
+                file_name=req.fileName,
+                markdown=markitdown_result.get("markdown"),
+            )
 
         logger.info(
             f"[CV Extractor] Success via Hermes+{model_used} for "

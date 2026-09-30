@@ -131,7 +131,7 @@ export const GlassMorphPortfolio: React.FC<Props> = ({ profile, onOpenProject, o
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-[var(--primary-color)] selection:text-white overflow-hidden relative">
+    <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-[var(--primary-color)] selection:text-white overflow-x-hidden relative">
       {/* Vibrant Mesh Gradients */}
       <div className="fixed top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full mix-blend-screen filter blur-[150px] opacity-40 animate-pulse pointer-events-none" style={{ backgroundColor: 'var(--primary-color)' }} />
       <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full mix-blend-screen filter blur-[150px] opacity-30 pointer-events-none bg-blue-600" />
