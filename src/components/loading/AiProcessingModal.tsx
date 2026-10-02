@@ -203,12 +203,10 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
         throw new Error(data.message || data.detail || 'Không thể trích xuất cấu trúc dữ liệu từ tài liệu này.');
       }
     } catch (err: any) {
-      console.warn('Extraction API issue, using fallback profile:', err);
-      // Graceful auto fallback according to PRD
-      setProgress(100);
-      setTimeout(() => {
-        onComplete(MOCK_PROFILES_MAP[industry]);
-      }, 400);
+      console.error('Extraction API issue:', err);
+      setErrorMessage(
+        err.message || 'Không thể trích xuất cấu trúc dữ liệu từ tệp này. Vui lòng bấm Thử lại hoặc chọn mẫu chuẩn ngành.'
+      );
     }
   };
 

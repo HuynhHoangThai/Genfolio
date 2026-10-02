@@ -22,10 +22,11 @@ HERMES_GEMINI_AVAILABLE = False
 
 _API_CLIENT = "genfolio-hermes/1.0"
 
-# Model fallback chain for OpenRouter
+# Model fallback chain for OpenRouter (Verified high-accuracy instruction-following models)
 MODEL_FALLBACK_CHAIN = [
-    {"model": "openrouter/free", "max_attempts": 3, "delay_base_ms": 1000},
-    {"model": "google/gemma-4-31b-it:free", "max_attempts": 2, "delay_base_ms": 1000},
+    {"model": "liquid/lfm-2.5-2.6b:free", "max_attempts": 3, "delay_base_ms": 1000},
+    {"model": "google/gemma-4-26b-a4b-it:free", "max_attempts": 2, "delay_base_ms": 1500},
+    {"model": "nvidia/nemotron-3.5-lightning:free", "max_attempts": 2, "delay_base_ms": 2000},
 ]
 
 def _get_api_key() -> str:
@@ -135,6 +136,17 @@ async def call_gemini_generate_content(
                 if response_text.endswith("```"):
                     response_text = response_text[:-3]
                 response_text = response_text.strip()
+
+                # Extract JSON if enclosed by brackets
+                first_brace = response_text.find("{")
+                last_brace = response_text.rfind("}")
+                if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+                    response_text = response_text[first_brace:last_brace + 1].strip()
+                else:
+                    raise ValueError(f"Model {model} output is not a JSON object: {response_text[:80]}")
+
+                # Verify valid JSON
+                json.loads(response_text)
 
                 logger.info(f"[HermesBridge] Success with {model} ({len(response_text)} chars)")
                 return response_text, model
