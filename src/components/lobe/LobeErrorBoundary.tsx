@@ -105,7 +105,7 @@ export const LobeError = memo<LobeErrorProps>(({
                 gap: 6,
                 padding: '8px 20px',
                 borderRadius: 10,
-                background: 'var(--primary-color, #95f3d9)',
+                background: 'var(--primary-color, #FAFAFA)',
                 color: '#000',
                 border: 'none',
                 fontSize: 13,

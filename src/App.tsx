@@ -48,7 +48,7 @@ export default function App() {
   const [currentConcept, setCurrentConcept] = useState<LayoutConcept>('cyber-neon');
   const [activeProfile, setActiveProfile] = useState<MockProfile>(MOCK_PROFILES_MAP['tech-dev']);
   const [pendingUploadedFile, setPendingUploadedFile] = useState<UploadedFilePayload | null>(null);
-  const [primaryColor, setPrimaryColor] = useState<string>(LOBE_PRIMARY_COLORS.cyan.hex);
+  const [primaryColor, setPrimaryColor] = useState<string>(LOBE_PRIMARY_COLORS.white.hex);
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>('desktop');
   
   // Modals
@@ -67,9 +67,9 @@ export default function App() {
   } | null>(null);
   const [sharedError, setSharedError] = useState<{ expired: boolean; message: string } | null>(null);
 
-  // Apply default LobeChat CSS variables on mount & check for ?share= query param
+  // Apply default minimalist CSS variables on mount & check for ?share= query param
   useEffect(() => {
-    applyCssVariables(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
+    applyCssVariables(LOBE_PRIMARY_COLORS.white.hex, LOBE_PRIMARY_COLORS.white.rgb);
 
     const params = new URLSearchParams(window.location.search);
     const shareParam = params.get('share');
@@ -165,15 +165,15 @@ export default function App() {
 
     setPendingUploadedFile(uploadedFile || null);
 
-    // Auto-align LobeChat color palette per concept
+    // Auto-align minimalist color palette per concept
     if (targetConcept === 'cyber-neon') {
-      handleColorChange(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.ice.hex, LOBE_PRIMARY_COLORS.ice.rgb);
     } else if (targetConcept === 'glass-morph') {
-      handleColorChange(LOBE_PRIMARY_COLORS.purple.hex, LOBE_PRIMARY_COLORS.purple.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.white.hex, LOBE_PRIMARY_COLORS.white.rgb);
     } else if (targetConcept === 'holographic-grid') {
-      handleColorChange(LOBE_PRIMARY_COLORS.magenta.hex, LOBE_PRIMARY_COLORS.magenta.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.slate.hex, LOBE_PRIMARY_COLORS.slate.rgb);
     } else {
-      handleColorChange(LOBE_PRIMARY_COLORS.green.hex, LOBE_PRIMARY_COLORS.green.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.zinc.hex, LOBE_PRIMARY_COLORS.zinc.rgb);
     }
 
     setAppStage('processing');
@@ -246,13 +246,13 @@ export default function App() {
     }));
 
     if (newConcept === 'cyber-neon') {
-      handleColorChange(LOBE_PRIMARY_COLORS.cyan.hex, LOBE_PRIMARY_COLORS.cyan.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.ice.hex, LOBE_PRIMARY_COLORS.ice.rgb);
     } else if (newConcept === 'glass-morph') {
-      handleColorChange(LOBE_PRIMARY_COLORS.purple.hex, LOBE_PRIMARY_COLORS.purple.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.white.hex, LOBE_PRIMARY_COLORS.white.rgb);
     } else if (newConcept === 'holographic-grid') {
-      handleColorChange(LOBE_PRIMARY_COLORS.magenta.hex, LOBE_PRIMARY_COLORS.magenta.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.slate.hex, LOBE_PRIMARY_COLORS.slate.rgb);
     } else if (newConcept === 'terminal') {
-      handleColorChange(LOBE_PRIMARY_COLORS.green.hex, LOBE_PRIMARY_COLORS.green.rgb);
+      handleColorChange(LOBE_PRIMARY_COLORS.sage.hex, LOBE_PRIMARY_COLORS.sage.rgb);
     }
   };
 
@@ -313,7 +313,7 @@ export default function App() {
 
   return (
     <LobeErrorBoundary>
-      <ThemeProvider themeMode="dark" customTheme={{ primaryColor: getLobeThemeKey(primaryColor) as any }}>
+      <ThemeProvider themeMode="dark" customTheme={{ primaryColor: getLobeThemeKey(primaryColor) as any }} enableGlobalStyle={false}>
         <GlobalStyle />
         {/* Full-Window Drag & Drop Overlay (Cloned from LobeChat DragUpload) */}
         <LobeDragUpload onUploadFile={handleGlobalFileUpload} />
@@ -369,7 +369,7 @@ export default function App() {
         PRD Stage 3: FULL-SCREEN OUTPUT (Tràn viền 100% width, không có Sidebar - Section 5.1 #2, Section 7 FR-03, Section 12.1 AC-02)
       */}
       {appStage === 'result' ? (
-        <div className="w-full min-h-screen bg-black text-neutral-100 flex flex-col justify-start relative overflow-x-hidden">
+        <div className="w-full min-h-screen bg-black text-neutral-100 flex flex-col justify-start relative overflow-x-clip">
           {/* Top Sticky Minimalist Bar */}
           <div className="sticky top-0 z-40 bg-black/85 backdrop-blur-xl border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between gap-3 text-xs shadow-md">
             <div className="flex items-center gap-3">
@@ -419,14 +419,14 @@ export default function App() {
                 <span>Chia sẻ link</span>
               </button>
 
-              {/* Return to LobeChat Studio Button */}
+              {/* Return to Genfolio Studio Button */}
               <button
                 type="button"
                 onClick={handleResetToHome}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--primary-color)] text-black hover:opacity-90 transition-all cursor-pointer shadow-md"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Về Studio LobeChat</span>
+                <span>Về Genfolio Studio</span>
               </button>
             </div>
           </div>

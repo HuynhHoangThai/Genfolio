@@ -112,8 +112,8 @@ const useStyles = createStyles(({ css, token, responsive }) => ({
   `,
   dockedPanelDrag: css`
     background: rgba(24, 24, 32, 0.98);
-    border-color: var(--primary-color, #95f3d9) !important;
-    box-shadow: 0 0 32px rgba(149, 243, 217, 0.25) !important;
+    border-color: var(--primary-color, #FAFAFA) !important;
+    box-shadow: 0 0 32px rgba(250, 250, 250, 0.15) !important;
   `,
   textArea: css`
     width: 100%;
@@ -386,7 +386,7 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                       padding: '12px 14px',
                       borderRadius: 12,
                       background: isSelected ? 'rgba(255, 255, 255, 0.07)' : 'rgba(255, 255, 255, 0.02)',
-                      border: isSelected ? '1px solid var(--primary-color, #95f3d9)' : '1px solid rgba(255, 255, 255, 0.08)',
+                      border: isSelected ? '1px solid var(--primary-color, #FAFAFA)' : '1px solid rgba(255, 255, 255, 0.08)',
                       boxShadow: isSelected ? '0 0 16px rgba(var(--primary-rgb), 0.2)' : 'none',
                       color: '#fff',
                       cursor: 'pointer',
@@ -399,7 +399,7 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                         width: 34,
                         height: 34,
                         borderRadius: 8,
-                        background: isSelected ? 'var(--primary-color, #95f3d9)' : 'rgba(255, 255, 255, 0.06)',
+                        background: isSelected ? 'var(--primary-color, #FAFAFA)' : 'rgba(255, 255, 255, 0.06)',
                         color: isSelected ? '#000' : '#888',
                         display: 'flex',
                         alignItems: 'center',
@@ -431,7 +431,7 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                 Phong cách Kiến trúc Wireframe (4 Layout Concepts)
               </span>
               <span style={{ fontSize: 11, color: '#888' }}>
-                Đang kích hoạt: <strong style={{ color: 'var(--primary-color, #95f3d9)' }}>{activeCard.title}</strong>
+                Đang kích hoạt: <strong style={{ color: 'var(--primary-color, #FAFAFA)' }}>{activeCard.title}</strong>
               </span>
             </Flexbox>
 
@@ -444,7 +444,7 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                     key={card.id}
                     onClick={() => onSelectConcept(card.id, card.industry)}
                     style={{
-                      borderColor: isSelected ? 'var(--primary-color, #95f3d9)' : undefined,
+                      borderColor: isSelected ? 'var(--primary-color, #FAFAFA)' : undefined,
                       boxShadow: isSelected ? '0 0 20px rgba(var(--primary-rgb), 0.2)' : undefined,
                     }}
                   >
@@ -484,7 +484,7 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                   onClick={() => handleSelectSample(sample)}
                 >
                   <Flexbox align="center" gap={6} horizontal>
-                    <FolderOpen style={{ width: 13, height: 13, color: 'var(--primary-color, #95f3d9)' }} />
+                    <FolderOpen style={{ width: 13, height: 13, color: 'var(--primary-color, #FAFAFA)' }} />
                     <span style={{ fontWeight: 600 }}>{sample.name}</span>
                     <span style={{ fontSize: 11, color: '#888' }}>({sample.role})</span>
                   </Flexbox>
@@ -584,12 +584,12 @@ export const LobeChatStudio: React.FC<LobeChatStudioProps> = memo(({
                   height: 36,
                   paddingInline: 18,
                   borderRadius: 10,
-                  background: 'var(--primary-color, #95f3d9)',
+                  background: 'var(--primary-color, #FAFAFA)',
                   color: '#000',
                   fontWeight: 700,
                   fontSize: 12,
                   border: 'none',
-                  boxShadow: '0 4px 16px rgba(149, 243, 217, 0.25)',
+                  boxShadow: '0 4px 16px rgba(250, 250, 250, 0.2)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
                 }}

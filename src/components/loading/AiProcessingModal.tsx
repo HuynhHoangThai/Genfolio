@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createStyles } from 'antd-style';
 import { Center, Flexbox } from 'react-layout-kit';
-import { LobeChat } from '@lobehub/ui/brand';
 import { Icon } from '@lobehub/ui';
-import { Check, AlertCircle, RefreshCw, ArrowRight, Loader2 } from 'lucide-react';
+import { Check, AlertCircle, RefreshCw, ArrowRight, Loader2, Sparkles } from 'lucide-react';
 import { IndustryType, MockProfile } from '../../types/portfolio';
 import { MOCK_PROFILES_MAP } from '../../data/mockProfiles';
 
@@ -57,10 +56,10 @@ const useStyles = createStyles(({ css, token }) => ({
   `,
   progressBar: css`
     height: 100%;
-    background: var(--primary-color, #95f3d9);
+    background: var(--primary-color, #FAFAFA);
     border-radius: 4px;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 12px var(--primary-color, #95f3d9);
+    box-shadow: 0 0 12px var(--primary-color, #FAFAFA);
   `,
   stepItem: css`
     font-size: 12px;
@@ -243,15 +242,15 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                background: 'var(--primary-color, #95f3d9)',
-                boxShadow: '0 0 10px var(--primary-color, #95f3d9)',
+                background: 'var(--primary-color, #FAFAFA)',
+                boxShadow: '0 0 10px var(--primary-color, #FAFAFA)',
               }}
             />
             <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
               {uploadedFile ? 'MarkItDown & LLM Extractor' : 'Genfolio Engine Nội Suy'}
             </span>
           </Flexbox>
-          <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: 'var(--primary-color, #95f3d9)' }}>
+          <span style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: 'var(--primary-color, #FAFAFA)' }}>
             {progress}%
           </span>
         </Flexbox>
@@ -288,7 +287,7 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
                 style={{
                   padding: '8px 16px',
                   borderRadius: 10,
-                  background: 'var(--primary-color, #95f3d9)',
+                  background: 'var(--primary-color, #FAFAFA)',
                   color: '#000',
                   fontWeight: 700,
                   fontSize: 12,
@@ -327,9 +326,24 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
           </Center>
         ) : (
           <>
-            {/* Center LobeChat Brand Loader */}
+            {/* Center Genfolio Minimalist Brand Loader */}
             <Center gap={14} padding="12px 0 6px">
-              <LobeChat size={54} type="combine" />
+              <div
+                style={{
+                  width: 54,
+                  height: 54,
+                  borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03))',
+                  border: '1px solid rgba(255, 255, 255, 0.16)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                  position: 'relative',
+                }}
+              >
+                <Sparkles size={26} style={{ color: 'var(--primary-color, #FAFAFA)' }} />
+              </div>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 4 }}>
                   {statusMessage}
@@ -365,9 +379,9 @@ export const AiProcessingModal: React.FC<AiProcessingModalProps> = ({
                   >
                     <Flexbox align="center" gap={8} horizontal style={{ minWidth: 0, flex: 1 }}>
                       {isDone ? (
-                        <Check style={{ width: 13, height: 13, color: 'var(--primary-color, #95f3d9)', flexShrink: 0 }} />
+                        <Check style={{ width: 13, height: 13, color: 'var(--primary-color, #FAFAFA)', flexShrink: 0 }} />
                       ) : isCurrent ? (
-                        <Icon icon={Loader2} size={13} spin style={{ color: 'var(--primary-color, #95f3d9)', flexShrink: 0 }} />
+                        <Icon icon={Loader2} size={13} spin style={{ color: 'var(--primary-color, #FAFAFA)', flexShrink: 0 }} />
                       ) : (
                         <span style={{ width: 13, height: 13, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, opacity: 0.6, flexShrink: 0 }}>
                           {idx + 1}

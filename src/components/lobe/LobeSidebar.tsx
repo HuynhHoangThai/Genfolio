@@ -43,7 +43,7 @@ export const PRESET_ITEMS = [
     icon: Terminal,
     conceptName: 'Cyber Neon HUD',
     tag: 'Tech',
-    accentColor: '#95f3d9',
+    accentColor: '#38BDF8',
     avatar: '⚡',
   },
   {
@@ -55,7 +55,7 @@ export const PRESET_ITEMS = [
     icon: Palette,
     conceptName: 'Glassmorphism Studio',
     tag: 'Creative',
-    accentColor: '#bd54c6',
+    accentColor: '#FAFAFA',
     avatar: '🎨',
   },
   {
@@ -67,7 +67,7 @@ export const PRESET_ITEMS = [
     icon: Layers,
     conceptName: 'Holo-Tech Grid',
     tag: 'Business',
-    accentColor: '#e34ba9',
+    accentColor: '#94A3B8',
     avatar: '☁️',
   },
   {
@@ -79,7 +79,7 @@ export const PRESET_ITEMS = [
     icon: ShieldCheck,
     conceptName: 'Classic Terminal',
     tag: 'Tech / Security',
-    accentColor: '#62c473',
+    accentColor: '#34D399',
     avatar: '🛡️',
   },
 ];

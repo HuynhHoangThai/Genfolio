@@ -1,8 +1,3 @@
-/**
- * LobeChat Official Color System & Palettes
- * Extracted directly from @lobehub/ui and LobeChat source.
- */
-
 import {
   primaryColors,
   primaryColorsSwatches,
@@ -12,6 +7,7 @@ import {
   type PrimaryColors,
   type NeutralColors,
 } from '@lobehub/ui';
+import { MINIMALIST_PALETTE, DEFAULT_MINIMALIST_COLOR } from './minimalistColors';
 
 export {
   primaryColors,
@@ -19,6 +15,8 @@ export {
   neutralColors,
   neutralColorsSwatches,
   findCustomThemeName,
+  MINIMALIST_PALETTE,
+  DEFAULT_MINIMALIST_COLOR,
   type PrimaryColors,
   type NeutralColors,
 };
@@ -31,13 +29,42 @@ export interface LobeColorItem {
 }
 
 /**
- * 12 Official LobeChat Primary Accent Colors (Dark Mode scale 9)
- * Synced 100% with @lobehub/ui
+ * Genfolio Curated Accent Colors (Minimalist Monochromes & Sleek Neutrals)
  */
 export const LOBE_PRIMARY_COLORS: Record<string, LobeColorItem> = {
+  white: {
+    key: 'white',
+    name: 'Platinum White',
+    hex: '#FAFAFA',
+    rgb: '250, 250, 250',
+  },
+  slate: {
+    key: 'slate',
+    name: 'Cool Slate',
+    hex: '#94A3B8',
+    rgb: '148, 163, 184',
+  },
+  ice: {
+    key: 'blue',
+    name: 'Ice Blue',
+    hex: '#38BDF8',
+    rgb: '56, 189, 248',
+  },
+  zinc: {
+    key: 'zinc',
+    name: 'Titanium Zinc',
+    hex: '#A1A1AA',
+    rgb: '161, 161, 170',
+  },
+  sage: {
+    key: 'green',
+    name: 'Nordic Sage',
+    hex: '#34D399',
+    rgb: '52, 211, 153',
+  },
   cyan: {
     key: 'cyan',
-    name: 'Cyan (Lobe Cyan)',
+    name: 'Minimalist Cyan',
     hex: '#95f3d9',
     rgb: '149, 243, 217',
   },
@@ -160,10 +187,15 @@ export const getLobeThemeKey = (hex: string): string => {
   const match = Object.values(LOBE_PRIMARY_COLORS).find(
     (c) => c.hex.toLowerCase() === hex.toLowerCase()
   );
-  if (match) return match.key;
+  if (match) {
+    if (match.key === 'white' || match.key === 'slate' || match.key === 'zinc') {
+      return 'slate';
+    }
+    return match.key;
+  }
   const directMatch = findCustomThemeName('primary', hex);
   if (directMatch) return directMatch;
-  return 'cyan';
+  return 'slate';
 };
 
 /**

@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  /* LobeChat Official Primary Color (Cyan by default: #95f3d9) */
-  --primary-color: #95f3d9;
-  --primary-rgb: 149, 243, 217;
-  --primary-glow: rgba(149, 243, 217, 0.3);
-  --primary-light: rgba(149, 243, 217, 0.12);
-  --primary-border: rgba(149, 243, 217, 0.4);
+  /* Genfolio Minimalist Accent Color (Platinum White / Monochrome default) */
+  --primary-color: #FAFAFA;
+  --primary-rgb: 250, 250, 250;
+  --primary-glow: rgba(250, 250, 250, 0.18);
+  --primary-light: rgba(250, 250, 250, 0.08);
+  --primary-border: rgba(250, 250, 250, 0.28);
 
-  /* LobeChat Dark Theme Background Tokens */
+  /* Genfolio Sleek Dark Theme Background Tokens */
   --lobe-bg-layout: #000000;
   --lobe-bg-container: #0a0a0c;
   --lobe-bg-elevated: #141416;
   --lobe-border: rgba(255, 255, 255, 0.08);
   --lobe-border-hover: rgba(255, 255, 255, 0.16);
+
+  --gen-bg-layout: #000000;
+  --gen-bg-container: #0a0a0c;
+  --gen-bg-elevated: #141416;
+  --gen-border: rgba(255, 255, 255, 0.08);
+  --gen-border-hover: rgba(255, 255, 255, 0.16);
 }
 
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   color: #f5f5f5;
-  background-color: var(--lobe-bg-layout, #000000);
-  overflow-x: hidden;
+  background-color: var(--gen-bg-layout, #000000);
+  overflow-x: clip;
 }
 
 /* Custom font utilities */
@@ -89,7 +95,7 @@ body {
   background-image: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.08) 0%, transparent 60%);
 }
 
-/* Custom Scrollbar (LobeChat style sleek scrollbar) */
+/* Sleek Minimalist Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -108,11 +114,13 @@ body {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* LobeChat Design System Tokens & Glassmorphic Utilities */
+/* Genfolio Design System Tokens & Glassmorphic Utilities */
+.gen-bg-root,
 .lobe-bg-root {
   background-color: #030305;
 }
 
+.gen-glass,
 .lobe-glass {
   background: rgba(18, 18, 20, 0.75);
   backdrop-filter: blur(16px);
@@ -120,6 +128,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.gen-glass-elevated,
 .lobe-glass-elevated {
   background: rgba(26, 26, 30, 0.85);
   backdrop-filter: blur(20px);
@@ -128,14 +137,17 @@ body {
   box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
 }
 
+.gen-border,
 .lobe-border {
   border-color: rgba(255, 255, 255, 0.08);
 }
 
+.gen-border-subtle,
 .lobe-border-subtle {
   border-color: rgba(255, 255, 255, 0.05);
 }
 
+.gen-card,
 .lobe-card {
   background: rgba(15, 15, 18, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -143,6 +155,7 @@ body {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.gen-card:hover,
 .lobe-card:hover {
   background: rgba(24, 24, 28, 0.8);
   border-color: rgba(255, 255, 255, 0.18);
@@ -150,12 +163,14 @@ body {
   box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.4);
 }
 
+.gen-card-active,
 .lobe-card-active {
   background: rgba(var(--primary-rgb), 0.08) !important;
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 20px var(--primary-glow);
 }
 
+.gen-action-icon,
 .lobe-action-icon {
   display: inline-flex;
   align-items: center;
@@ -167,16 +182,19 @@ body {
   cursor: pointer;
 }
 
+.gen-action-icon:hover,
 .lobe-action-icon:hover {
   background-color: rgba(255, 255, 255, 0.08);
   color: #ffffff;
 }
 
+.gen-action-icon-active,
 .lobe-action-icon-active {
   background-color: rgba(255, 255, 255, 0.12);
   color: #ffffff;
 }
 
+.gen-input-dock,
 .lobe-input-dock {
   background: rgba(18, 18, 22, 0.88);
   backdrop-filter: blur(20px);
@@ -186,6 +204,7 @@ body {
   box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+.gen-input-dock:focus-within,
 .lobe-input-dock:focus-within {
   border-color: rgba(var(--primary-rgb), 0.5);
   box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.8), 0 0 25px var(--primary-glow);

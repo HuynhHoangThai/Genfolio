@@ -169,7 +169,7 @@ export const HolographicGridPortfolio: React.FC<Props> = ({ profile, onOpenProje
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[var(--primary-color)] selection:text-white overflow-x-hidden relative">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-[var(--primary-color)] selection:text-white overflow-x-clip relative">
       {/* Holographic Isometric Grid */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03]" style={{
         backgroundImage: 'linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000), linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000), linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000), linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000), linear-gradient(60deg, #000 25%, transparent 25.5%, transparent 75%, #000 75%, #000), linear-gradient(60deg, #000 25%, transparent 25.5%, transparent 75%, #000 75%, #000)',

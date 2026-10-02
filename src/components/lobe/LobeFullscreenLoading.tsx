@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { Icon } from '@lobehub/ui';
-import { LobeChat } from '@lobehub/ui/brand';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import { Center, Flexbox } from 'react-layout-kit';
 
 export interface LobeFullscreenLoadingProps {
@@ -9,9 +8,6 @@ export interface LobeFullscreenLoadingProps {
   subTitle?: string;
 }
 
-/**
- * Cloned from lobe-chat-ref/src/components/FullscreenLoading/index.tsx
- */
 export const LobeFullscreenLoading = memo<LobeFullscreenLoadingProps>(({ 
   title = 'Đang khởi tạo Portfolio 1 chạm...', 
   subTitle = 'Bóc tách CV qua MarkItDown & LLM Engine'
@@ -31,7 +27,21 @@ export const LobeFullscreenLoading = memo<LobeFullscreenLoadingProps>(({
       width={'100%'}
     >
       <Center flex={1} gap={16} width={'100%'}>
-        <LobeChat size={56} type={'combine'} />
+        <div
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 18,
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03))',
+            border: '1px solid rgba(255, 255, 255, 0.16)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
+          }}
+        >
+          <Sparkles size={28} style={{ color: 'var(--primary-color, #FAFAFA)' }} />
+        </div>
         <Center gap={10} horizontal style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>
           <Icon icon={Loader2} size={18} spin />
           <span>{title}</span>

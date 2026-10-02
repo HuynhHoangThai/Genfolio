@@ -96,7 +96,7 @@ export const LobeSettingsModal: React.FC<LobeSettingsModalProps> = memo(({
                     position: 'relative',
                     borderRadius: 12,
                     background: isSelected ? 'rgba(149, 243, 217, 0.08)' : 'rgba(255, 255, 255, 0.03)',
-                    border: isSelected ? '1px solid var(--primary-color, #95f3d9)' : '1px solid rgba(255, 255, 255, 0.08)',
+                    border: isSelected ? '1px solid var(--primary-color, #FAFAFA)' : '1px solid rgba(255, 255, 255, 0.08)',
                     transition: 'all 0.15s ease',
                   }}
                 >

@@ -12,7 +12,7 @@ interface BubblesLoadingProps {
  * Reference: lobe-chat-ref/src/components/BubblesLoading/index.tsx
  */
 export const BubblesLoading = memo<BubblesLoadingProps>(({
-  color = 'var(--primary-color, #95f3d9)',
+  color = 'var(--primary-color, #FAFAFA)',
   size = 24,
   style,
 }) => {
@@ -83,7 +83,7 @@ BubblesLoading.displayName = 'BubblesLoading';
  */
 export const CircleLoading = memo<{ size?: number; color?: string }>(({
   size = 20,
-  color = 'var(--primary-color, #95f3d9)',
+  color = 'var(--primary-color, #FAFAFA)',
 }) => {
   return (
     <svg

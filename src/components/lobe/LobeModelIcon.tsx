@@ -34,7 +34,7 @@ export const LobeModelIcon = memo<LobeModelIconProps>(({ model: originModel = ''
   if (model.includes('titan') || model.includes('bedrock')) return <Aws size={size} style={style} />;
 
   // Default fallback for Nemotron or local Hermes models
-  return <Cpu size={size} style={{ color: 'var(--primary-color, #95f3d9)', ...style }} />;
+  return <Cpu size={size} style={{ color: 'var(--primary-color, #FAFAFA)', ...style }} />;
 });
 
 LobeModelIcon.displayName = 'LobeModelIcon';

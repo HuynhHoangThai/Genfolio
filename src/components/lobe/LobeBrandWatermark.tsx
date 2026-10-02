@@ -21,13 +21,13 @@ export const LobeBrandWatermark = memo<LobeBrandWatermarkProps>(({ style }) => {
         ...style,
       }}
     >
-      <Sparkles size={12} style={{ color: 'var(--primary-color, #95f3d9)' }} />
+      <Sparkles size={12} style={{ color: 'var(--primary-color, #FAFAFA)' }} />
       <span>Powered by</span>
-      <span style={{ fontWeight: 700, color: 'rgba(255, 255, 255, 0.75)', letterSpacing: '0.2px' }}>
-        Gen-Folio
+      <span style={{ fontWeight: 700, color: 'rgba(255, 255, 255, 0.8)', letterSpacing: '0.3px' }}>
+        Genfolio
       </span>
-      <span style={{ opacity: 0.6 }}>·</span>
-      <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>LobeChat UI</span>
+      <span style={{ opacity: 0.4 }}>·</span>
+      <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>Portfolio Engine</span>
     </Flexbox>
   );
 });

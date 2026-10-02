@@ -37,9 +37,9 @@ interface FloatingWidgetProps {
   onOpenResumeModal: () => void;
 }
 
-import { LOBE_PRIMARY_COLORS } from '../../styles/lobeColors';
+import { MINIMALIST_PALETTE } from '../../styles/minimalistColors';
 
-export const COLOR_PALETTES = Object.values(LOBE_PRIMARY_COLORS);
+export const COLOR_PALETTES = Object.values(MINIMALIST_PALETTE);
 
 export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
   currentIndustry,
@@ -205,29 +205,30 @@ export const FloatingWidget: React.FC<FloatingWidgetProps> = ({
             </div>
           </div>
 
-          {/* Section 2: Color Palette Switcher (Official 12 LobeChat Colors - <100ms instant switch) */}
+          {/* Section 2: Minimalist Color Palette Switcher */}
           <div className="mt-3.5 pt-3 border-t border-neutral-800">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-neutral-300">12 Màu LobeChat (&lt; 100ms)</span>
+              <span className="text-xs font-semibold text-neutral-300">Bảng màu Tối giản (Minimalist)</span>
               <span className="text-[11px] font-mono theme-accent-text font-bold">
                 {currentColor.toUpperCase()}
               </span>
             </div>
 
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-7 gap-1.5">
               {COLOR_PALETTES.map((palette) => {
                 const isSelected = currentColor.toLowerCase() === palette.hex.toLowerCase();
+                const isLight = palette.hex.toLowerCase() === '#fafafa' || palette.hex.toLowerCase() === '#d4d4d8';
                 return (
                   <button
                     key={palette.hex}
                     type="button"
                     onClick={() => onColorChange(palette.hex, palette.rgb)}
-                    title={palette.name}
-                    className="relative w-8 h-8 rounded-full transition-transform hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer shadow-md"
+                    title={`${palette.name} (${palette.desc || ''})`}
+                    className="relative w-7 h-7 rounded-full transition-transform hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer shadow-md border border-white/10"
                     style={{ backgroundColor: palette.hex }}
                   >
                     {isSelected && (
-                      <Check className="w-4 h-4 text-neutral-950 stroke-[3]" />
+                      <Check className={`w-3.5 h-3.5 ${isLight ? 'text-neutral-950' : 'text-white'} stroke-[3]`} />
                     )}
                   </button>
                 );

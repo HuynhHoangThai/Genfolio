@@ -13,4 +13,5 @@ export const GlobalStyle = createGlobalStyle(({ theme }) => [
 ]);
 
 export * from './lobeColors';
+export * from './minimalistColors';
 export * from './mobileHeader';

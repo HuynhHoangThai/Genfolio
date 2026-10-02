@@ -4,21 +4,30 @@ import { Theme, css } from 'antd-style';
  * Cloned from lobe-chat-ref/src/styles/global.ts
  */
 export default ({ token }: { prefixCls: string; token: Theme }) => css`
-  html,
-  body {
+  html {
     position: relative;
-    overscroll-behavior: none;
-    min-height: 100dvh;
+    min-height: 100%;
     background: ${token.colorBgLayout || '#000000'};
     color: ${token.colorText || '#ffffff'};
     font-family: ${token.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'};
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-y: auto;
+  }
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: ${token.colorBgLayout || '#000000'};
+    color: ${token.colorText || '#ffffff'};
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   #root {
     position: relative;
-    min-height: 100dvh;
+    min-height: 100vh;
     width: 100%;
   }
 

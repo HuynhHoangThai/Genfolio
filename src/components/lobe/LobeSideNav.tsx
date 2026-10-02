@@ -21,9 +21,9 @@ interface LobeSideNavProps {
   activeModelName?: string;
 }
 
-import { LOBE_PRIMARY_COLORS } from '../../styles/lobeColors';
+import { MINIMALIST_PALETTE } from '../../styles/minimalistColors';
 
-const PRESET_COLORS = Object.values(LOBE_PRIMARY_COLORS);
+const PRESET_COLORS = Object.values(MINIMALIST_PALETTE);
 
 export const LobeSideNav: React.FC<LobeSideNavProps> = memo(({
   activeTab,
@@ -162,9 +162,9 @@ export const LobeSideNav: React.FC<LobeSideNavProps> = memo(({
 
             <ActionIcon
               icon={Github}
-              onClick={() => window.open('https://github.com/AIDotNet/lobe-chat', '_blank')}
+              onClick={() => window.open('https://github.com', '_blank')}
               size="large"
-              title="LobeChat Reference GitHub"
+              title="Genfolio GitHub"
               tooltipProps={{ placement: 'right' }}
             />
           </>

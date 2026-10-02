@@ -114,7 +114,7 @@ export const LobeDragUpload = memo<LobeDragUploadProps>(({
             width: '100%',
             height: '100%',
             padding: '24px 16px',
-            border: '2px dashed var(--primary-color, #95f3d9)',
+            border: '2px dashed var(--primary-color, #FAFAFA)',
             borderRadius: 16,
             background: 'rgba(255, 255, 255, 0.02)',
           }}
@@ -142,7 +142,7 @@ export const LobeDragUpload = memo<LobeDragUploadProps>(({
               height={BLOCK_SIZE * 1.25}
               width={BLOCK_SIZE}
               style={{
-                background: 'var(--primary-color, #95f3d9)',
+                background: 'var(--primary-color, #FAFAFA)',
                 color: '#000',
                 borderRadius: 14,
                 transform: 'translateY(-14px)',
