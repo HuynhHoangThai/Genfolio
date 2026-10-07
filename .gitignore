@@ -33,6 +33,7 @@ yarn-error.log*
 # env files — never committed, not even the placeholder template. Required
 # vars are documented in README.md instead.
 .env*
+!.env.example
 # vercel
 .vercel
 

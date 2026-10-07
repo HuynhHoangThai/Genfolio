@@ -108,11 +108,64 @@ const resumeSchema = {
   required: ["name", "skills", "codingProfiles", "experience", "education", "achievements", "projects"],
 };
 
+async function extractWithOpenRouter(text) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  const baseUrl = (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/+$/, "");
+  const model = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+
+  const response = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "http://localhost:3000",
+      "X-Title": "Dev Portfolio Builder",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        {
+          role: "system",
+          content: `Extract structured portfolio data from the provided resume text. Respond with ONLY valid JSON matching this schema:
+{
+  "name": "string",
+  "role": "string",
+  "bio": "2-3 sentence summary",
+  "website": "string",
+  "skills": ["string"],
+  "codingProfiles": [{"platform": "string", "url": "string"}],
+  "experience": [{"company": "string", "role": "string", "start": "string", "end": "string", "bullets": ["string"]}],
+  "education": [{"school": "string", "degree": "string", "start": "string", "end": "string"}],
+  "achievements": ["string"],
+  "projects": [{"name": "string", "description": "string", "tags": ["string"], "link": "string", "highlights": ["string"]}]
+}
+Only extract factual information present in the resume. Return clean JSON.`,
+        },
+        {
+          role: "user",
+          content: text,
+        },
+      ],
+      response_format: { type: "json_object" },
+    }),
+  });
+
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`OpenRouter error (${response.status}): ${errText}`);
+  }
+
+  const result = await response.json();
+  const content = result.choices?.[0]?.message?.content || "{}";
+  return JSON.parse(content);
+}
+
 export async function POST(request) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  if (!geminiKey && !openRouterKey) {
     return Response.json(
-      { error: "Resume import isn't set up yet: the server is missing a GEMINI_API_KEY." },
+      { error: "Resume import isn't set up yet: the server is missing GEMINI_API_KEY or OPENROUTER_API_KEY." },
       { status: 500 }
     );
   }
@@ -178,19 +231,32 @@ export async function POST(request) {
   const contact = extractContactInfo(text);
 
   let extracted;
-  try {
-    const ai = new GoogleGenAI({ apiKey });
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: `Extract structured portfolio data from this resume text. Only use information actually present in the text. Never invent companies, dates, numbers, or achievements. Leave a field as an empty string or empty array if the resume doesn't contain it.\n\n---\n${text}\n---`,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: resumeSchema,
-      },
-    });
-    extracted = JSON.parse(response.text);
-  } catch (err) {
-    console.error("gemini extraction failed:", err.message || err);
+  if (geminiKey) {
+    try {
+      const ai = new GoogleGenAI({ apiKey: geminiKey });
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `Extract structured portfolio data from this resume text. Only use information actually present in the text. Never invent companies, dates, numbers, or achievements. Leave a field as an empty string or empty array if the resume doesn't contain it.\n\n---\n${text}\n---`,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: resumeSchema,
+        },
+      });
+      extracted = JSON.parse(response.text);
+    } catch (err) {
+      console.warn("gemini extraction failed, falling back to openrouter if available:", err.message || err);
+    }
+  }
+
+  if (!extracted && openRouterKey) {
+    try {
+      extracted = await extractWithOpenRouter(text);
+    } catch (err) {
+      console.error("openrouter extraction failed:", err.message || err);
+    }
+  }
+
+  if (!extracted) {
     return Response.json(
       { error: "The resume parser is temporarily unavailable. Please try again in a moment." },
       { status: 502 }
