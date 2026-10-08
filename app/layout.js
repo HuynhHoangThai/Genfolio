@@ -1,5 +1,7 @@
 import { Bricolage_Grotesque, Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/auth/AuthContext";
+import GoogleAuthGate from "@/components/auth/GoogleAuthGate";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,7 +68,11 @@ export default function RootLayout({ children }) {
       lang="vi"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${bricolage.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <AuthProvider>
+          <GoogleAuthGate>{children}</GoogleAuthGate>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

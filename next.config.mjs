@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID:
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+      process.env.VITE_GOOGLE_CLIENT_ID ||
+      "392966697563-3p2v2oejp2lcc02sc683l8g9vate7as8.apps.googleusercontent.com",
+    VITE_GOOGLE_CLIENT_ID:
+      process.env.VITE_GOOGLE_CLIENT_ID ||
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+      "392966697563-3p2v2oejp2lcc02sc683l8g9vate7as8.apps.googleusercontent.com",
+  },
   // pdfjs loads its worker by dynamically importing a sibling file. Bundling
   // moves that file without updating the import, so load it unbundled.
   serverExternalPackages: ["pdf-parse", "pdfjs-dist"],

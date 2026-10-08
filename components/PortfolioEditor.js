@@ -10,6 +10,7 @@ import { HANDOFF_TEMPLATE_IDS as HANDOFF_TEMPLATES } from "@/lib/handoffTemplate
 import { templateComponents } from "@/components/templates";
 import { loadStoredPortfolioData, saveStoredPortfolioData } from "@/lib/portfolioStorage";
 import { getPalettesForTemplate } from "@/lib/palettes";
+import UserProfileNav from "@/components/auth/UserProfileNav";
 
 const MIN_PANE_PERCENT = 25;
 const MAX_PANE_PERCENT = 75;
@@ -441,6 +442,7 @@ export default function PortfolioEditor({ template }) {
           >
             {deployStatus === "saving" ? "Đang chuẩn bị xuất bản…" : "Xuất bản portfolio"}
           </button>
+          <UserProfileNav />
         </div>
       </header>
 

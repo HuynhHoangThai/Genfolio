@@ -10,6 +10,7 @@ import GearsMount from "@/components/motion/GearsMount";
 import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 import { ArrowRight, GitHubMark, VercelMark } from "@/components/home/marks";
+import UserProfileNav from "@/components/auth/UserProfileNav";
 
 // Real routes only: each of these resolves to /editor/<id>.
 const FOOTER_TEMPLATES = templates.slice(0, 5);
@@ -163,6 +164,7 @@ function SiteHeader() {
           >
             Bắt đầu tạo
           </a>
+          <UserProfileNav />
         </nav>
       </div>
     </header>
