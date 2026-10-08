@@ -22,31 +22,31 @@ import { ArrowRight, BriefMark } from "./marks";
 // picks. Both are quoted verbatim from what the work actually costs and where
 // it actually lands, and they are kept together because they are the pair most
 // likely to change.
-const COMMISSION_EMAIL = "shru.jain2604@gmail.com";
-const COMMISSION_NAME = "Shruti";
-const STARTING_PRICE = "Rs. 4,999";
+const COMMISSION_EMAIL = "contact@genfolio.dev";
+const COMMISSION_NAME = "Đội ngũ Genfolio Studio";
+const STARTING_PRICE = "Từ 490.000 đ";
 
 // Single choice: what the thing even is.
 const BUILD_KINDS = [
-  { id: "beyond", label: "Một portfolio khác biệt hoàn toàn với các mẫu sẵn có" },
-  { id: "idea", label: "Website cá nhân xoay quanh một ý tưởng độc đáo" },
-  { id: "rebuild", label: "Làm mới lại trang web cá nhân hiện có của tôi" },
-  { id: "other", label: "Một ý tưởng hoàn toàn khác" },
+  { id: "beyond", label: "Một portfolio độc bản khác biệt hoàn toàn với các mẫu sẵn có" },
+  { id: "idea", label: "Website cá nhân xoay quanh một sản phẩm / dự án nổi bật" },
+  { id: "rebuild", label: "Làm mới và nâng cấp toàn diện trang portfolio hiện có của tôi" },
+  { id: "other", label: "Ý tưởng hoặc cấu trúc giao diện theo yêu cầu riêng" },
 ];
 
 // Multiple choice: the direction.
 const DIRECTIONS = [
-  { id: "three-d", label: "3D hoặc WebGL" },
-  { id: "scroll", label: "Chuyển động theo cuộn chuột (Scroll-driven)" },
-  { id: "pastiche", label: "Mô phỏng giao diện: IDE, Terminal, OS" },
-  { id: "editorial", label: "Phong cách báo chí & in ấn (Editorial)" },
-  { id: "playful", label: "Phong cách game / tương tác thú vị" },
-  { id: "data", label: "Trực quan hóa từ dữ liệu thật" },
+  { id: "pastiche", label: "Mô phỏng phần cứng / Terminal / IDE code" },
+  { id: "editorial", label: "Phong cách tạp chí tối giản & Báo cáo KPIs" },
+  { id: "three-d", label: "Đồ họa 3D tương tác hoặc WebGL" },
+  { id: "scroll", label: "Hiệu ứng chuyển động theo cuộn trang (Scroll Motion)" },
+  { id: "playful", label: "Phong cách Game Retro / Thẻ bài Hologram" },
+  { id: "data", label: "Trực quan hóa biểu đồ và dữ liệu phân tích chuyên sâu" },
 ];
 
 const NOTE_LIMIT = 240;
 
-const SUBJECT = "Yêu cầu thiết kế portfolio riêng";
+const SUBJECT = "Yêu cầu thiết kế portfolio riêng // Genfolio Custom Lab";
 
 // The three questions are headings, not captions.
 function GroupHead({ step, htmlFor, children }) {
@@ -111,12 +111,12 @@ export default function CommissionDesk() {
   const body = [
     `Chào ${COMMISSION_NAME},`,
     "",
-    "Tôi biết đến bạn qua Genfolio và muốn đặt thiết kế một portfolio riêng.",
+    "Tôi biết đến nền tảng qua Genfolio và muốn đặt thiết kế một giao diện hồ sơ năng lực (portfolio) độc bản.",
     "",
     ...(started
       ? filled.flatMap((row) => [row.label + ":", ...row.items.map((item) => `  ${item.text}`), ""])
       : ["Dưới đây là ý tưởng ban đầu của tôi:", "", "", ""]),
-    `Tôi được biết chi phí thiết kế khởi điểm từ ${STARTING_PRICE} (đã bao gồm toàn bộ quy trình bàn giao mã nguồn), và rất mong có thể trao đổi chi tiết hơn về phạm vi dự án.`,
+    `Tôi được biết chi phí thiết kế khởi điểm từ ${STARTING_PRICE} (đã bao gồm toàn bộ mã nguồn Next.js độc lập bàn giao vào GitHub cá nhân), và rất mong được trao đổi chi tiết hơn về dự án.`,
     "",
     "Trân trọng,",
     "",

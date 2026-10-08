@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { templates } from "@/lib/portfolioData";
-import TemplatePreviewCard from "@/components/TemplatePreviewCard";
+import TemplateWall from "@/components/home/TemplateWall";
+import InstantGenerator from "@/components/home/InstantGenerator";
 import HeroDeck from "@/components/home/HeroDeck";
 import CommissionDesk from "@/components/home/CommissionDesk";
 import OrbitMount from "@/components/motion/OrbitMount";
@@ -15,44 +16,50 @@ import UserProfileNav from "@/components/auth/UserProfileNav";
 // Real routes only: each of these resolves to /editor/<id>.
 const FOOTER_TEMPLATES = templates.slice(0, 5);
 
-
-// Each beat renders as the actual artifact it produces: a repo, a
-// deployment, and the list of things that keep costing you nothing. Plain
-// paragraphs made the product's whole selling point read as filler.
+// 3 Trụ cột giá trị cốt lõi (Core Value Pillars) theo đúng PRD Gen-Folio:
+// 1. Trích xuất thông minh bằng Gemini AI từ CV thật hoặc Mock 1 chạm
+// 2. Bố cục đặc thù theo ngành nghề (Tech / Creative / Business)
+// 3. Tùy biến thời gian thực qua Floating Widget & Bàn giao mã nguồn độc lập 0đ
 const HANDOFF = [
   {
-    title: "Bạn sở hữu mã nguồn",
-    body: "Khi xuất bản, hệ thống sẽ clone trực tiếp một ứng dụng Next.js độc lập vào tài khoản GitHub của bạn.",
+    title: "Trích xuất thông minh bằng Gemini AI",
+    body: "Hệ thống tự động đọc CV định dạng PDF / DOCX (hoặc nạp dữ liệu mẫu 1 chạm), bóc tách kỹ năng, kinh nghiệm và dự án vào cấu trúc chuẩn chỉ trong 3 giây.",
     kind: "repo",
-    mark: GitHubMark,
-    head: "you/portfolio",
-    chip: "Công khai",
-    rows: ["app/page.js", "components/PortfolioTemplate.js", "lib/portfolioData.js", "package.json"],
-  },
-  {
-    title: "Bạn làm chủ hạ tầng hosting",
-    body: "Website chạy trực tiếp trên dự án Vercel cá nhân của bạn, dễ dàng trỏ về bất kỳ tên miền riêng nào.",
-    kind: "deploy",
-    mark: VercelMark,
-    head: "you.vercel.app",
-    chip: "Sẵn sàng",
+    mark: null,
+    head: "gemini-3.8-flash / parser",
+    chip: "Tự động 100%",
     rows: [
-      ["Môi trường", "Production"],
-      ["Nguồn", "GitHub repo của bạn"],
-      ["Tên miền", "Tùy bạn trỏ"],
+      "Đọc trực tiếp file PDF & DOCX",
+      "Bóc tách kỹ năng, kinh nghiệm, dự án",
+      "Khởi tạo tức thì với Mock Data",
+      "Thời gian xử lý đếm ngược ≤ 3 giây",
     ],
   },
   {
-    title: "Không phí duy trì định kỳ",
-    body: "Thanh toán một lần duy nhất. Không phí gia hạn hàng tháng và không ai có thể can thiệp tắt trang web của bạn.",
-    kind: "ledger",
+    title: "Bố cục thiết kế đặc thù theo ngành nghề",
+    body: "Không áp đặt một khuôn mẫu đơn điệu: Khối Kỹ thuật có Terminal & Git log, Khối Sáng tạo có Thư viện ảnh Hologram, Khối Kinh doanh có Chỉ số KPIs và lộ trình thăng tiến.",
+    kind: "deploy",
     mark: null,
-    head: "Chi phí phát sinh",
-    chip: "Không có",
+    head: "layout-engine / 3-personas",
+    chip: "Chuẩn hóa ngành",
     rows: [
-      ["Hình thức", "Một lần duy nhất"],
-      ["Gói đăng ký", "Không có"],
-      ["Phí duy trì từ chúng tôi", "0 đ"],
+      ["Khối Kỹ Thuật", "Darkmode · Monospace · Terminal CLI · Git Log"],
+      ["Khối Sáng Tạo", "Glassmorphism · Holographic · Visual Gallery"],
+      ["Khối Kinh Doanh", "Corporate · Editorial Minimal · Báo cáo KPIs"],
+    ],
+  },
+  {
+    title: "Tùy biến tức thì & Sở hữu mã nguồn 0đ",
+    body: "Widget nổi đổi màu < 100ms, toggle Mobile/Desktop tức thì. Khi xuất bản, toàn bộ mã nguồn Next.js được clone vào GitHub và chạy trên Vercel của bạn với 0đ phí duy trì.",
+    kind: "ledger",
+    mark: GitHubMark,
+    head: "you/portfolio (github + vercel)",
+    chip: "Sở hữu vĩnh viễn",
+    rows: [
+      ["Widget nổi đổi màu", "Dưới 100ms (Thời gian thực)"],
+      ["Kiểm thử giao diện", "Toggle Mobile / Desktop trực quan"],
+      ["Mã nguồn bàn giao", "Ứng dụng Next.js độc lập trên GitHub"],
+      ["Phí duy trì định kỳ", "0 đ (Trọn đời không bị tắt)"],
     ],
   },
 ];
@@ -181,13 +188,13 @@ function SiteHeader() {
             </span>
           </div>
           <div className="hidden sm:flex items-center gap-4 text-[#3d4f97]">
+            <span className="hover:text-[#21242e]">TRÍCH XUẤT CV 1 CHẠM</span>
+            <span>·</span>
+            <span className="hover:text-[#21242e]">3 KHỐI NGÀNH CHUẨN HÓA</span>
+            <span>·</span>
             <span className="hover:text-[#21242e]">SỞ HỮU TOÀN BỘ MÃ NGUỒN</span>
             <span>·</span>
-            <span className="hover:text-[#21242e]">VERCEL HOSTING</span>
-            <span>·</span>
-            <span className="hover:text-[#21242e]">0 Đ PHÍ DUY TRÌ</span>
-            <span>·</span>
-            <span className="font-bold text-[#e60012]">ESRB CERTIFIED</span>
+            <span className="font-bold text-[#e60012]">0 Đ PHÍ DUY TRÌ</span>
           </div>
         </div>
       </div>
@@ -200,7 +207,7 @@ function Hero() {
     <section className="mx-auto w-full max-w-[86rem] px-4 pt-6 pb-8 sm:px-6 lg:px-10 lg:pt-8 lg:pb-12">
       {/* Hero Outer Console Chrome Chassis */}
       <div className="n2001-hero-plate p-5 sm:p-8 lg:p-10">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.18fr)_minmax(0,0.98fr)] lg:gap-12">
           <div>
             {/* Mascot Speech Bubble */}
             <div className="mb-6 flex items-center gap-3">
@@ -208,56 +215,44 @@ function Hero() {
                 <span className="text-[15px]">🎮</span>
               </div>
               <div className="n2001-mascot-bubble">
-                WELCOME TO GENFOLIO! CHỌN GAME CARTRIDGE ĐỂ KHỞI TẠO PORTFOLIO.
+                GEN-FOLIO 3.0: TỰ ĐỘNG BIÊN DỊCH CV THÀNH LANDING PAGE DƯỚI 30 GIÂY!
               </div>
             </div>
 
             <div className="inline-flex items-center gap-2 rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
               <span>HỆ THỐNG:</span>
-              <span className="text-[#e60012]">128-BIT NEXT.JS COMPILER</span>
+              <span className="text-[#e60012]">128-BIT NEXT.JS COMPILER // GEMINI AI ENGINE</span>
             </div>
 
             <h1 className="home-display home-display-xl mt-5">
               BIÊN DỊCH CV,
               <br />
-              <span className="home-em">THÀNH PORTFOLIO.</span>
+              <span className="home-em">THÀNH LANDING PAGE 1 CHẠM.</span>
             </h1>
 
-            <p className="mt-6 max-w-[48ch] text-[15px] font-bold leading-[1.6] text-[#21242e]">
-              Portfolio lập trình viên chuẩn giao diện phần cứng Nintendo 2001. Độc bản, dứt khoát và không rập khuôn.
+            <p className="mt-5 max-w-[48ch] text-[15px] font-bold leading-[1.6] text-[#21242e]">
+              Hệ thống tự động chuyển hóa CV thành website Landing Page chuyên nghiệp tràn viền toàn màn hình. Tối đa 2 bước: chọn ngành nghề, tải CV hoặc thử mẫu 1 chạm.
             </p>
-            <p className="mt-3 max-w-[44ch] text-[13px] leading-[1.6] text-[#3d4f97]">
-              Mã nguồn và website nằm trọn trong GitHub & Vercel của bạn, độc lập vĩnh viễn và không bị khoá bởi nền tảng.
+            <p className="mt-2.5 max-w-[44ch] text-[13px] leading-[1.6] text-[#3d4f97]">
+              Gemini AI tự động bóc tách kỹ năng, kinh nghiệm và kiến tạo giao diện chuẩn ngành. Mã nguồn Next.js độc lập thuộc trọn về GitHub của bạn với 0đ phí duy trì.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#templates"
-                className="n2001-btn-signal text-[12px] py-2.5 px-5"
-              >
-                <span>CHỌN MẪU GIAO DIỆN</span>
-                <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/30 text-[10px]">
-                  ▶
-                </span>
-              </a>
-              <a
-                href="#handoff"
-                className="n2001-btn-amber text-[12px] py-2.5 px-4"
-              >
-                QUY TRÌNH BÀN GIAO
-              </a>
-            </div>
+            {/* Trạm khởi tạo 1 chạm (Instant Generator Box) */}
+            <InstantGenerator />
 
             {/* Hardware Telemetry Spec Chips */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-[#3d4f97]/40 pt-4 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-[#3d4f97]/40 pt-4 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
               <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
-                12 TITLES SẴN SÀNG
+                3 KHỐI NGÀNH CHUẨN HÓA
+              </span>
+              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
+                ≤ 3 GIÂY AI PROCESSING
+              </span>
+              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
+                FULL-SCREEN TRÀN VIỀN
               </span>
               <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
                 0 Đ PHÍ DUY TRÌ
-              </span>
-              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
-                FULL GITHUB SYNC
               </span>
             </div>
           </div>
@@ -279,9 +274,9 @@ function Wall() {
         <div className="n2001-section-bar mb-8 rounded-[2px]">
           <span className="flex items-center gap-2">
             <span className="text-[#f68d1f]">≡</span>
-            <span>MẪU GIAO DIỆN (OFFICIAL GAME CARTRIDGES ARCHIVE)</span>
+            <span>MẪU GIAO DIỆN CHUẨN NGÀNH (OFFICIAL GAME CARTRIDGES ARCHIVE)</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">REGION: NTSC-J / ALL REGIONS</span>
+          <span className="font-mono text-[#3d4f97]">REGION: NTSC-J // 3 PERSONAS</span>
         </div>
 
         <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
@@ -293,16 +288,13 @@ function Wall() {
               Một Git log. Một trang nhật báo. Một bộ thẻ bài phản quang.
             </h2>
           </div>
-          <p className="max-w-[34ch] text-[13px] leading-[1.6] text-[#3d4f97] font-medium">
-            Mỗi hình xem trước là bản dựng trực tiếp render dữ liệu thật, không phải ảnh chụp màn hình. Nhấp để tải dữ liệu vào cartridge.
+          <p className="max-w-[36ch] text-[13px] leading-[1.6] text-[#3d4f97] font-medium">
+            12 mẫu giao diện được thiết kế đặc thù cho Khối Kỹ Thuật (Tech), Khối Sáng Tạo (Creative) và Khối Kinh Doanh (Business). Render trực tiếp dữ liệu thật, xem trước tràn viền toàn màn hình.
           </p>
         </div>
 
-        <div className="mt-10 grid auto-rows-fr grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {templates.map((template, index) => (
-            <TemplatePreviewCard key={template.id} template={template} index={index} />
-          ))}
-        </div>
+        {/* Component Wall với bộ lọc theo ngành */}
+        <TemplateWall />
       </div>
     </section>
   );
@@ -316,21 +308,21 @@ function Handoff() {
         <div className="n2001-section-bar mb-8 rounded-[2px]">
           <span className="flex items-center gap-2">
             <span className="text-[#f68d1f]">≡</span>
-            <span>QUY TRÌNH BÀN GIAO (SYSTEM HARDWARE ARCHITECTURE)</span>
+            <span>3 TRỤ CỘT GIÁ TRỊ CỐT LÕI (CORE VALUE PILLARS)</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">DIRECT REPO / VERCEL BUS</span>
+          <span className="font-mono text-[#3d4f97]">DIRECT REPO // GEMINI AI BUS</span>
         </div>
 
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 02</span> // BÀN GIAO TOÀN QUYỀN
+              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 02</span> // KIẾN TRÚC ĐỘT PHÁ
             </p>
             <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-4">
-              Bạn giữ <em className="home-em">toàn bộ</em>.
+              Tốc độ 1 chạm. <em className="home-em">Chuẩn hóa ngành</em>. Làm chủ mã nguồn.
             </h2>
             <p className="mt-5 text-[15px] leading-[1.6] text-[#3d4f97]">
-              Đa số nền tảng khác chỉ cho bạn thuê một trang con trên tên miền của họ. Genfolio bàn giao trọn vẹn mã nguồn độc lập vào tài khoản GitHub của bạn.
+              Gen-Folio giải quyết triệt để 3 bài toán lớn nhất của việc làm portfolio cá nhân: thao tác đầu vào tối giản dưới 30 giây, bố cục đặc thù cho từng vị trí nghề nghiệp, và bàn giao toàn quyền sở hữu mã nguồn.
             </p>
           </div>
 
@@ -416,7 +408,7 @@ function HandoffBeat({ item, index }) {
                 <ul className="space-y-2">
                   {item.rows.map((row) => (
                     <li key={row} className="font-mono truncate text-[11px] text-[#9fbee7]">
-                      📁 {row}
+                      ✓ {row}
                     </li>
                   ))}
                 </ul>
@@ -448,22 +440,22 @@ function Commission() {
             <span className="text-[#f68d1f]">≡</span>
             <span>PHÒNG THIẾT KẾ RIÊNG (CUSTOM HARDWARE LAB)</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">DIRECT DISPATCH</span>
+          <span className="font-mono text-[#3d4f97]">DIRECT DISPATCH // GENFOLIO STUDIO</span>
         </div>
 
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 03</span> // THIẾT KẾ THEO YÊU CẦU
+              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 03</span> // THIẾT KẾ ĐỘC BẢN
             </p>
             <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-4">
-              Chưa ưng ý mẫu nào? Tôi sẽ <em className="home-em">thiết kế riêng</em> cho bạn.
+              Cần phong cách <em className="home-em">thiết kế độc bản</em> cho hồ sơ của bạn?
             </h2>
             <p className="mt-5 text-[15px] leading-[1.6] text-[#21242e]">
-              Tôi là Shruti, kỹ sư xây dựng trang web này cùng toàn bộ các mẫu giao diện. Nếu bạn đã có ý tưởng riêng cho portfolio của mình mà không mẫu nào phía trên đáp ứng được, hãy đặt thiết kế riêng. Ý tưởng của bạn, dữ liệu của bạn, được xây dựng theo tiêu chuẩn chỉn chu nhất và bàn giao tương tự: mã nguồn nằm trọn trong GitHub và chạy trên Vercel của bạn.
+              Đội ngũ kỹ thuật Genfolio Studio sẵn sàng đồng hành cùng bạn để thiết kế các giao diện hồ sơ năng lực cao cấp theo yêu cầu thương hiệu cá nhân, tham gia sự kiện pitching hoặc ứng tuyển các vị trí lãnh đạo. Ý tưởng của bạn, dữ liệu của bạn, được xây dựng theo tiêu chuẩn chỉn chu nhất và bàn giao tương tự: toàn bộ mã nguồn Next.js độc lập nằm trọn trong GitHub và chạy trên Vercel của bạn.
             </p>
             <p className="mt-3 text-[14px] leading-[1.6] text-[#3d4f97]">
-              Trả lời 3 câu hỏi dưới đây, bản tóm tắt yêu cầu sẽ tự động được soạn thảo. Hãy gửi đi khi bạn thấy đã đúng ý mình.
+              Chọn các tiêu chí bên dưới, bản tóm tắt yêu cầu sẽ tự động được soạn thảo. Hãy gửi đi khi bạn thấy đã đúng ý mình.
             </p>
           </div>
 
@@ -488,7 +480,7 @@ function SiteFooter() {
           <div>
             <Wordmark />
             <p className="mt-4 max-w-[32ch] text-[12.5px] leading-[1.65] text-[#9fbee7]">
-              Tải CV lên, điền thông tin và xuất bản portfolio lập trình viên lên tài khoản của chính bạn. Chi phí một lần, không phí duy trì.
+              Tải CV lên hoặc thử mẫu 1 chạm, tự động sinh website Landing Page chuyên nghiệp tràn viền và bàn giao mã nguồn Next.js độc lập vào GitHub cá nhân của bạn.
             </p>
             <div className="mt-5">
               <span className="n2001-esrb-badge">
@@ -520,13 +512,13 @@ function SiteFooter() {
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a href="#handoff" className="home-footer-link">
-                  Quy trình bàn giao
+                  3 Trụ cột cốt lõi
                 </a>
               </li>
               <li>
-                <Link href={`/editor/${FOOTER_TEMPLATES[0].id}`} className="home-footer-link">
-                  Nhập dữ liệu từ CV
-                </Link>
+                <a href="#templates" className="home-footer-link">
+                  Khởi tạo 1 chạm từ CV
+                </a>
               </li>
               <li>
                 <a href="#custom" className="home-footer-link">
