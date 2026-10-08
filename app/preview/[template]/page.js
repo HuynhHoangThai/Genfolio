@@ -14,6 +14,8 @@ import { templateComponents } from "@/components/templates";
 import { loadStoredPortfolioData, saveStoredPortfolioData } from "@/lib/portfolioStorage";
 import { getPalettesForTemplate } from "@/lib/palettes";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ShareModal from "@/components/ShareModal";
+import { useAuth } from "@/components/auth/AuthContext";
 
 function CenteredMessage({ title, body }) {
   return (
@@ -45,6 +47,8 @@ export default function PreviewPage() {
   const template = getTemplate(templateId);
   const Template = templateComponents[templateId];
   const palettes = getPalettesForTemplate(templateId);
+  const { user } = useAuth();
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Set by the editor's Desktop/Mobile preview buttons (PortfolioEditor.js)
   // so this one page can tell which chrome it's embedded in — read via
@@ -102,23 +106,58 @@ export default function PreviewPage() {
   return (
     <>
       <Template data={sanitizePortfolioData(data)} />
-      {palettes && isMobile && (
-        <div className="n2001-carbon-bar fixed bottom-4 right-4 z-50 flex items-center gap-2.5 rounded-[2px] px-3 py-2 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
-          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">MÀU</span>
-          <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} />
-        </div>
-      )}
-      {palettes && !isMobile && (
-        <div className="n2001-carbon-bar fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-[2px] px-2.5 py-4 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
-          <span
-            className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]"
-            style={{ writingMode: "vertical-rl" }}
+
+      {/* Floating Action Bar */}
+      {isMobile ? (
+        <div className="n2001-carbon-bar fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-[2px] px-2.5 py-1.5 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+          {palettes && (
+            <div className="flex items-center gap-1.5 border-r border-white/20 pr-2">
+              <span className="text-[9px] font-bold uppercase text-[#ecab37]">MÀU</span>
+              <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} />
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => setIsShareModalOpen(true)}
+            className="n2001-btn-signal px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px]"
           >
-            MÀU
-          </span>
-          <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} vertical />
+            CHIA SẺ 🔗
+          </button>
+        </div>
+      ) : (
+        <div className="n2001-carbon-bar fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-[2px] px-2 py-3 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+          <button
+            type="button"
+            onClick={() => setIsShareModalOpen(true)}
+            className="n2001-btn-signal px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] writing-vertical"
+            title="Tạo liên kết chia sẻ công khai"
+          >
+            CHIA SẺ 🔗
+          </button>
+          {palettes && (
+            <>
+              <span className="h-px w-full bg-white/20" />
+              <span
+                className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]"
+                style={{ writingMode: "vertical-rl" }}
+              >
+                MÀU
+              </span>
+              <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} vertical />
+            </>
+          )}
         </div>
       )}
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        templateId={template.id}
+        data={data}
+        user={user}
+      />
     </>
   );
 }
+

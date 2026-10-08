@@ -12,7 +12,7 @@ export function proxy(request) {
   // Protected APIs
   const isProtectedApi =
     pathname.startsWith('/api/parse-resume') ||
-    pathname.startsWith('/api/portfolios') ||
+    (pathname.startsWith('/api/portfolios') && !(pathname === '/api/portfolios/share' && request.method === 'GET')) ||
     pathname.startsWith('/api/github');
 
   // Protected user-facing pages (creating / editing template, deploying)

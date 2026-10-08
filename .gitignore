@@ -47,3 +47,7 @@ next-env.d.ts
 # unregistered template, kept locally as a paused work-in-progress —
 # see components/templates/index.js and lib/portfolioData.js
 components/templates/NetflixTemplate.js
+
+# local database files
+/data/
+

@@ -12,6 +12,8 @@ import { loadStoredPortfolioData, saveStoredPortfolioData } from "@/lib/portfoli
 import { getPalettesForTemplate } from "@/lib/palettes";
 import UserProfileNav from "@/components/auth/UserProfileNav";
 import { useAuth } from "@/components/auth/AuthContext";
+import ShareModal from "@/components/ShareModal";
+import SavedPortfoliosModal from "@/components/SavedPortfoliosModal";
 
 const MIN_PANE_PERCENT = 25;
 const MAX_PANE_PERCENT = 75;
@@ -102,13 +104,20 @@ function ThemeSwatchBar({ palettes, selectedId, onChange }) {
 
 export default function PortfolioEditor({ template }) {
   const router = useRouter();
-  const { isAuth, loading: authLoading } = useAuth();
+  const { user, isAuth, loading: authLoading } = useAuth();
 
   useEffect(() => {
     if (!authLoading && !isAuth) {
       router.replace(`/?auth=required&next=/editor/${template?.id || "newspaper"}`);
     }
   }, [authLoading, isAuth, router, template?.id]);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isSavedModalOpen, setIsSavedModalOpen] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("idle"); // idle | saving | saved | error
+  const [currentPortfolioId, setCurrentPortfolioId] = useState(null);
+  const [saveToast, setSaveToast] = useState("");
+  const [shareTarget, setShareTarget] = useState(null);
 
   const [data, setData] = useState(defaultPortfolioData);
   const [restored, setRestored] = useState(false);
@@ -231,6 +240,60 @@ export default function PortfolioEditor({ template }) {
   function handleDeploy() {
     if (ownsItsData) return runHandoff(data);
     return saveDraftAndDeploy();
+  }
+
+  async function handleSavePortfolio() {
+    setSaveStatus("saving");
+    setSaveToast("");
+    try {
+      const res = await fetch("/api/portfolios/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: currentPortfolioId,
+          template: template.id,
+          data: sanitizePortfolioData(data),
+          user: user || null,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Không thể lưu portfolio.");
+      if (json.portfolio?.id) {
+        setCurrentPortfolioId(json.portfolio.id);
+      }
+      setSaveStatus("saved");
+      setSaveToast("✓ Đã lưu portfolio vào cơ sở dữ liệu!");
+      setTimeout(() => {
+        setSaveStatus("idle");
+        setSaveToast("");
+      }, 3000);
+    } catch (err) {
+      setSaveStatus("error");
+      setSaveToast("Lỗi lưu: " + err.message);
+      setTimeout(() => setSaveStatus("idle"), 4000);
+    }
+  }
+
+  function handleOpenShare(targetItem = null) {
+    if (targetItem) {
+      setShareTarget(targetItem);
+    } else {
+      setShareTarget({
+        portfolioId: currentPortfolioId,
+        templateId: template.id,
+        data: data,
+      });
+    }
+    setIsShareModalOpen(true);
+  }
+
+  function handleSelectSavedPortfolio(savedItem) {
+    if (savedItem.data) {
+      setData(savedItem.data);
+      setCurrentPortfolioId(savedItem.id);
+      setSaveToast(`Đã mở: ${savedItem.title || savedItem.template}`);
+      setTimeout(() => setSaveToast(""), 3000);
+    }
   }
 
   // Restore any autosaved draft after mount.
@@ -429,6 +492,40 @@ export default function PortfolioEditor({ template }) {
           <span className="hidden sm:inline-flex rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
             AUTO-SAVE ACTIVE
           </span>
+
+          <button
+            type="button"
+            onClick={handleSavePortfolio}
+            disabled={saveStatus === "saving"}
+            className={`flex items-center gap-1.5 rounded-[2px] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] transition cursor-pointer shadow-sm ${
+              saveStatus === "saved"
+                ? "bg-[#21242e] text-[#ecab37] border border-[#ecab37]"
+                : "n2001-btn-amber"
+            }`}
+            title="Lưu bản thiết kế này vào cơ sở dữ liệu"
+          >
+            <span>{saveStatus === "saving" ? "ĐANG LƯU…" : saveStatus === "saved" ? "✓ ĐÃ LƯU" : "💾 LƯU DỰ ÁN"}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleOpenShare()}
+            className="n2001-btn-base flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-sm transition cursor-pointer"
+            title="Tạo liên kết xem trực tiếp và chia sẻ"
+          >
+            <span>🔗 CHIA SẺ</span>
+          </button>
+
+          {user && (
+            <button
+              type="button"
+              onClick={() => setIsSavedModalOpen(true)}
+              className="flex items-center gap-1 rounded-[2px] border border-[#3d4f97] bg-[#dedede] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer shadow-sm"
+              title="Xem danh sách các portfolio đã lưu của bạn"
+            >
+              <span>📂 ĐÃ LƯU</span>
+            </button>
+          )}
 
           <button
             type="button"
@@ -801,6 +898,37 @@ export default function PortfolioEditor({ template }) {
         </div>
       )}
 
+      {/* Toast Notification */}
+      {saveToast && (
+        <div className="fixed bottom-6 left-6 z-50 rounded-[3px] border-2 border-[#3d4f97] bg-[#21242e] px-4 py-2 text-xs font-bold text-[#ecab37] shadow-2xl animate-bounce">
+          {saveToast}
+        </div>
+      )}
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        templateId={shareTarget?.templateId || template.id}
+        data={shareTarget?.data || data}
+        user={user}
+        portfolioId={shareTarget?.portfolioId || currentPortfolioId}
+      />
+
+      {/* Saved Portfolios Modal */}
+      <SavedPortfoliosModal
+        isOpen={isSavedModalOpen}
+        onClose={() => setIsSavedModalOpen(false)}
+        user={user}
+        onSelectPortfolio={handleSelectSavedPortfolio}
+        onSharePortfolio={(item) => {
+          handleOpenShare({
+            portfolioId: item.id,
+            templateId: item.template,
+            data: item.data,
+          });
+        }}
+      />
     </div>
   );
 }
