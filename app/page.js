@@ -187,23 +187,8 @@ function Hero() {
           <p className="mt-8 max-w-[46ch] text-[16px] leading-[1.6] text-[var(--home-dim)]">
             Portfolio lập trình viên với phong cách độc bản, không rập khuôn.
           </p>
-
-          {/* The differentiator, shown rather than claimed. */}
-          <div className="home-hero-slab home-inset mt-8 max-w-[36rem]">
-            <span className="home-hero-slab-item">
-              <GitHubMark className="home-hero-mark" width={18} height={18} aria-hidden="true" />
-              github.com/you/portfolio
-            </span>
-            <span className="home-hero-slab-rule" aria-hidden="true" />
-            <span className="home-hero-slab-item">
-              <VercelMark className="home-hero-mark" width={18} height={18} aria-hidden="true" />
-              you.vercel.app
-            </span>
-            <span className="home-hero-slab-tag">Của bạn</span>
-          </div>
-
-          <p className="mt-5 max-w-[38ch] text-[15px] leading-[1.6] text-[var(--home-dim)]">
-            Cả hai đều nằm trong tài khoản cá nhân của bạn, website của bạn sẽ luôn hoạt động độc lập mà không bị ràng buộc bởi ứng dụng này.
+          <p className="mt-4 max-w-[38ch] text-[15px] leading-[1.6] text-[var(--home-dim)]">
+            Mã nguồn và website đều nằm trong tài khoản cá nhân của bạn, hoạt động hoàn toàn độc lập mà không bị ràng buộc bởi ứng dụng này.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
