@@ -52,8 +52,8 @@ const SUBJECT = "Yêu cầu thiết kế portfolio riêng";
 function GroupHead({ step, htmlFor, children }) {
   const inner = (
     <>
-      <span className="home-nums shrink-0 text-[13px] text-[var(--home-accent)]">{step}</span>
-      <span className="home-grotesque text-[21px] leading-[1.12] sm:text-[25px]">{children}</span>
+      <span className="font-mono shrink-0 text-[12px] font-bold text-[#f68d1f]">{step}</span>
+      <span className="text-[17px] sm:text-[20px] font-bold uppercase tracking-[0.2px] text-[#21242e]">{children}</span>
     </>
   );
 
@@ -147,11 +147,11 @@ export default function CommissionDesk() {
   };
 
   return (
-    <div className="home-commission grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:gap-16">
-      <div className="home-reveal">
+    <div className="home-commission grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-14">
+      <div className="home-reveal n2001-hardware-card p-6 sm:p-8">
         <fieldset className="border-0 p-0">
           <GroupHead step="01">Bạn muốn xây dựng gì?</GroupHead>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-2.5">
             {BUILD_KINDS.map((item) => (
               <label key={item.id} className="home-chip">
                 <input
@@ -169,9 +169,9 @@ export default function CommissionDesk() {
           </div>
         </fieldset>
 
-        <fieldset className="mt-14 border-0 p-0">
+        <fieldset className="mt-10 border-0 p-0 border-t border-[#3d4f97]/30 pt-8">
           <GroupHead step="02">Định hướng phong cách (chọn bất kỳ)</GroupHead>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-2.5">
             {DIRECTIONS.map((item) => (
               <label key={item.id} className="home-chip">
                 <input
@@ -188,7 +188,7 @@ export default function CommissionDesk() {
           </div>
         </fieldset>
 
-        <div className="mt-14">
+        <div className="mt-10 border-t border-[#3d4f97]/30 pt-8">
           <GroupHead step="03" htmlFor="commission-note">
             Tóm tắt ngắn gọn ý tưởng trong đầu bạn
           </GroupHead>
@@ -199,98 +199,94 @@ export default function CommissionDesk() {
             maxLength={NOTE_LIMIT}
             rows={3}
             placeholder="Ví dụ: Một trang web mở ra như một tập hồ sơ mật, hiển thị từng tài liệu một..."
-            className="home-field mt-6 w-full resize-none rounded-[var(--home-radius)] px-5 py-4 text-[16px] leading-[1.6]"
+            className="home-field mt-4 w-full resize-none px-4 py-3 text-[14px] leading-[1.6]"
           />
-          <p className="home-nums mt-2 text-right text-[11px] text-[var(--home-faint)]">
+          <p className="font-mono mt-1 text-right text-[11px] text-[#3d4f97]">
             {note.length}/{NOTE_LIMIT}
           </p>
         </div>
       </div>
 
-      <div className="home-brief-stage lg:-mt-24 lg:sticky lg:top-24 lg:self-start">
-        <div className="home-brief-plate home-inset overflow-hidden rounded-xl">
-          <div className="flex items-center gap-3 border-b border-white/15 px-7 py-5">
-            <BriefMark className="h-5 w-5 shrink-0 text-[var(--home-strong)]" aria-hidden="true" />
-            <span className="home-nums truncate text-[15px] text-[var(--home-strong)]">
-              Bản tóm tắt yêu cầu
+      <div className="home-brief-stage lg:-mt-20 lg:sticky lg:top-24 lg:self-start">
+        <div className="home-brief-plate n2001-hardware-card-dark overflow-hidden rounded-[4px]">
+          <div className="flex items-center gap-3 border-b border-white/20 bg-[#21242e] px-6 py-4">
+            <BriefMark className="h-5 w-5 shrink-0 text-[#ecab37]" aria-hidden="true" />
+            <span className="font-mono truncate text-[13px] font-bold text-white tracking-[0.5px]">
+              BẢN TÓM TẮT YÊU CẦU
             </span>
-            <span className="home-label ml-auto shrink-0 rounded-full border border-white/20 px-3 py-1.5">
-              {started ? "Sẵn sàng" : "Bản nháp"}
+            <span className="ml-auto shrink-0 rounded-[2px] border border-[#b87c14] bg-[#ecab37] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+              {started ? "SẴN SÀNG" : "BẢN NHÁP"}
             </span>
           </div>
 
-          <dl className="min-h-[15rem] space-y-7 px-7 py-7" aria-live="polite">
+          <dl className="min-h-[14rem] space-y-6 px-6 py-6 bg-[#21242e]/90" aria-live="polite">
             {!started && (
-              <p className="text-[15px] leading-[1.65] text-[var(--home-faint)]">
+              <p className="text-[14px] leading-[1.65] text-[#9fbee7]">
                 Chọn các mục bên trái và nội dung sẽ tự động xuất hiện tại đây. Đây chính là nội dung email sẽ gửi, đảm bảo không có chi tiết thừa thãi nào ngoài ý muốn của bạn.
               </p>
             )}
 
             {filled.map((row) => (
-              <div key={row.key}>
-                <dt className="home-label">{row.label}</dt>
-                <dd className="mt-2.5 space-y-2">
+              <div key={row.key} className="border-b border-white/5 pb-4">
+                <dt className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">{row.label}</dt>
+                <dd className="mt-2 space-y-1.5">
                   {row.items.map((item) => (
                     <p
                       key={item.key}
-                      className="home-brief-line text-[15px] leading-[1.6] text-[var(--home-text)]"
+                      className="font-mono text-[13px] leading-[1.5] text-[#dedede]"
                     >
-                      {item.text}
+                      • {item.text}
                     </p>
                   ))}
                 </dd>
               </div>
             ))}
-
           </dl>
 
-          <div className="border-t border-white/15 px-7 py-6">
-            <p className="home-label">Khởi điểm từ</p>
-            <p className="home-nums mt-2 text-[30px] italic leading-none text-[var(--home-strong)]">
+          <div className="border-t border-white/15 bg-[#14161d] px-6 py-5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#9fbee7]">Chi phí khởi điểm</p>
+            <p className="font-black text-[26px] leading-tight text-[#f68d1f]">
               {STARTING_PRICE}
             </p>
-            <p className="mt-3 text-[13px] leading-[1.55] text-[var(--home-faint)]">
-              Đã bao gồm bàn giao: mã nguồn trong GitHub và chạy trên Vercel của bạn. Phạm vi cụ thể và chi phí cuối cùng sẽ được thống nhất qua trao đổi trực tiếp.
+            <p className="mt-2 text-[12px] leading-[1.5] text-[#9fbee7]">
+              Bao gồm toàn bộ quy trình bàn giao: mã nguồn trong GitHub và chạy trên Vercel của bạn.
             </p>
           </div>
         </div>
 
-        <div className="mt-8">
-          <p className="home-grotesque text-[19px] leading-none">Gửi yêu cầu qua</p>
+        <div className="mt-6">
+          <p className="text-[13px] font-bold uppercase tracking-[0.5px] text-[#21242e]">Gửi yêu cầu qua</p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div className="mt-3 flex flex-wrap items-center gap-3">
             <a
               href={gmail}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-[var(--home-strong)] px-5 py-3 text-[14px] font-medium text-[var(--home-bg)] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
+              className="n2001-btn-signal text-[11px]"
             >
-              Gmail
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
+              <span>GỬI QUA GMAIL</span>
+              <span className="font-mono">▶</span>
             </a>
 
-            <a href={mailto} className="home-quiet-link">
-              Ứng dụng Email
+            <a href={mailto} className="n2001-btn-amber text-[11px]">
+              ỨNG DỤNG EMAIL
             </a>
 
-            <button type="button" onClick={handleCopy} className="home-quiet-link">
+            <button type="button" onClick={handleCopy} className="home-quiet-link ml-1">
               Sao chép nội dung
             </button>
           </div>
 
           <p
             aria-live="polite"
-            className="mt-4 min-h-[1.2em] text-[12.5px] leading-[1.55] text-[var(--home-faint)]"
+            className="mt-3 min-h-[1.2em] text-[11.5px] leading-[1.5] text-[#3d4f97]"
           >
-            {copy === "done" && "Đã sao chép kèm địa chỉ nhận. Hãy dán vào ứng dụng email của bạn."}
+            {copy === "done" && "✓ Đã sao chép kèm địa chỉ nhận. Hãy dán vào ứng dụng email của bạn."}
             {copy === "failed" && "Trình duyệt chặn sao chép. Bạn có thể sao chép địa chỉ bên dưới."}
           </p>
 
-          <p className="mt-1 max-w-[36ch] text-[12.5px] leading-[1.55] text-[var(--home-faint)]">
-            Dù bạn chọn cách nào, nội dung bản tóm tắt đã được soạn sẵn. Không có dữ liệu nào tự động gửi hay lưu trữ tại trang này. Bạn cũng có thể gửi thư trực tiếp đến{" "}
+          <p className="mt-1 max-w-[36ch] text-[11.5px] leading-[1.5] text-[#3d4f97]">
+            Dù bạn chọn cách nào, nội dung bản tóm tắt đã được soạn sẵn. Bạn cũng có thể gửi thư trực tiếp đến{" "}
             <a href={mailto} className="home-quiet-link">
               {COMMISSION_EMAIL}
             </a>

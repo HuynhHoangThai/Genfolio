@@ -143,96 +143,104 @@ export default function GoogleAuthGate({ children }) {
       {children}
 
       {/* Global Floating Account & Sign Out Pill (Visible when logged in) */}
+      {/* Global Floating Player 1 Console Identity Badge */}
       {isAuth && user && (
         <aside
           aria-label="Tài khoản người dùng"
-          className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 rounded-full border border-black/10 bg-white/95 py-1.5 pl-2 pr-2.5 shadow-md backdrop-blur-xs sm:bottom-6 sm:right-6"
+          className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-[2px] border-t border-l border-white/70 border-r border-[#14161d] border-b-2 border-b-[#14161d] bg-[#21242e] px-2.5 py-1.5 shadow-lg sm:bottom-6 sm:right-6"
         >
+          <span className="font-mono text-[9px] font-black tracking-widest text-[#ecab37]">
+            P1:
+          </span>
+
           {user.picture ? (
             <img
               src={user.picture}
               alt=""
-              className="h-6 w-6 rounded-full object-cover"
+              className="h-5 w-5 rounded-[1px] object-cover"
               referrerPolicy="no-referrer"
             />
           ) : (
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#17140f] text-[10px] font-bold text-white">
+            <span className="flex h-5 w-5 items-center justify-center rounded-[1px] bg-[#3d4f97] text-[10px] font-black text-white">
               {user.name?.charAt(0)?.toUpperCase() || "U"}
             </span>
           )}
 
-          <span className="max-w-[130px] truncate text-[12px] font-medium text-[#17140f] sm:max-w-[170px]">
+          <span className="max-w-[120px] truncate font-mono text-[11px] text-[#9fbee7] sm:max-w-[150px]">
             {user.name}
           </span>
 
           <button
             onClick={logout}
             type="button"
-            className="rounded-full bg-[#17140f] px-3 py-1 text-[11.5px] font-semibold text-white transition hover:bg-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black cursor-pointer"
+            className="rounded-[2px] border-t border-l border-white/60 border-r border-[#a7282b] border-b border-b-[#7a181b] bg-[#e60012] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.5px] text-white shadow-xs transition hover:brightness-110 active:translate-y-px cursor-pointer"
           >
-            Đăng xuất
+            ĐĂNG XUẤT
           </button>
         </aside>
       )}
 
-      {/* Login Modal Overlay (Triggered when creating template unauthenticated or via auth=required) */}
+      {/* Login Modal Overlay (Nintendo 2001 Memory Card Save Authentication) */}
       {shouldShowModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#17140f]/60 p-4 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="relative w-full max-w-[360px] rounded-2xl border border-black/10 bg-[#faf8f5] p-7 text-center shadow-xl">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#21242e]/70 p-4 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative w-full max-w-[380px] rounded-[4px] border-t border-l border-white/80 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#dedede] p-6 text-center shadow-2xl">
+            {/* Top section label bar */}
+            <div className="n2001-section-bar -mx-6 -mt-6 mb-5 rounded-t-[2px]">
+              <span className="flex items-center gap-1.5">
+                <span className="text-[#f68d1f]">≡</span>
+                <span>XÁC THỰC TÀI KHOẢN (PLAYER LOGIN)</span>
+              </span>
+              <span className="font-mono text-[#3d4f97]">SLOT-1</span>
+            </div>
+
             {/* Close button */}
             <button
               type="button"
               onClick={handleDismissModal}
-              className="absolute top-4 right-4 rounded-full p-1 text-[#7d6d60] transition hover:bg-black/5 hover:text-[#17140f] cursor-pointer"
+              className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#21242e] bg-[#dedede] text-[10px] font-black text-[#21242e] hover:bg-[#e60012] hover:text-white transition cursor-pointer"
               title="Đóng"
               aria-label="Đóng"
             >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 6 6 18M6 6l12 12" />
-              </svg>
+              ✕
             </button>
 
             {/* Brand mark */}
-            <div className="mx-auto relative h-11 w-11 overflow-hidden rounded-xl bg-[#17140f]">
-              <Image
-                src="/portfolio-generator-logo.png"
-                alt="Genfolio"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="mx-auto my-2 inline-flex">
+              <span className="n2001-racetrack text-[13px] tracking-tight">
+                GENFOLIO
+              </span>
             </div>
 
-            {/* Heading & Subtitle — direct and purposeful */}
-            <h1 className="mt-4 text-[19px] font-semibold tracking-tight text-[#17140f]">
+            {/* Heading & Subtitle */}
+            <h1 className="mt-3 text-[16px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
               Đăng nhập để tạo Portfolio
             </h1>
-            <p className="mt-1.5 text-[13px] leading-relaxed text-[#7d6d60]">
-              Vui lòng đăng nhập bằng tài khoản Google để bắt đầu tạo và xuất bản website của bạn.
+            <p className="mt-1.5 text-[12px] leading-relaxed text-[#3d4f97]">
+              Vui lòng xác thực tài khoản Google để bắt đầu lưu dữ liệu và xuất bản mã nguồn vào GitHub của bạn.
             </p>
 
             {/* Google Sign-In Button Container */}
-            <div className="mt-6 flex min-h-[44px] items-center justify-center" ref={buttonContainerRef}>
+            <div className="mt-5 flex min-h-[44px] items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white p-2 shadow-inner" ref={buttonContainerRef}>
               {!scriptLoaded && (
-                <span className="text-xs text-[#7d6d60]">Đang tải đăng nhập Google…</span>
+                <span className="text-xs font-mono text-[#3d4f97]">ĐANG TẢI GOOGLE IDENTITY…</span>
               )}
             </div>
 
             {initError && (
-              <p className="mt-3 text-xs text-red-600">{initError}</p>
+              <p className="mt-2.5 text-xs font-bold text-[#e60012]">{initError}</p>
             )}
 
             {/* Developer Fallback for localhost / origin mismatch */}
-            <div className="mt-5 border-t border-black/8 pt-3.5">
+            <div className="mt-5 border-t border-[#3d4f97]/30 pt-3">
               <button
                 type="button"
                 onClick={() => {
                   setUrlAuthRequired(false);
                   loginDevFallback("developer@genfolio.dev", "Lập trình viên Genfolio");
                 }}
-                className="text-[11.5px] text-[#7d6d60] transition hover:text-[#17140f] cursor-pointer underline underline-offset-3"
+                className="n2001-btn-amber text-[10px] w-full"
               >
-                Đăng nhập nhanh (Chế độ phát triển)
+                ⚡ ĐĂNG NHẬP NHANH (CHẾ ĐỘ DEV)
               </button>
             </div>
           </div>

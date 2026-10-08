@@ -69,48 +69,48 @@ function ResumeImport({ onImport }) {
   }
 
   return (
-    <div className="ed-panel p-5">
-      <div className="flex items-center gap-2">
-        <span
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-          style={{ background: "var(--home-accent)", color: "#ffffff" }}
-        >
-          <IconUpload className="h-4 w-4" />
-        </span>
-        <p className="text-[15px] font-semibold" style={{ color: "var(--home-strong)" }}>
-          Nhập dữ liệu từ CV
-        </p>
+    <div className="ed-panel overflow-hidden">
+      <div className="n2001-section-bar">
+        <div className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#21242e] text-[#f68d1f]">
+            <IconUpload className="h-3 w-3" />
+          </span>
+          <span>≡ EXPANSION PAK // NHẬP DỮ LIỆU TỪ CV</span>
+        </div>
+        <span className="rounded-[2px] bg-[#ecab37] px-1.5 py-0.5 text-[9px] font-extrabold text-[#21242e]">AUTO-FILL</span>
       </div>
-      <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--home-dim)" }}>
-        Tải lên tệp PDF hoặc DOCX để hệ thống tự động điền các mục bên dưới. Vui lòng kiểm tra lại thông tin sau khi trích xuất.
-      </p>
-
-      <label
-        className={`ed-primary mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold ${
-          status === "loading" ? "cursor-not-allowed opacity-60" : "cursor-pointer"
-        }`}
-      >
-        <IconUpload className="h-4 w-4" />
-        {status === "loading" ? "Đang đọc CV…" : "Chọn tệp CV"}
-        <input
-          type="file"
-          accept={RESUME_ACCEPT}
-          onChange={handleFileChange}
-          disabled={status === "loading"}
-          className="sr-only"
-        />
-      </label>
-
-      {status === "loading" && fileName && (
-        <p className="mt-2 text-xs" style={{ color: "var(--home-dim)" }}>
-          Đang phân tích {fileName}…
+      <div className="p-4">
+        <p className="text-xs leading-relaxed text-[#3d4f97]">
+          Tải lên tệp PDF hoặc DOCX để hệ thống tự động điền các mục bên dưới. Vui lòng kiểm tra lại thông tin sau khi trích xuất.
         </p>
-      )}
-      {status === "error" && (
-        <p className="mt-2 text-xs font-medium" role="alert" style={{ color: "#a3341a" }}>
-          {errorMessage}
-        </p>
-      )}
+
+        <label
+          className={`n2001-btn-signal mt-3.5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.5px] ${
+            status === "loading" ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+          }`}
+        >
+          <IconUpload className="h-3.5 w-3.5" />
+          {status === "loading" ? "ĐANG ĐỌC CV…" : "CHỌN TỆP CV ▶"}
+          <input
+            type="file"
+            accept={RESUME_ACCEPT}
+            onChange={handleFileChange}
+            disabled={status === "loading"}
+            className="sr-only"
+          />
+        </label>
+
+        {status === "loading" && fileName && (
+          <p className="mt-2 text-xs text-[#3d4f97]">
+            Đang phân tích {fileName}…
+          </p>
+        )}
+        {status === "error" && (
+          <p className="mt-2 text-xs font-bold text-[#e60012]" role="alert">
+            {errorMessage}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
@@ -127,28 +127,22 @@ function IconLayers(props) {
 // Reordering sections
 function SectionOrderCard({ order, onChange }) {
   return (
-    <div className="ed-panel p-5">
-      <div className="flex items-center gap-2">
-        <span
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-          style={{ background: "var(--home-strong)", color: "var(--home-bg)" }}
-        >
-          <IconLayers className="h-4 w-4" />
-        </span>
-        <p className="text-[15px] font-semibold" style={{ color: "var(--home-strong)" }}>
-          Sắp xếp thứ tự các mục
-        </p>
-        <span
-          className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
-          style={{ background: "var(--home-accent)", color: "#ffffff" }}
-        >
-          Mới
+    <div className="ed-panel overflow-hidden">
+      <div className="n2001-section-bar">
+        <div className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#21242e] text-[#ecab37]">
+            <IconLayers className="h-3 w-3" />
+          </span>
+          <span>≡ CONTROLLER PAK // SẮP XẾP THỨ TỰ</span>
+        </div>
+        <span className="rounded-[2px] bg-[#ecab37] px-1.5 py-0.5 text-[9px] font-extrabold text-[#21242e]">
+          MỚI
         </span>
       </div>
-      <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--home-dim)" }}>
-        Kéo thả để sắp xếp thứ tự ưu tiên: hiển thị Dự án lên trước nếu đó là thế mạnh của bạn, hoặc Kinh nghiệm làm việc. Giới thiệu và Liên hệ luôn cố định ở đầu và cuối.
-      </p>
-      <div className="mt-4">
+      <div className="p-4">
+        <p className="mb-3 text-xs leading-relaxed text-[#3d4f97]">
+          Kéo thả để sắp xếp thứ tự ưu tiên: hiển thị Dự án lên trước nếu đó là thế mạnh của bạn, hoặc Kinh nghiệm làm việc. Giới thiệu và Liên hệ luôn cố định ở đầu và cuối.
+        </p>
         <SectionOrderField order={order} onChange={onChange} />
       </div>
     </div>
@@ -157,23 +151,26 @@ function SectionOrderCard({ order, onChange }) {
 
 function FormSection({ title, hint, children }) {
   return (
-    <section className="ed-panel p-5">
-      <h3 className="text-sm font-semibold" style={{ color: "var(--home-strong)" }}>
-        {title}
-      </h3>
-      {hint && (
-        <p className="mt-0.5 text-xs" style={{ color: "var(--home-dim)" }}>
-          {hint}
-        </p>
-      )}
-      <div className="mt-4 space-y-4">{children}</div>
+    <section className="ed-panel overflow-hidden">
+      <div className="n2001-section-bar">
+        <span>≡ {title.toUpperCase()}</span>
+        <span className="font-mono text-[9px] text-[#21242e]/70">SLOT-ACTIVE</span>
+      </div>
+      <div className="p-4">
+        {hint && (
+          <p className="mb-3 text-[11px] font-semibold text-[#3d4f97]">
+            {hint}
+          </p>
+        )}
+        <div className="space-y-3.5">{children}</div>
+      </div>
     </section>
   );
 }
 
 function FieldLabel({ children }) {
   return (
-    <span className="mb-1.5 block text-xs font-medium" style={{ color: "var(--home-dim)" }}>
+    <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.5px] text-[#3d4f97]">
       {children}
     </span>
   );
@@ -183,9 +180,9 @@ function Field({ label, hint, ...props }) {
   return (
     <label className="block">
       <FieldLabel>{label}</FieldLabel>
-      <input {...props} className="ed-field px-3 py-2 text-sm" />
+      <input {...props} className="ed-field px-3 py-1.5 text-xs font-medium" />
       {hint && (
-        <span className="mt-1 block text-xs" style={{ color: "var(--home-faint)" }}>
+        <span className="mt-1 block text-[10px] text-[#60619c]">
           {hint}
         </span>
       )}
@@ -197,7 +194,7 @@ function TextArea({ label, ...props }) {
   return (
     <label className="block">
       <FieldLabel>{label}</FieldLabel>
-      <textarea {...props} rows={3} className="ed-field px-3 py-2 text-sm" />
+      <textarea {...props} rows={3} className="ed-field px-3 py-2 text-xs font-medium" />
     </label>
   );
 }
@@ -247,14 +244,12 @@ function CommaListField({ label, hint, value, onChange }) {
 function RemovableRow({ onRemove, children }) {
   return (
     <div
-      className="relative rounded-xl border p-4"
-      style={{ borderColor: "var(--home-rule)", background: "rgba(20, 54, 93, 0.035)" }}
+      className="relative rounded-[2px] border p-3.5 border-t-[rgba(255,255,255,0.7)] border-l-[rgba(255,255,255,0.5)] border-r-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#f0f2f8] shadow-sm"
     >
       <button
         type="button"
         onClick={onRemove}
-        className="ed-focus absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-sm transition-colors hover:bg-[rgba(216,92,39,0.12)] hover:text-[var(--home-accent)]"
-        style={{ color: "var(--home-faint)" }}
+        className="ed-focus absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-[10px] font-bold border-t border-t-[rgba(255,255,255,0.6)] border-b border-b-[#7a181b] shadow-sm hover:brightness-110 active:translate-y-[1px]"
         aria-label="Xóa"
       >
         ✕
@@ -266,7 +261,11 @@ function RemovableRow({ onRemove, children }) {
 
 function AddButton({ onClick, children }) {
   return (
-    <button type="button" onClick={onClick} className="ed-add ed-focus w-full py-2.5 text-sm font-medium">
+    <button
+      type="button"
+      onClick={onClick}
+      className="n2001-btn-amber ed-focus w-full py-2 text-xs font-bold uppercase tracking-[0.5px]"
+    >
       {children}
     </button>
   );

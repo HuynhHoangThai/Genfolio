@@ -88,12 +88,13 @@ function ExternalIcon(props) {
 function ThemeSwatchBar({ palettes, selectedId, onChange }) {
   return (
     <div
-      className="flex shrink-0 flex-wrap items-center gap-3 border-b px-4 py-2.5"
-      style={{ borderColor: "var(--home-rule)", background: "var(--home-surface)" }}
+      className="n2001-subnav flex shrink-0 flex-wrap items-center justify-between gap-3 px-4 py-2"
     >
-      <span className="text-xs font-medium" style={{ color: "var(--home-dim)" }}>
-        Chủ đề
-      </span>
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+          ≡ CHỦ ĐỀ MÀU (COLOR PALETTE)
+        </span>
+      </div>
       <ThemeSwitcher palettes={palettes} selectedId={selectedId} onChange={onChange} />
     </div>
   );
@@ -385,72 +386,60 @@ export default function PortfolioEditor({ template }) {
     // home-root carries the landing page's palette, so every --home-* token
     // below resolves without the editor keeping a second copy of it.
     <div className="home-root flex h-dvh flex-col">
-      <header className="flex items-center justify-between border-b px-6 py-3" style={{ borderColor: "var(--home-rule)" }}>
+      <header className="n2001-carbon-bar flex flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6">
         <div>
-          <Link href="/" className="home-quiet-link text-xs font-medium">
-            ← Quay lại danh sách mẫu
+          <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600] hover:brightness-125 transition">
+            ← QUAY LẠI MẪU GIAO DIỆN
           </Link>
-          <h1 className="text-sm font-semibold" style={{ color: "var(--home-strong)" }}>
-            Chỉnh sửa: {template.name}
+          <h1 className="text-[14px] font-bold uppercase tracking-[0.5px] text-white">
+            CHỈNH SỬA: <span className="text-[#ecab37]">{template.name}</span>
           </h1>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-y-2 gap-x-3">
-          <div className="flex items-center gap-2.5">
-            <span
-              className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] sm:inline"
-              style={{ color: "var(--home-dim)" }}
-            >
-              Xem trước
+          <div className="flex items-center gap-2">
+            <span className="hidden text-[10px] font-bold uppercase tracking-[0.5px] text-[#9fbee7] sm:inline">
+              XEM TRƯỚC
             </span>
-            <div
-              className="flex items-center rounded-full border"
-              style={{ borderColor: "var(--home-rule)", background: "var(--home-surface)" }}
-            >
+            <div className="flex items-center rounded-[2px] border border-[#3d4f97] bg-[#dedede] p-0.5 shadow-inner">
               <button
                 type="button"
                 onClick={openDesktopPreview}
                 title="Xem toàn bộ giao diện máy tính trong tab mới"
-                className="ed-ghost ed-focus group flex items-center gap-1.5 rounded-l-full py-2 pl-3.5 pr-3 text-xs font-semibold"
+                className="flex items-center gap-1.5 rounded-[1px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
               >
                 <DesktopIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Máy tính
-                <ExternalIcon
-                  className="h-2.5 w-2.5 shrink-0 opacity-60 transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
-                  aria-hidden="true"
-                />
+                MÁY TÍNH
+                <ExternalIcon className="h-2.5 w-2.5 shrink-0 opacity-60" aria-hidden="true" />
               </button>
 
-              <span
-                className="h-4 w-px shrink-0"
-                style={{ background: "var(--home-rule)" }}
-                aria-hidden="true"
-              />
+              <span className="h-3.5 w-px shrink-0 bg-[#3d4f97]" aria-hidden="true" />
 
               <button
                 type="button"
                 onClick={() => setShowMobilePreview(true)}
                 title="Xem trước giao diện trên điện thoại"
-                className="ed-ghost ed-focus flex items-center gap-1.5 rounded-r-full py-2 pl-3 pr-3.5 text-xs font-semibold"
+                className="flex items-center gap-1.5 rounded-[1px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
               >
                 <MobileIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Di động
+                DI ĐỘNG
               </button>
             </div>
           </div>
-          <span
-            className="rounded-full px-3 py-1 text-xs"
-            style={{ background: "rgba(20, 54, 93, 0.07)", color: "var(--home-dim)" }}
-          >
-            Đã tự động lưu trên trình duyệt
+
+          <span className="hidden sm:inline-flex rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+            AUTO-SAVE ACTIVE
           </span>
+
           <button
             type="button"
             onClick={handleDeploy}
             disabled={deployStatus === "saving"}
-            className="ed-primary ed-focus rounded-full px-4 py-1.5 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+            className="n2001-btn-signal text-[11px] py-1.5 px-3.5 disabled:opacity-50"
           >
-            {deployStatus === "saving" ? "Đang chuẩn bị xuất bản…" : "Xuất bản portfolio"}
+            <span>{deployStatus === "saving" ? "ĐANG LƯU…" : "XUẤT BẢN PORTFOLIO"}</span>
+            <span className="font-mono">▶</span>
           </button>
+
           <UserProfileNav />
         </div>
       </header>
@@ -494,311 +483,320 @@ export default function PortfolioEditor({ template }) {
 
       {showMobilePreview && (
         <div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/70 p-6"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/75 p-6 backdrop-blur-[2px]"
           onClick={() => setShowMobilePreview(false)}
         >
           <div
-            className="relative h-[780px] max-h-[85vh] w-[380px] max-w-full rounded-[2.5rem] border-[10px] border-zinc-800 bg-zinc-800 shadow-2xl"
+            className="relative h-[780px] max-h-[85vh] w-[380px] max-w-full rounded-[1.5rem] border-[10px] border-[#21242e] bg-[#21242e] shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="absolute top-0 left-1/2 z-10 h-5 w-32 -translate-x-1/2 rounded-b-2xl bg-zinc-800" />
+            <div className="absolute top-0 left-1/2 z-10 flex h-5 w-40 -translate-x-1/2 items-center justify-center rounded-b-md bg-[#21242e]">
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.5px] text-[#9fbee7]">
+                GAME BOY // MOBILE PREVIEW
+              </span>
+            </div>
             <iframe
               key={template.id}
               src={`/preview/${template.id}?mode=mobile`}
               title="Xem trước di động"
-              className="h-full w-full rounded-[1.75rem] bg-white"
+              className="h-full w-full rounded-[0.75rem] bg-white"
             />
           </div>
           <button
             type="button"
             onClick={() => setShowMobilePreview(false)}
-            className="text-xs font-medium text-white/80 transition-colors hover:text-white"
+            className="n2001-btn-amber px-4 py-1.5 text-xs font-bold uppercase tracking-[0.5px]"
           >
-            Đóng xem trước
+            ĐÓNG XEM TRƯỚC [B]
           </button>
         </div>
       )}
 
       {deployStatus === "saving" && ownsItsData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-[2px]">
           <div
             role="status"
             aria-live="polite"
-            className="ed-panel w-full max-w-sm p-7 text-center shadow-xl"
+            className="n2001-hardware-card w-full max-w-sm overflow-hidden text-center shadow-2xl"
           >
-            <span
-              aria-hidden="true"
-              className="mx-auto block h-8 w-8 animate-spin rounded-full border-2"
-              style={{ borderColor: "var(--home-rule)", borderTopColor: "var(--home-strong)" }}
-            />
-            <h2 className="mt-5 text-base font-semibold" style={{ color: "var(--home-strong)" }}>
-              Đang khởi tạo repository của bạn
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-              Đang tạo repo trong tài khoản GitHub của bạn và commit nội dung vào đó. Quá trình này mất vài giây, vui lòng giữ tab này mở.
-            </p>
+            <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
+              <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+                MEMORY CARD 59 // SAVING
+              </span>
+            </div>
+            <div className="p-6">
+              <span
+                aria-hidden="true"
+                className="mx-auto block h-9 w-9 animate-spin rounded-full border-3 border-[#3d4f97] border-t-[#f68d1f]"
+              />
+              <h2 className="mt-4 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">
+                ĐANG KHỞI TẠO REPOSITORY GITHUB
+              </h2>
+              <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
+                Đang tạo repo trong tài khoản GitHub của bạn và commit nội dung vào đó. Quá trình này mất vài giây, vui lòng giữ tab này mở.
+              </p>
+            </div>
           </div>
         </div>
       )}
 
       {(deployStatus === "ready" || deployStatus === "error") && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-[2px]"
           onClick={() => setDeployStatus("idle")}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="deploy-dialog-title"
-            className="ed-panel relative w-full max-w-md p-7 shadow-xl"
+            className="n2001-hardware-card relative w-full max-w-md overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
-              onClick={() => setDeployStatus("idle")}
-              className="ed-ghost ed-focus absolute right-3.5 top-3.5 rounded-full p-1.5"
-            >
-              <CloseIcon className="h-4 w-4" aria-hidden="true" />
-              <span className="sr-only">Đóng</span>
-            </button>
+            <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
+              <div className="flex items-center gap-2">
+                <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+                  {deployStatus === "ready" ? "SYSTEM DEPLOYMENT // READY" : "SYSTEM ALERT // ERROR"}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDeployStatus("idle")}
+                className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-[11px] font-bold hover:brightness-110"
+              >
+                ✕
+                <span className="sr-only">Đóng</span>
+              </button>
+            </div>
 
-            {deployStatus === "ready" && handoff ? (
-              <>
-                <div className={buildState === "success" && vercelOpened ? "text-center" : ""}>
-                  {vercelOpened && buildState === "pending" ? (
-                    <span
-                      aria-hidden="true"
-                      className="block h-10 w-10 animate-spin rounded-full border-2"
-                      style={{ borderColor: "var(--home-rule)", borderTopColor: "var(--home-strong)" }}
-                    />
-                  ) : vercelOpened && buildState === "failed" ? (
-                    <span
-                      aria-hidden="true"
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-red-700"
-                    >
-                      <CloseIcon className="h-5 w-5" />
-                    </span>
-                  ) : vercelOpened && buildState === "success" ? (
-                    <span aria-hidden="true" className="relative mx-auto block h-16 w-16">
-                      <span className="dpb-ring absolute inset-0 rounded-full border-2 border-emerald-500" />
+            <div className="p-6">
+              {deployStatus === "ready" && handoff ? (
+                <>
+                  <div className={buildState === "success" && vercelOpened ? "text-center" : ""}>
+                    {vercelOpened && buildState === "pending" ? (
                       <span
-                        className="dpb-pop relative flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 ring-8 ring-emerald-500/15"
+                        aria-hidden="true"
+                        className="mx-auto block h-10 w-10 animate-spin rounded-full border-3 border-[#3d4f97] border-t-[#f68d1f]"
+                      />
+                    ) : vercelOpened && buildState === "failed" ? (
+                      <span
+                        aria-hidden="true"
+                        className="mx-auto flex h-10 w-10 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-base font-bold shadow-sm"
                       >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-8 w-8"
-                      >
-                        <path className="dpb-draw" d="m5 12.5 4.5 4.5L19 7.5" />
-                        </svg>
+                        ✕
                       </span>
-                    </span>
-                  ) : (
-                    <span
-                      aria-hidden="true"
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700"
+                    ) : vercelOpened && buildState === "success" ? (
+                      <div className="mx-auto mb-3 flex flex-col items-center">
+                        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-3 border-[#ecab37] bg-[#fdf8e6] p-2 text-center shadow-md">
+                          <div className="flex flex-col items-center">
+                            <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">OFFICIAL</span>
+                            <span className="text-[8px] font-black uppercase text-[#e60012]">GENFOLIO</span>
+                            <span className="text-[7px] font-bold uppercase text-[#21242e]">SEAL OF</span>
+                            <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">QUALITY</span>
+                            <span className="text-[8px] text-[#f68d1f]">★★★★★</span>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-[2px] bg-[#ecab37] text-[#21242e]">
+                          <CheckIcon className="h-4 w-4" />
+                        </span>
+                        <span className="text-xs font-bold uppercase tracking-[0.5px] text-[#21242e]">
+                          KHỞI TẠO THÀNH CÔNG
+                        </span>
+                      </div>
+                    )}
+
+                    {buildState === "success" && vercelOpened ? (
+                      <>
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.5px] text-[#e48600]">
+                          SYSTEM ONLINE // VERIFIED
+                        </p>
+                        <h2
+                          id="deploy-dialog-title"
+                          className="home-display text-2xl font-black"
+                          style={{ color: "#ffffff" }}
+                        >
+                          {firstName ? `CHÚC MỪNG, ${firstName.toUpperCase()}!` : "CHÚC MỪNG BẠN!"}
+                        </h2>
+                        <p className="mx-auto mt-2 max-w-[34ch] text-xs leading-relaxed text-[#3d4f97]">
+                          Portfolio của bạn đã chính thức xuất bản trên internet, lưu trữ an toàn trên tài khoản GitHub & Vercel của bạn.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h2
+                          id="deploy-dialog-title"
+                          className="mt-2 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]"
+                        >
+                          {!vercelOpened
+                            ? "REPOSITORY GITHUB ĐÃ SẴN SÀNG"
+                            : buildState === "failed"
+                              ? "VERCEL KHÔNG THỂ BUILD DỰ ÁN"
+                              : buildState === "pending"
+                                ? "ĐANG BUILD TRANG WEB TRÊN VERCEL"
+                                : "ĐANG HOÀN TẤT TRÊN VERCEL"}
+                        </h2>
+                        <p className="mt-1.5 text-xs leading-relaxed text-[#3d4f97]">
+                          {!vercelOpened
+                            ? "Toàn bộ thông tin bạn nhập đã được commit vào repository trên tài khoản GitHub của bạn. Bạn hoàn toàn sở hữu và kiểm soát mã nguồn này."
+                            : buildState === "failed"
+                              ? "Quá trình build xảy ra lỗi. Bạn có thể xem log để biết nguyên nhân, repository của bạn vẫn an toàn nguyên vẹn."
+                              : buildState === "pending"
+                                ? "Sau khi bạn hoàn tất bước import trên Vercel, quá trình build sẽ tự động chạy và trạng thái này sẽ cập nhật ngay sau đó."
+                                : "Vercel chưa phản hồi kết quả sau vài phút. Có thể bạn chưa hoàn tất các bước ở tab Vercel, vui lòng kiểm tra lại."}
+                        </p>
+                      </>
+                    )}
+                  </div>
+
+                  {buildUrl && buildState === "success" ? (
+                    <a
+                      href={buildUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="n2001-btn-signal mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                     >
-                      <CheckIcon className="h-5 w-5" />
-                    </span>
-                  )}
+                      MỞ TRANG WEB TRỰC TIẾP ▶
+                      <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                    </a>
+                  ) : null}
 
-                  {buildState === "success" && vercelOpened ? (
-                    <>
-                      <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                        Đã xuất bản
-                      </p>
-                      <h2
-                        id="deploy-dialog-title"
-                        className="mt-2.5 text-[28px] font-bold leading-[1.1] tracking-[-0.025em]"
-                        style={{ color: "var(--home-strong)" }}
-                      >
-                        {firstName ? `Chúc mừng, ${firstName}!` : "Chúc mừng bạn!"}
-                      </h2>
-                      <p className="mx-auto mt-3 max-w-[32ch] text-[14.5px] leading-[1.6]"
-                        style={{ color: "var(--home-dim)" }}>
-                        Portfolio của bạn đã chính thức hoạt động trên internet, trên chính tài khoản cá nhân của bạn.
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <h2
-                        id="deploy-dialog-title"
-                        className="mt-4 text-lg font-bold tracking-tight"
-                        style={{ color: "var(--home-strong)" }}
-                      >
-                        {!vercelOpened
-                          ? "Repository của bạn đã sẵn sàng"
-                          : buildState === "failed"
-                            ? "Vercel không thể build dự án"
-                            : buildState === "pending"
-                              ? "Đang build trang web của bạn"
-                              : "Đang hoàn tất trên Vercel"}
-                      </h2>
-                      <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-                        {!vercelOpened
-                          ? "Toàn bộ thông tin bạn nhập đã được commit vào repository trên tài khoản GitHub của bạn. Bạn hoàn toàn sở hữu và kiểm soát mã nguồn này."
-                          : buildState === "failed"
-                            ? "Quá trình build xảy ra lỗi. Bạn có thể xem log để biết nguyên nhân, repository của bạn vẫn an toàn nguyên vẹn."
-                            : buildState === "pending"
-                              ? "Sau khi bạn hoàn tất bước import trên Vercel, quá trình build sẽ tự động chạy và trạng thái này sẽ cập nhật ngay sau đó (thường dưới 1 phút)."
-                              : "Vercel chưa phản hồi kết quả sau vài phút. Có thể bạn chưa hoàn tất các bước ở tab Vercel, vui lòng kiểm tra lại."}
-                      </p>
-                    </>
-                  )}
-                </div>
+                  {buildUrl && buildState === "failed" ? (
+                    <a
+                      href={buildUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="n2001-btn-signal mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                    >
+                      XEM NHẬT KÝ BUILD LỖI ▶
+                      <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                    </a>
+                  ) : null}
 
-                {buildUrl && buildState === "success" ? (
                   <a
-                    href={buildUrl}
+                    href={handoff.repoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-6 flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                    className="n2001-hardware-card mt-3 flex items-center gap-2.5 p-3 text-left transition-colors hover:brightness-105"
                   >
-                    Mở trang web trực tiếp
-                    <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                    <GitHubIcon
+                      className="h-4 w-4 shrink-0 text-[#21242e]"
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 flex-1 truncate font-mono text-xs font-bold text-[#21242e]">
+                      {handoff.owner}/{handoff.repo}
+                    </span>
+                    <ExternalIcon
+                      className="h-3 w-3 shrink-0 text-[#3d4f97]"
+                      aria-hidden="true"
+                    />
                   </a>
-                ) : null}
 
-                {buildUrl && buildState === "failed" ? (
                   <a
-                    href={buildUrl}
+                    href={handoff.deployUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="ed-primary ed-focus mt-6 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
+                    onClick={() => setVercelOpened(true)}
+                    className={
+                      !vercelOpened
+                        ? "n2001-btn-signal mt-3 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                        : buildState === "success"
+                          ? "home-quiet-link mt-3 flex items-center justify-center gap-1.5 text-xs font-bold"
+                          : "n2001-btn-amber mt-3 flex w-full items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-[0.5px]"
+                    }
                   >
-                    Xem nhật ký build lỗi
-                    <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                    {!vercelOpened ? "TRIỂN KHAI LÊN VERCEL ▶" : "MỞ LẠI VERCEL ▶"}
+                    <ExternalIcon className={vercelOpened ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden="true" />
                   </a>
-                ) : null}
 
-                <a
-                  href={handoff.repoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ed-focus mt-3 flex items-center gap-2.5 rounded-xl border px-3.5 py-3 text-left transition-colors hover:bg-[rgba(20,54,93,0.05)]"
-                  style={{ borderColor: "var(--home-rule)" }}
-                >
-                  <GitHubIcon
-                    className="h-4 w-4 shrink-0" style={{ color: "var(--home-dim)" }}
-                    aria-hidden="true"
-                  />
-                  <span className="min-w-0 flex-1 truncate font-mono text-[13px]" style={{ color: "var(--home-strong)" }}>
-                    {handoff.owner}/{handoff.repo}
-                  </span>
-                  <ExternalIcon
-                    className="h-3 w-3 shrink-0" style={{ color: "var(--home-faint)" }}
-                    aria-hidden="true"
-                  />
-                </a>
-
-                <a
-                  href={handoff.deployUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setVercelOpened(true)}
-                  className={
-                    !vercelOpened
-                      ? "mt-3 flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-                      : buildState === "success"
-                        ? "home-quiet-link mt-3 flex items-center justify-center gap-1.5 text-[13px] font-medium"
-                        : "ed-ghost ed-focus mt-3 flex items-center justify-center gap-2 rounded-full border border-[var(--home-rule)] px-5 py-2.5 text-[13px] font-medium"
-                  }
-                >
-                  {!vercelOpened ? "Triển khai lên Vercel" : "Mở lại Vercel"}
-                  <ExternalIcon className={vercelOpened ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden="true" />
-                </a>
-
-                <div className="mt-6 rounded-xl p-4 text-left" style={{ background: "rgba(20, 54, 93, 0.05)" }}>
-                  <div className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white shadow-sm"
-                      style={{ color: "var(--home-dim)" }}
-                    >
-                      <FileIcon className="h-4 w-4" />
-                    </span>
-                    <div className="min-w-0">
-                      <h3 className="text-[13.5px] font-semibold" style={{ color: "var(--home-strong)" }}>
-                        Bạn sở hữu và chỉnh sửa mãi mãi
-                      </h3>
-                      <p className="mt-1.5 text-[13px] leading-[1.6]" style={{ color: "var(--home-dim)" }}>
-                        Toàn bộ dữ liệu portfolio nằm gọn trong 1 file. Bạn chỉ cần sửa file{" "}
-                        <span className="font-mono text-[12.5px]" style={{ color: "var(--home-strong)" }}>
-                          data/portfolio.js
-                        </span>{" "}
-                        trên GitHub rồi commit, website sẽ tự động cập nhật. Không phụ thuộc vào bất kỳ ai.
-                      </p>
-                      <a
-                        href={handoff.editUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="ed-focus mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[13px] font-semibold shadow-sm transition-colors hover:bg-[rgba(255,255,255,0.6)]"
-                        style={{ color: "var(--home-strong)" }}
+                  <div className="n2001-bevel-inset mt-4 rounded-[2px] p-3 text-left">
+                    <div className="flex items-start gap-2.5">
+                      <span
+                        aria-hidden="true"
+                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[2px] bg-[#21242e] text-[#ecab37]"
                       >
-                        Mở file dữ liệu
-                        <ExternalIcon className="h-3 w-3" aria-hidden="true" />
-                      </a>
+                        <FileIcon className="h-3.5 w-3.5" />
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="text-xs font-bold uppercase tracking-[0.5px] text-[#21242e]">
+                          SỞ HỮU & CẬP NHẬT MÃ NGUỒN
+                        </h3>
+                        <p className="mt-1 text-[11px] leading-relaxed text-[#3d4f97]">
+                          Toàn bộ dữ liệu nằm trong file{" "}
+                          <span className="font-mono font-bold text-[#21242e]">
+                            data/portfolio.js
+                          </span>
+                          . Sửa file trên GitHub rồi commit, website sẽ tự động cập nhật.
+                        </p>
+                        <a
+                          href={handoff.editUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="n2001-btn-amber mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px]"
+                        >
+                          MỞ FILE DỮ LIỆU ▶
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {vercelOpened && (
+                  {vercelOpened && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDeployStatus("idle");
+                        router.push("/");
+                      }}
+                      className="n2001-btn-signal mt-4 w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                    >
+                      HOÀN TẤT ▶
+                    </button>
+                  )}
+                </>
+              ) : deployStatus === "ready" ? (
+                <div className="text-center">
+                  <h2
+                    id="deploy-dialog-title"
+                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]"
+                  >
+                    ĐÃ LƯU BẢN NHÁP
+                  </h2>
+                  <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
+                    Tiếp theo, tiếp tục đến Vercel để hoàn tất triển khai: hệ thống sẽ tạo repo thật và xuất bản website trực tiếp dưới tài khoản GitHub và Vercel của bạn.
+                  </p>
+                  <a
+                    href={deployUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="n2001-btn-signal mt-4 block w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                  >
+                    TIẾP TỤC ĐẾN VERCEL ▶
+                  </a>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <h2
+                    id="deploy-dialog-title"
+                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#e60012]"
+                  >
+                    KHÔNG THỂ BẮT ĐẦU TRIỂN KHAI
+                  </h2>
+                  <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
+                    {deployError}
+                  </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      setDeployStatus("idle");
-                      router.push("/");
-                    }}
-                    className="ed-primary ed-focus mt-5 w-full rounded-full px-5 py-3 text-sm font-semibold"
+                    onClick={() => setDeployStatus("idle")}
+                    className="n2001-btn-amber mt-4 w-full py-2 text-xs font-bold uppercase tracking-[0.5px]"
                   >
-                    Hoàn tất
+                    ĐÓNG
                   </button>
-                )}
-              </>
-            ) : deployStatus === "ready" ? (
-              <div className="text-center">
-                <h2
-                  id="deploy-dialog-title"
-                  className="text-lg font-bold" style={{ color: "var(--home-strong)" }}
-                >
-                  Đã lưu bản nháp
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-                  Tiếp theo, tiếp tục đến Vercel để hoàn tất triển khai: hệ thống sẽ tạo repo thật và xuất bản website trực tiếp dưới tài khoản GitHub và Vercel của bạn.
-                </p>
-                <a
-                  href={deployUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 block rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-                >
-                  Tiếp tục đến Vercel
-                </a>
-              </div>
-            ) : (
-              <div className="text-center">
-                <h2
-                  id="deploy-dialog-title"
-                  className="text-lg font-bold" style={{ color: "var(--home-strong)" }}
-                >
-                  Không thể bắt đầu triển khai
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-                  {deployError}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setDeployStatus("idle")}
-                  className="ed-ghost ed-focus mt-5 w-full rounded-full border border-[var(--home-rule)] px-5 py-2.5 text-sm font-semibold"
-                >
-                  Đóng
-                </button>
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -111,24 +111,15 @@ function MotionBreak({ children }) {
   );
 }
 
-function Wordmark({ size = 30, textClassName = "text-[14px] font-medium" }) {
+function Wordmark() {
   return (
-    <span className="flex items-center gap-2.5">
-      {/* The logo is an app-icon style mark with its own dark field baked in,
-          so it is framed as a tile rather than floated on the page. It is also
-          the one piece of colour allowed in the chrome. */}
-      <span className="relative shrink-0 overflow-hidden rounded-lg" style={{ width: size, height: size }}>
-        <Image
-          src="/portfolio-generator-logo.png"
-          alt=""
-          width={size}
-          height={size}
-          priority
-          className="h-full w-full object-cover"
-        />
+    <span className="flex items-center gap-2">
+      {/* Nintendo Red racetrack logo pill */}
+      <span className="n2001-racetrack text-[13px] tracking-tight">
+        GENFOLIO
       </span>
-      <span className={`hidden tracking-tight text-[var(--home-strong)] sm:inline ${textClassName}`}>
-        Genfolio
+      <span className="hidden text-[10px] font-black uppercase tracking-[1px] text-[#9fbee7] sm:inline">
+        2001
       </span>
     </span>
   );
@@ -136,36 +127,69 @@ function Wordmark({ size = 30, textClassName = "text-[14px] font-medium" }) {
 
 function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--home-rule-soft)] bg-[var(--home-bg)]">
-      <div className="mx-auto flex w-full max-w-[86rem] items-center justify-between gap-6 px-6 py-3.5 lg:px-10">
-        <Link
-          href="/"
-          className="rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
-        >
-          <Wordmark size={40} textClassName="text-[17px] font-semibold" />
-        </Link>
+    <header className="sticky top-0 z-40">
+      {/* Primary Carbon Command Bar */}
+      <div className="n2001-carbon-bar">
+        <div className="mx-auto flex w-full max-w-[86rem] items-center justify-between gap-4 px-4 py-2 sm:px-6 lg:px-10">
+          <Link
+            href="/"
+            className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f68d1f]"
+          >
+            <Wordmark />
+          </Link>
 
-        <nav className="flex items-center gap-6">
-          <a
-            href="#handoff"
-            className="home-label hidden transition-colors hover:text-[var(--home-strong)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)] sm:inline"
-          >
-            Cách hoạt động
-          </a>
-          <a
-            href="#custom"
-            className="home-label hidden transition-colors hover:text-[var(--home-strong)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)] sm:inline"
-          >
-            Thiết kế riêng
-          </a>
-          <a
-            href="#templates"
-            className="whitespace-nowrap rounded-full bg-[var(--home-strong)] px-4 py-2 text-[13px] font-medium text-[var(--home-bg)] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
-          >
-            Bắt đầu tạo
-          </a>
-          <UserProfileNav />
-        </nav>
+          <nav className="flex items-center gap-4 sm:gap-6">
+            <a
+              href="#templates"
+              className="text-[12px] font-bold uppercase tracking-[0.5px] text-[#e48600] transition hover:brightness-125 focus-visible:outline-2 focus-visible:outline-[#f68d1f]"
+            >
+              MẪU GIAO DIỆN
+            </a>
+            <a
+              href="#handoff"
+              className="hidden text-[12px] font-bold uppercase tracking-[0.5px] text-[#e48600] transition hover:brightness-125 focus-visible:outline-2 focus-visible:outline-[#f68d1f] md:inline"
+            >
+              CÁCH HOẠT ĐỘNG
+            </a>
+            <a
+              href="#custom"
+              className="hidden text-[12px] font-bold uppercase tracking-[0.5px] text-[#e48600] transition hover:brightness-125 focus-visible:outline-2 focus-visible:outline-[#f68d1f] md:inline"
+            >
+              THIẾT KẾ RIÊNG
+            </a>
+
+            <a
+              href="#templates"
+              className="n2001-btn-amber text-[10px] sm:text-[11px]"
+            >
+              <span>BẮT ĐẦU TẠO</span>
+              <span className="font-mono">▶</span>
+            </a>
+
+            <UserProfileNav />
+          </nav>
+        </div>
+      </div>
+
+      {/* Secondary Pale Sky Subnav Strip */}
+      <div className="n2001-subnav">
+        <div className="mx-auto flex w-full max-w-[86rem] items-center justify-between px-4 py-1 sm:px-6 lg:px-10 text-[10px] sm:text-[11px]">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2 w-2 rounded-full bg-[#e60012] animate-pulse" />
+            <span className="uppercase tracking-[0.5px] text-[#21242e] font-bold">
+              CONSOLE 2001 EDITION // SYSTEM READY
+            </span>
+          </div>
+          <div className="hidden sm:flex items-center gap-4 text-[#3d4f97]">
+            <span className="hover:text-[#21242e]">SỞ HỮU TOÀN BỘ MÃ NGUỒN</span>
+            <span>·</span>
+            <span className="hover:text-[#21242e]">VERCEL HOSTING</span>
+            <span>·</span>
+            <span className="hover:text-[#21242e]">0 Đ PHÍ DUY TRÌ</span>
+            <span>·</span>
+            <span className="font-bold text-[#e60012]">ESRB CERTIFIED</span>
+          </div>
+        </div>
       </div>
     </header>
   );
@@ -173,72 +197,108 @@ function SiteHeader() {
 
 function Hero() {
   return (
-    <section className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
-      <div className="grid items-center gap-14 pb-12 pt-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-14 lg:pb-16 lg:pt-20">
-        <div>
-          <p className="home-label">Đưa CV vào. Nhận Repo ra.</p>
+    <section className="mx-auto w-full max-w-[86rem] px-4 pt-6 pb-8 sm:px-6 lg:px-10 lg:pt-8 lg:pb-12">
+      {/* Hero Outer Console Chrome Chassis */}
+      <div className="n2001-hero-plate p-5 sm:p-8 lg:p-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
+          <div>
+            {/* Mascot Speech Bubble */}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] shadow-xs">
+                <span className="text-[15px]">🎮</span>
+              </div>
+              <div className="n2001-mascot-bubble">
+                WELCOME TO GENFOLIO! CHỌN GAME CARTRIDGE ĐỂ KHỞI TẠO PORTFOLIO.
+              </div>
+            </div>
 
-          <h1 className="home-display home-display-xl mt-7">
-            Biên dịch CV,
-            <br />
-            <span className="home-em">thành Portfolio.</span>
-          </h1>
+            <div className="inline-flex items-center gap-2 rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+              <span>HỆ THỐNG:</span>
+              <span className="text-[#e60012]">128-BIT NEXT.JS COMPILER</span>
+            </div>
 
-          <p className="mt-8 max-w-[46ch] text-[16px] leading-[1.6] text-[var(--home-dim)]">
-            Portfolio lập trình viên với phong cách độc bản, không rập khuôn.
-          </p>
-          <p className="mt-4 max-w-[38ch] text-[15px] leading-[1.6] text-[var(--home-dim)]">
-            Mã nguồn và website đều nằm trong tài khoản cá nhân của bạn, hoạt động hoàn toàn độc lập mà không bị ràng buộc bởi ứng dụng này.
-          </p>
+            <h1 className="home-display home-display-xl mt-5">
+              BIÊN DỊCH CV,
+              <br />
+              <span className="home-em">THÀNH PORTFOLIO.</span>
+            </h1>
 
-          <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <a
-              href="#templates"
-              className="group flex items-center gap-2 rounded-full bg-[var(--home-strong)] px-5 py-3 text-[14px] font-medium text-[var(--home-bg)] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
-            >
-              Chọn mẫu giao diện
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </a>
-            <a
-              href="#handoff"
-              className="border-b border-[var(--home-blue)]/40 pb-0.5 text-[14px] text-[var(--home-blue)] transition-colors hover:border-[var(--home-blue)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-blue)]"
-            >
-              Những gì bạn nhận được
-            </a>
+            <p className="mt-6 max-w-[48ch] text-[15px] font-bold leading-[1.6] text-[#21242e]">
+              Portfolio lập trình viên chuẩn giao diện phần cứng Nintendo 2001. Độc bản, dứt khoát và không rập khuôn.
+            </p>
+            <p className="mt-3 max-w-[44ch] text-[13px] leading-[1.6] text-[#3d4f97]">
+              Mã nguồn và website nằm trọn trong GitHub & Vercel của bạn, độc lập vĩnh viễn và không bị khoá bởi nền tảng.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#templates"
+                className="n2001-btn-signal text-[12px] py-2.5 px-5"
+              >
+                <span>CHỌN MẪU GIAO DIỆN</span>
+                <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/30 text-[10px]">
+                  ▶
+                </span>
+              </a>
+              <a
+                href="#handoff"
+                className="n2001-btn-amber text-[12px] py-2.5 px-4"
+              >
+                QUY TRÌNH BÀN GIAO
+              </a>
+            </div>
+
+            {/* Hardware Telemetry Spec Chips */}
+            <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-[#3d4f97]/40 pt-4 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
+                12 TITLES SẴN SÀNG
+              </span>
+              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
+                0 Đ PHÍ DUY TRÌ
+              </span>
+              <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-2 py-0.5">
+                FULL GITHUB SYNC
+              </span>
+            </div>
+          </div>
+
+          <div className="flex justify-center lg:justify-end">
+            <HeroDeck />
           </div>
         </div>
-
-        <div className="flex justify-center lg:justify-end">
-          <HeroDeck />
-        </div>
       </div>
-
     </section>
   );
 }
 
 function Wall() {
   return (
-    <section id="templates" className="home-band scroll-mt-16 pb-8 pt-12 lg:pb-10 lg:pt-16">
-      <div className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
-      <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
-        <div>
-          <p className="home-label">
-            <span className="home-nums">01</span> Mẫu giao diện
-          </p>
-          <h2 className="home-grotesque home-display-lg mt-5 max-w-[22ch]">
-            Một Git log. Một trang nhật báo. Một bộ thẻ bài phản quang.
-          </h2>
+    <section id="templates" className="home-band scroll-mt-16 pb-12 pt-8 lg:pb-16 lg:pt-10">
+      <div className="mx-auto w-full max-w-[86rem] px-4 sm:px-6 lg:px-10">
+        {/* Section Label Bar */}
+        <div className="n2001-section-bar mb-8 rounded-[2px]">
+          <span className="flex items-center gap-2">
+            <span className="text-[#f68d1f]">≡</span>
+            <span>MẪU GIAO DIỆN (OFFICIAL GAME CARTRIDGES ARCHIVE)</span>
+          </span>
+          <span className="font-mono text-[#3d4f97]">REGION: NTSC-J / ALL REGIONS</span>
         </div>
-        <p className="max-w-[30ch] text-[14px] leading-[1.6] text-[var(--home-dim)]">
-          Mỗi hình xem trước bên dưới là bản dựng trực tiếp render dữ liệu thật, không phải ảnh chụp màn hình.
-        </p>
-      </div>
 
-      <div className="mt-12 grid auto-rows-fr grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
+          <div>
+            <p className="home-label">
+              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 01</span> // DANH MỤC PHÁT HÀNH
+            </p>
+            <h2 className="home-grotesque text-[26px] sm:text-[34px] font-black uppercase tracking-tight text-[#21242e] mt-3 max-w-[28ch]">
+              Một Git log. Một trang nhật báo. Một bộ thẻ bài phản quang.
+            </h2>
+          </div>
+          <p className="max-w-[34ch] text-[13px] leading-[1.6] text-[#3d4f97] font-medium">
+            Mỗi hình xem trước là bản dựng trực tiếp render dữ liệu thật, không phải ảnh chụp màn hình. Nhấp để tải dữ liệu vào cartridge.
+          </p>
+        </div>
+
+        <div className="mt-10 grid auto-rows-fr grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((template, index) => (
             <TemplatePreviewCard key={template.id} template={template} index={index} />
           ))}
@@ -250,18 +310,27 @@ function Wall() {
 
 function Handoff() {
   return (
-    <section id="handoff" className="scroll-mt-16 pb-2 pt-6 lg:pb-4 lg:pt-8">
-      <div className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
+    <section id="handoff" className="scroll-mt-16 pb-10 pt-8 lg:pb-14 lg:pt-12">
+      <div className="mx-auto w-full max-w-[86rem] px-4 sm:px-6 lg:px-10">
+        {/* Section Label Bar */}
+        <div className="n2001-section-bar mb-8 rounded-[2px]">
+          <span className="flex items-center gap-2">
+            <span className="text-[#f68d1f]">≡</span>
+            <span>QUY TRÌNH BÀN GIAO (SYSTEM HARDWARE ARCHITECTURE)</span>
+          </span>
+          <span className="font-mono text-[#3d4f97]">DIRECT REPO / VERCEL BUS</span>
+        </div>
+
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums">02</span> Bàn giao toàn quyền
+              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 02</span> // BÀN GIAO TOÀN QUYỀN
             </p>
-            <h2 className="home-grotesque home-display-shout mt-6">
+            <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-4">
               Bạn giữ <em className="home-em">toàn bộ</em>.
             </h2>
-            <p className="mt-8 text-[16px] leading-[1.6] text-[var(--home-dim)]">
-              Đa số nền tảng khác chỉ cho bạn thuê một trang con trên tên miền của họ. Genfolio bàn giao trọn vẹn mã nguồn cho bạn.
+            <p className="mt-5 text-[15px] leading-[1.6] text-[#3d4f97]">
+              Đa số nền tảng khác chỉ cho bạn thuê một trang con trên tên miền của họ. Genfolio bàn giao trọn vẹn mã nguồn độc lập vào tài khoản GitHub của bạn.
             </p>
           </div>
 
@@ -270,16 +339,16 @@ function Handoff() {
           </div>
         </div>
 
-        <ol className="home-beats mt-4 lg:mt-6">
+        <ol className="home-beats mt-6 lg:mt-8">
           {HANDOFF.map((item, index) => (
             <HandoffBeat key={item.title} item={item} index={index} />
           ))}
         </ol>
 
-        <div className="flex flex-col items-start gap-3 lg:items-center">
+        <div className="flex flex-col items-start gap-3 lg:items-center mt-6">
           <span className="home-beat-end" aria-hidden="true" />
-          <p className="home-label">
-            Mỗi mẫu giao diện đều là một ứng dụng web độc lập hoàn chỉnh
+          <p className="home-label text-[#21242e]">
+            MỖI MẪU GIAO DIỆN LÀ MỘT ỨNG DỤNG WEB NEXT.JS ĐỘC LẬP HOÀN CHỈNH
           </p>
         </div>
       </div>
@@ -289,9 +358,6 @@ function Handoff() {
 
 function HandoffBeat({ item, index }) {
   const Mark = item.mark;
-
-  // The middle beat flips sides. Alternating is what turns three facts into a
-  // path down the page rather than a row to be scanned.
   const flipped = index % 2 === 1;
 
   return (
@@ -300,7 +366,6 @@ function HandoffBeat({ item, index }) {
         <div className="home-beat-rail-fill" />
       </div>
 
-      {/* The ordinal is decorative: the real order is carried by the list. */}
       <p
         className="home-manifesto-num home-beat-num relative z-10 py-2 lg:col-start-2 lg:row-start-1 lg:justify-self-center"
         aria-hidden="true"
@@ -313,9 +378,11 @@ function HandoffBeat({ item, index }) {
           flipped ? "lg:col-start-3 lg:pl-12" : "lg:col-start-1 lg:pr-12 lg:text-right"
         }`}
       >
-        <h3 className="home-grotesque home-display-row">{item.title}</h3>
+        <h3 className="home-grotesque text-[20px] sm:text-[24px] font-bold uppercase tracking-tight text-[#21242e]">
+          {item.title}
+        </h3>
         <p
-          className={`mt-4 max-w-[34ch] text-[15px] leading-[1.6] text-[var(--home-dim)] ${
+          className={`mt-3 max-w-[34ch] text-[14px] leading-[1.6] text-[#3d4f97] ${
             flipped ? "" : "lg:ml-auto"
           }`}
         >
@@ -323,9 +390,7 @@ function HandoffBeat({ item, index }) {
         </p>
       </div>
 
-      {/* The artifact itself, as the object rather than as a thumbnail inside
-          a card: a navy slab turned slightly away from the reader until they
-          reach for it. */}
+      {/* Nintendo 2001 Hardware Spec Plate */}
       <div
         className={`home-beat-art relative z-10 lg:row-start-1 ${
           flipped ? "lg:col-start-1 lg:pr-12" : "lg:col-start-3 lg:pl-12"
@@ -333,32 +398,34 @@ function HandoffBeat({ item, index }) {
       >
         <div className="home-beat-stage">
           <div
-            className="home-beat-plate home-inset overflow-hidden rounded-xl"
-            style={{ "--home-beat-tilt": flipped ? "6deg" : "-6deg" }}
+            className="home-beat-plate n2001-hardware-card-dark overflow-hidden rounded-[4px]"
+            style={{ "--home-beat-tilt": flipped ? "5deg" : "-5deg" }}
           >
-            <div className="flex items-center gap-3 border-b border-white/15 px-5 py-4">
-              {Mark && <Mark className="h-4 w-4 shrink-0 text-[var(--home-strong)]" aria-hidden="true" />}
-              <span className="home-nums truncate text-[13px] text-[var(--home-strong)]">{item.head}</span>
-              <span className="home-label ml-auto shrink-0 rounded-full border border-white/20 px-2.5 py-1">
+            <div className="flex items-center gap-3 border-b border-white/20 bg-[#21242e] px-4 py-3">
+              {Mark && <Mark className="h-4 w-4 shrink-0 text-[#ecab37]" aria-hidden="true" />}
+              <span className="font-mono truncate text-[12px] font-bold text-white tracking-[0.5px]">
+                {item.head}
+              </span>
+              <span className="ml-auto shrink-0 rounded-[2px] border border-[#b87c14] bg-[#ecab37] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
                 {item.chip}
               </span>
             </div>
 
-            <div className="px-5 py-4">
+            <div className="px-5 py-4 bg-[#21242e]/90">
               {item.kind === "repo" ? (
                 <ul className="space-y-2">
                   {item.rows.map((row) => (
-                    <li key={row} className="home-nums truncate text-[12px] text-[var(--home-faint)]">
-                      {row}
+                    <li key={row} className="font-mono truncate text-[11px] text-[#9fbee7]">
+                      📁 {row}
                     </li>
                   ))}
                 </ul>
               ) : (
                 <dl className="space-y-2.5">
                   {item.rows.map(([label, value]) => (
-                    <div key={label} className="flex items-baseline justify-between gap-3">
-                      <dt className="text-[12px] text-[var(--home-faint)]">{label}</dt>
-                      <dd className="home-nums text-[12px] text-[var(--home-text)]">{value}</dd>
+                    <div key={label} className="flex items-baseline justify-between gap-3 border-b border-white/5 pb-1">
+                      <dt className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#9fbee7]">{label}</dt>
+                      <dd className="font-mono text-[11px] font-bold text-[#dedede]">{value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -371,24 +438,31 @@ function HandoffBeat({ item, index }) {
   );
 }
 
-// The page has spent two sections arguing for the template gallery, so it
-// closes by admitting what a gallery cannot do.
 function Commission() {
   return (
-    <section id="custom" className="home-band scroll-mt-16 pb-24 pt-14 lg:pb-28 lg:pt-20">
-      <div className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
+    <section id="custom" className="home-band scroll-mt-16 pb-20 pt-10 lg:pb-24 lg:pt-14">
+      <div className="mx-auto w-full max-w-[86rem] px-4 sm:px-6 lg:px-10">
+        {/* Section Label Bar */}
+        <div className="n2001-section-bar mb-8 rounded-[2px]">
+          <span className="flex items-center gap-2">
+            <span className="text-[#f68d1f]">≡</span>
+            <span>PHÒNG THIẾT KẾ RIÊNG (CUSTOM HARDWARE LAB)</span>
+          </span>
+          <span className="font-mono text-[#3d4f97]">DIRECT DISPATCH</span>
+        </div>
+
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums">03</span> Thiết kế theo yêu cầu
+              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 03</span> // THIẾT KẾ THEO YÊU CẦU
             </p>
-            <h2 className="home-grotesque home-display-lg mt-5">
+            <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-4">
               Chưa ưng ý mẫu nào? Tôi sẽ <em className="home-em">thiết kế riêng</em> cho bạn.
             </h2>
-            <p className="mt-8 text-[16px] leading-[1.6] text-[var(--home-dim)]">
+            <p className="mt-5 text-[15px] leading-[1.6] text-[#21242e]">
               Tôi là Shruti, kỹ sư xây dựng trang web này cùng toàn bộ các mẫu giao diện. Nếu bạn đã có ý tưởng riêng cho portfolio của mình mà không mẫu nào phía trên đáp ứng được, hãy đặt thiết kế riêng. Ý tưởng của bạn, dữ liệu của bạn, được xây dựng theo tiêu chuẩn chỉn chu nhất và bàn giao tương tự: mã nguồn nằm trọn trong GitHub và chạy trên Vercel của bạn.
             </p>
-            <p className="mt-5 text-[16px] leading-[1.6] text-[var(--home-dim)]">
+            <p className="mt-3 text-[14px] leading-[1.6] text-[#3d4f97]">
               Trả lời 3 câu hỏi dưới đây, bản tóm tắt yêu cầu sẽ tự động được soạn thảo. Hãy gửi đi khi bạn thấy đã đúng ý mình.
             </p>
           </div>
@@ -398,7 +472,7 @@ function Commission() {
           </div>
         </div>
 
-        <div className="mt-14">
+        <div className="mt-10">
           <CommissionDesk />
         </div>
       </div>
@@ -409,18 +483,23 @@ function Commission() {
 function SiteFooter() {
   return (
     <footer className="home-invert">
-      <div className="mx-auto w-full max-w-[86rem] px-6 py-20 lg:px-10">
-        <div className="grid gap-x-10 gap-y-14 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.1fr)]">
+      <div className="mx-auto w-full max-w-[86rem] px-4 py-16 sm:px-6 lg:px-10">
+        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.1fr)]">
           <div>
-            <Wordmark size={36} textClassName="text-[16px] font-semibold" />
-            <p className="mt-5 max-w-[32ch] text-[13.5px] leading-[1.65] text-[var(--home-dim)]">
+            <Wordmark />
+            <p className="mt-4 max-w-[32ch] text-[12.5px] leading-[1.65] text-[#9fbee7]">
               Tải CV lên, điền thông tin và xuất bản portfolio lập trình viên lên tài khoản của chính bạn. Chi phí một lần, không phí duy trì.
             </p>
+            <div className="mt-5">
+              <span className="n2001-esrb-badge">
+                ESRB — PRIVACY CERTIFIED
+              </span>
+            </div>
           </div>
 
           <div>
-            <p className="home-label">Mẫu giao diện</p>
-            <ul className="mt-5 space-y-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600]">Mẫu giao diện</p>
+            <ul className="mt-4 space-y-2.5">
               {FOOTER_TEMPLATES.map((template) => (
                 <li key={template.id}>
                   <Link href={`/editor/${template.id}`} className="home-footer-link">
@@ -430,15 +509,15 @@ function SiteFooter() {
               ))}
               <li>
                 <a href="#templates" className="home-footer-link">
-                  Khám phá tất cả mẫu
+                  Khám phá tất cả mẫu ▶
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="home-label">Sản phẩm</p>
-            <ul className="mt-5 space-y-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600]">Sản phẩm</p>
+            <ul className="mt-4 space-y-2.5">
               <li>
                 <a href="#handoff" className="home-footer-link">
                   Quy trình bàn giao
@@ -458,22 +537,22 @@ function SiteFooter() {
           </div>
 
           <div>
-            <p className="home-label">Quyền lợi của bạn</p>
-            <ul className="mt-5 space-y-3 text-[13.5px] leading-[1.5] text-[var(--home-dim)]">
-              <li>Một ứng dụng Next.js độc lập trên GitHub của bạn</li>
-              <li>Website chạy trực tiếp trên dự án Vercel cá nhân</li>
-              <li>Tự do gắn tên miền riêng bất cứ lúc nào</li>
-              <li>Không cần tạo tài khoản tại đây, không phí duy trì</li>
+            <p className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600]">Quyền lợi của bạn</p>
+            <ul className="mt-4 space-y-2.5 text-[12px] leading-[1.5] text-[#9fbee7]">
+              <li>✓ Một ứng dụng Next.js độc lập trên GitHub của bạn</li>
+              <li>✓ Website chạy trực tiếp trên dự án Vercel cá nhân</li>
+              <li>✓ Tự do gắn tên miền riêng bất cứ lúc nào</li>
+              <li>✓ Không cần tạo tài khoản tại đây, không phí duy trì</li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[var(--home-rule)] pt-8">
-          <p className="text-[12.5px] text-[var(--home-faint)]">
-            &copy; 2026 Genfolio
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[#3d4f97] pt-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#9fbee7]">
+            &copy; 1997–2001 GENFOLIO CONSOLE CORP. ALL RIGHTS RESERVED.
           </p>
-          <p className="text-[12.5px] text-[var(--home-faint)]">
-            Không có dữ liệu nào bị lưu trữ cho đến khi bạn tự mình xuất bản.
+          <p className="text-[11px] text-[#7a8aba]">
+            Toàn bộ dữ liệu của bạn chỉ được lưu trữ khi bạn chủ động xuất bản.
           </p>
         </div>
       </div>

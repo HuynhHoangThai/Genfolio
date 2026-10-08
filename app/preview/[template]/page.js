@@ -17,15 +17,25 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 function CenteredMessage({ title, body }) {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-2 px-6 text-center">
-      <h1 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{title}</h1>
-      {body && <p className="max-w-xs text-sm text-zinc-500 dark:text-zinc-400">{body}</p>}
-      <Link
-        href="/"
-        className="mt-3 text-sm font-medium text-emerald-600 hover:underline dark:text-emerald-400"
-      >
-        ← Quay lại danh sách mẫu
-      </Link>
+    <div className="flex min-h-dvh flex-col items-center justify-center bg-[#7a8aba] px-4 text-center">
+      <div className="n2001-hardware-card w-full max-w-sm overflow-hidden shadow-2xl">
+        <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
+          <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+            SYSTEM PREVIEW
+          </span>
+        </div>
+        <div className="p-6">
+          <h1 className="text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">{title}</h1>
+          {body && <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">{body}</p>}
+          <Link
+            href="/"
+            className="n2001-btn-amber mt-5 inline-flex py-2 px-4 text-xs font-bold uppercase tracking-[0.5px]"
+          >
+            ← QUAY LẠI DANH SÁCH MẪU
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
@@ -93,18 +103,18 @@ export default function PreviewPage() {
     <>
       <Template data={sanitizePortfolioData(data)} />
       {palettes && isMobile && (
-        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 ring-black/10 backdrop-blur dark:bg-zinc-900/90 dark:ring-white/10">
-          <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Chủ đề</span>
+        <div className="n2001-carbon-bar fixed bottom-4 right-4 z-50 flex items-center gap-2.5 rounded-[2px] px-3 py-2 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">MÀU</span>
           <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} />
         </div>
       )}
       {palettes && !isMobile && (
-        <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-full bg-white/90 px-2.5 py-4 shadow-lg ring-1 ring-black/10 backdrop-blur dark:bg-zinc-900/90 dark:ring-white/10">
+        <div className="n2001-carbon-bar fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-[2px] px-2.5 py-4 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
           <span
-            className="text-xs font-medium text-zinc-500 dark:text-zinc-400"
+            className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]"
             style={{ writingMode: "vertical-rl" }}
           >
-            Chủ đề
+            MÀU
           </span>
           <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} vertical />
         </div>

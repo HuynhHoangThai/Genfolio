@@ -160,34 +160,29 @@ export default function HeroDeck() {
                   key={id}
                   data-exit={isLeaving ? "true" : undefined}
                   aria-hidden={isLeaving ? "true" : undefined}
-                  className={`home-deck-card absolute inset-0 rounded-[var(--home-radius)] border ${
+                  className={`home-deck-card absolute inset-0 rounded-[4px] border-t border-l border-white/70 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] ${
                     isLeaving ? "pointer-events-none" : ""
                   }`}
                   style={{
                     "--slot": slot,
-                    borderColor: isFront ? "rgba(23,20,15,0.9)" : "rgba(23,20,15,0.55)",
                     boxShadow: isFront
-                      ? "0 3px 8px rgba(23,20,15,0.16), 0 44px 70px -26px rgba(23,20,15,0.45)"
-                      : "0 22px 44px -22px rgba(23,20,15,0.34)",
+                      ? "inset 1px 1px 0 rgba(255,255,255,0.4), 0 4px 16px rgba(33,36,46,0.35)"
+                      : "0 10px 24px -10px rgba(33,36,46,0.3)",
                   }}
                 >
-                  <div className="relative h-full w-full overflow-hidden rounded-[var(--home-radius)] bg-[#17140f]">
-                    {/* Window chrome. The address is the sample data's own
-                        website field, so even the furniture here is showing
-                        real data rather than invented branding. The colours
-                        are set inline because .home-label is unlayered and
-                        beats a Tailwind text utility in the cascade. */}
-                    <div className="flex items-center gap-3 border-b border-white/12 px-3.5 py-2.5">
+                  <div className="relative h-full w-full overflow-hidden rounded-[3px] bg-[#21242e]">
+                    {/* Cartridge console chrome header plate */}
+                    <div className="flex items-center gap-3 border-b border-[#3d4f97] bg-[#7a8aba] px-3.5 py-1.5 text-[#21242e]">
                       {slot <= 0 ? (
                         <>
-                          <span className="home-nums truncate text-[10px] text-white/45">
-                            {defaultPortfolioData.links.website}
+                          <span className="font-mono text-[9px] font-bold text-[#3d4f97]">
+                            DISC-{String(DECK_IDS.indexOf(id) + 1).padStart(2, "0")}
                           </span>
-                          <span
-                            className="home-label ml-auto"
-                            style={{ color: "rgba(255,255,255,0.45)" }}
-                          >
+                          <span className="truncate text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
                             {template.name}
+                          </span>
+                          <span className="ml-auto flex h-4 items-center rounded-[1px] border border-[#21242e] bg-white px-1 text-[8px] font-black text-[#21242e]">
+                            E
                           </span>
                         </>
                       ) : (
@@ -195,18 +190,15 @@ export default function HeroDeck() {
                       )}
                     </div>
 
-                    <div className="relative flex-1 overflow-hidden" style={{ height: "calc(100% - 39px)" }}>
-                      {/* pointer-events-none for the same reason the gallery
-                          card needs it: the template renders its own real
-                          anchors and interactive bits, and they must not
-                          compete with this card's control. */}
+                    <div className="relative flex-1 overflow-hidden" style={{ height: "calc(100% - 31px)" }}>
                       <div className="home-frame-render pointer-events-none absolute left-0 top-0">
                         <Template data={defaultPortfolioData} />
                       </div>
 
+                      {/* Screen CRT glare */}
                       <div
                         aria-hidden="true"
-                        className="home-deck-haze pointer-events-none absolute inset-0 bg-[#17140f]"
+                        className="home-deck-haze pointer-events-none absolute inset-0 bg-[#21242e]"
                         style={{ "--slot": slot }}
                       />
                     </div>
@@ -221,11 +213,10 @@ export default function HeroDeck() {
                           openLoginModal(`/editor/${id}`);
                         }
                       }}
-                      className="home-deck-open-link absolute inset-0 flex items-end justify-start rounded-[var(--home-radius)] p-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
+                      className="home-deck-open-link absolute inset-0 flex items-end justify-start p-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f68d1f]"
                     >
-                      <span className="home-label home-deck-open flex items-center gap-2 rounded-full px-4 py-2.5">
-                        Mở mẫu {template.name}
-                        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      <span className="n2001-btn-signal flex items-center gap-2 rounded-[2px] px-3.5 py-1.5 text-[11px] font-bold shadow-md">
+                        THỬ MẪU {template.name.toUpperCase()} ▶
                       </span>
                     </Link>
                   )}
