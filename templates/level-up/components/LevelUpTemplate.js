@@ -32,9 +32,9 @@ import LoadoutRack from "./LoadoutRack";
 // it is not asked to do anything smaller. Chakra Petch carries every line of
 // prose, because bullets and project descriptions are what a recruiter
 // actually reads and a pixel font cannot hold a paragraph.
-const pixel = Press_Start_2P({ subsets: ["latin"], weight: "400", variable: "--lu-pixel" });
-const display = Russo_One({ subsets: ["latin"], weight: "400", variable: "--lu-display" });
-const body = Chakra_Petch({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--lu-body" });
+const pixel = Press_Start_2P({ subsets: ["latin"], weight: "400", display: "swap", variable: "--lu-pixel" });
+const display = Russo_One({ subsets: ["latin"], weight: "400", display: "swap", variable: "--lu-display" });
+const body = Chakra_Petch({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap", variable: "--lu-body" });
 
 // Each content section is a stage in the level. The label is the stage's
 // name in the fiction; the section's own id stays the anchor, so the

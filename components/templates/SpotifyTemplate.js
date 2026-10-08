@@ -27,7 +27,7 @@ import CursorGlow from "./CursorGlow";
 // ours to serve. Figtree is the closest open face to it: same geometric
 // skeleton, same double-storey a, near enough the same proportions that the
 // headline weight lands where Circular's does.
-const figtree = Figtree({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"], display: "swap" });
+const figtree = Figtree({ subsets: ["latin"], display: "swap" });
 
 // The real values, off the application. The green shifted lighter years ago and
 // most recreations still use the old one; the verified badge has never been

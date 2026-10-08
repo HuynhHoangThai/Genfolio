@@ -47,7 +47,7 @@ const serif = Source_Serif_4({
 });
 // Datelines, kickers, and tags only — a mono reads as press furniture (and
 // quietly signals "developer") without a third serif voice.
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--np-mono" });
+const mono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--np-mono" });
 
 const PAPER = "#ffffff";
 const INK = "#111111";

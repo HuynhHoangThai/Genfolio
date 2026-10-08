@@ -22,8 +22,8 @@ import ReadingTimer from "./ReadingTimer";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 const SECTION_LABELS = Object.fromEntries(SECTION_DEFINITIONS.map((s) => [s.id, s.label]));
