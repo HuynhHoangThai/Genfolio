@@ -136,7 +136,7 @@ function SiteHeader() {
     <header className="sticky top-0 z-40">
       {/* Primary Carbon Command Bar */}
       <div className="n2001-carbon-bar">
-        <div className="mx-auto flex w-full max-w-[86rem] items-center justify-between gap-4 px-4 py-2 sm:px-6 lg:px-10">
+        <div className="mx-auto flex w-full max-w-[104rem] items-center justify-between gap-4 px-3 py-2 sm:px-6 lg:px-8">
           <Link
             href="/"
             className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f68d1f]"
@@ -176,37 +176,16 @@ function SiteHeader() {
           </nav>
         </div>
       </div>
-
-      {/* Secondary Pale Sky Subnav Strip */}
-      <div className="n2001-subnav">
-        <div className="mx-auto flex w-full max-w-[86rem] items-center justify-between px-4 py-1 sm:px-6 lg:px-10 text-[10px] sm:text-[11px]">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-[#e60012] animate-pulse" />
-            <span className="uppercase tracking-[0.5px] text-[#21242e] font-bold">
-              PHIÊN BẢN CONSOLE 2001 // HỆ THỐNG SẴN SÀNG
-            </span>
-          </div>
-          <div className="hidden sm:flex items-center gap-4 text-[#3d4f97]">
-            <span className="hover:text-[#21242e]">TRÍCH XUẤT CV 1 CHẠM</span>
-            <span>·</span>
-            <span className="hover:text-[#21242e]">3 KHỐI NGÀNH CHUẨN HÓA</span>
-            <span>·</span>
-            <span className="hover:text-[#21242e]">SỞ HỮU TOÀN BỘ MÃ NGUỒN</span>
-            <span>·</span>
-            <span className="font-bold text-[#e60012]">0 Đ PHÍ DUY TRÌ</span>
-          </div>
-        </div>
-      </div>
     </header>
   );
 }
 
 function Hero() {
   return (
-    <section className="mx-auto w-full max-w-[86rem] px-4 pt-6 pb-8 sm:px-6 lg:px-10 lg:pt-8 lg:pb-12">
+    <section className="mx-auto w-full max-w-[104rem] px-3 pt-4 pb-8 sm:px-6 lg:px-8 lg:pt-6 lg:pb-12">
       {/* Hero Outer Console Chrome Chassis */}
-      <div className="n2001-hero-plate p-5 sm:p-8 lg:p-10">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.18fr)_minmax(0,0.98fr)] lg:gap-12">
+      <div className="n2001-hero-plate p-6 sm:p-10 lg:p-12 xl:p-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.24fr)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
           <div>
             {/* Mascot Speech Bubble */}
             <div className="mb-6 flex items-center gap-3">
@@ -218,21 +197,16 @@ function Hero() {
               </div>
             </div>
 
-            <div className="inline-flex items-center gap-2 rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
-              <span>HỆ THỐNG:</span>
-              <span className="text-[#e60012]">TRÌNH BIÊN DỊCH NEXT.JS 128-BIT // TRÍ TUỆ NHÂN TẠO GEMINI</span>
-            </div>
-
-            <h1 className="home-display home-display-xl mt-5">
+            <h1 className="home-display home-display-xl mt-4">
               BIÊN DỊCH CV,
               <br />
               <span className="home-em">THÀNH LANDING PAGE 1 CHẠM.</span>
             </h1>
 
-            <p className="mt-5 max-w-[48ch] text-[15px] font-bold leading-[1.6] text-[#21242e]">
+            <p className="mt-5 max-w-[56ch] text-[15px] sm:text-[16px] font-bold leading-[1.6] text-[#21242e]">
               Hệ thống tự động chuyển hóa CV thành website Landing Page chuyên nghiệp tràn viền toàn màn hình. Tối đa 2 bước: chọn ngành nghề, tải CV hoặc thử mẫu 1 chạm.
             </p>
-            <p className="mt-2.5 max-w-[44ch] text-[13px] leading-[1.6] text-[#3d4f97]">
+            <p className="mt-2.5 max-w-[52ch] text-[13px] sm:text-[14px] leading-[1.6] text-[#3d4f97]">
               Trí tuệ nhân tạo Gemini tự động bóc tách kỹ năng, kinh nghiệm và kiến tạo giao diện chuẩn ngành. Mã nguồn Next.js độc lập thuộc trọn về GitHub của bạn với 0đ phí duy trì.
             </p>
 

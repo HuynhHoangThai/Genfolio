@@ -1771,6 +1771,20 @@ html:has(.home-root) {
     --home-frame-scale: 0.48;
   }
 }
+@media (min-width: 1280px) {
+  .home-frame {
+    --home-frame-w: 580px;
+    --home-frame-h: 362px;
+    --home-frame-scale: 0.527;
+  }
+}
+@media (min-width: 1536px) {
+  .home-frame {
+    --home-frame-w: 630px;
+    --home-frame-h: 394px;
+    --home-frame-scale: 0.572;
+  }
+}
 .home-frame-viewport {
   width: var(--home-frame-w);
   height: var(--home-frame-h);
