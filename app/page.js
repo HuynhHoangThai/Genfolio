@@ -4,7 +4,7 @@ import { templates } from "@/lib/portfolioData";
 import TemplateWall from "@/components/home/TemplateWall";
 import InstantGenerator from "@/components/home/InstantGenerator";
 import HeroDeck from "@/components/home/HeroDeck";
-import CommissionDesk from "@/components/home/CommissionDesk";
+import FAQSection from "@/components/home/FAQSection";
 import OrbitMount from "@/components/motion/OrbitMount";
 import CreativeThreadMount from "@/components/motion/CreativeThreadMount";
 import GearsMount from "@/components/motion/GearsMount";
@@ -99,7 +99,7 @@ export default function Home() {
           <ThoughtsMount />
         </MotionBreak>
 
-        <Commission />
+        <FAQSection />
       </main>
 
       <SiteFooter />
@@ -156,13 +156,13 @@ function SiteHeader() {
               href="#handoff"
               className="hidden text-[12px] font-bold uppercase tracking-[0.5px] text-[#e48600] transition hover:brightness-125 focus-visible:outline-2 focus-visible:outline-[#f68d1f] md:inline"
             >
-              CÁCH HOẠT ĐỘNG
+              3 TRỤ CỘT
             </a>
             <a
-              href="#custom"
+              href="#faq"
               className="hidden text-[12px] font-bold uppercase tracking-[0.5px] text-[#e48600] transition hover:brightness-125 focus-visible:outline-2 focus-visible:outline-[#f68d1f] md:inline"
             >
-              THIẾT KẾ RIÊNG
+              HỎI ĐÁP (FAQ)
             </a>
 
             <a
@@ -430,48 +430,6 @@ function HandoffBeat({ item, index }) {
   );
 }
 
-function Commission() {
-  return (
-    <section id="custom" className="home-band scroll-mt-16 pb-20 pt-10 lg:pb-24 lg:pt-14">
-      <div className="mx-auto w-full max-w-[86rem] px-4 sm:px-6 lg:px-10">
-        {/* Section Label Bar */}
-        <div className="n2001-section-bar mb-8 rounded-[2px]">
-          <span className="flex items-center gap-2">
-            <span className="text-[#f68d1f]">≡</span>
-            <span>PHÒNG THIẾT KẾ RIÊNG (CUSTOM HARDWARE LAB)</span>
-          </span>
-          <span className="font-mono text-[#3d4f97]">DIRECT DISPATCH // GENFOLIO STUDIO</span>
-        </div>
-
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
-          <div className="home-reveal">
-            <p className="home-label">
-              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 03</span> // THIẾT KẾ ĐỘC BẢN
-            </p>
-            <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-4">
-              Cần phong cách <em className="home-em">thiết kế độc bản</em> cho hồ sơ của bạn?
-            </h2>
-            <p className="mt-5 text-[15px] leading-[1.6] text-[#21242e]">
-              Đội ngũ kỹ thuật Genfolio Studio sẵn sàng đồng hành cùng bạn để thiết kế các giao diện hồ sơ năng lực cao cấp theo yêu cầu thương hiệu cá nhân, tham gia sự kiện pitching hoặc ứng tuyển các vị trí lãnh đạo. Ý tưởng của bạn, dữ liệu của bạn, được xây dựng theo tiêu chuẩn chỉn chu nhất và bàn giao tương tự: toàn bộ mã nguồn Next.js độc lập nằm trọn trong GitHub và chạy trên Vercel của bạn.
-            </p>
-            <p className="mt-3 text-[14px] leading-[1.6] text-[#3d4f97]">
-              Chọn các tiêu chí bên dưới, bản tóm tắt yêu cầu sẽ tự động được soạn thảo. Hãy gửi đi khi bạn thấy đã đúng ý mình.
-            </p>
-          </div>
-
-          <div className="home-reveal lg:pl-12" style={{ "--home-stagger": "4%" }}>
-            <CelebrationMount />
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <CommissionDesk />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function SiteFooter() {
   return (
     <footer className="home-invert">
@@ -521,8 +479,8 @@ function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="#custom" className="home-footer-link">
-                  Đặt thiết kế riêng
+                <a href="#faq" className="home-footer-link">
+                  Câu hỏi thường gặp (FAQ)
                 </a>
               </li>
             </ul>
