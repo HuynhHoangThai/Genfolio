@@ -185,8 +185,8 @@ function Hero() {
     <section className="mx-auto w-full max-w-[104rem] px-3 pt-4 pb-8 sm:px-6 lg:px-8 lg:pt-6 lg:pb-12">
       {/* Hero Outer Console Chrome Chassis */}
       <div className="n2001-hero-plate p-6 sm:p-10 lg:p-12 xl:p-14">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.24fr)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
-          <div>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14 xl:gap-20">
+          <div className="relative z-10 max-w-full lg:max-w-[44rem]">
             {/* Mascot Speech Bubble */}
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] shadow-xs">
@@ -197,16 +197,16 @@ function Hero() {
               </div>
             </div>
 
-            <h1 className="home-display home-display-xl mt-4">
+            <h1 className="home-display home-display-xl mt-3 max-w-[20ch]">
               BIÊN DỊCH CV,
               <br />
               <span className="home-em">THÀNH LANDING PAGE 1 CHẠM.</span>
             </h1>
 
-            <p className="mt-5 max-w-[56ch] text-[15px] sm:text-[16px] font-bold leading-[1.6] text-[#21242e]">
+            <p className="mt-5 max-w-[46ch] text-[15px] sm:text-[16px] font-bold leading-[1.6] text-[#21242e]">
               Hệ thống tự động chuyển hóa CV thành website Landing Page chuyên nghiệp tràn viền toàn màn hình. Tối đa 2 bước: chọn ngành nghề, tải CV hoặc thử mẫu 1 chạm.
             </p>
-            <p className="mt-2.5 max-w-[52ch] text-[13px] sm:text-[14px] leading-[1.6] text-[#3d4f97]">
+            <p className="mt-2.5 max-w-[42ch] text-[13px] sm:text-[14px] leading-[1.6] text-[#3d4f97]">
               Trí tuệ nhân tạo Gemini tự động bóc tách kỹ năng, kinh nghiệm và kiến tạo giao diện chuẩn ngành. Mã nguồn Next.js độc lập thuộc trọn về GitHub của bạn với 0đ phí duy trì.
             </p>
 

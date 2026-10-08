@@ -1647,9 +1647,9 @@ html:has(.home-root) {
   text-wrap: balance;
 }
 .home-display-xl {
-  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 1.06;
 }
 .home-display-lg {
   font-size: clamp(2rem, 3.8vw, 3.2rem);
@@ -1766,23 +1766,23 @@ html:has(.home-root) {
 }
 @media (min-width: 1024px) {
   .home-frame {
-    --home-frame-w: 528px;
-    --home-frame-h: 330px;
-    --home-frame-scale: 0.48;
+    --home-frame-w: 480px;
+    --home-frame-h: 300px;
+    --home-frame-scale: 0.436;
   }
 }
 @media (min-width: 1280px) {
   .home-frame {
-    --home-frame-w: 580px;
-    --home-frame-h: 362px;
-    --home-frame-scale: 0.527;
+    --home-frame-w: 520px;
+    --home-frame-h: 325px;
+    --home-frame-scale: 0.473;
   }
 }
 @media (min-width: 1536px) {
   .home-frame {
-    --home-frame-w: 630px;
-    --home-frame-h: 394px;
-    --home-frame-scale: 0.572;
+    --home-frame-w: 560px;
+    --home-frame-h: 350px;
+    --home-frame-scale: 0.51;
   }
 }
 .home-frame-viewport {
@@ -1907,7 +1907,7 @@ html:has(.home-root) {
 .home-deck-card {
   /* The fan tightens on small screens: at full spread the rearmost card
      reaches past the left edge of a phone viewport and gets clipped. */
-  --home-fan: -4%;
+  --home-fan: -2%;
   transform: translate3d(calc(var(--slot) * var(--home-fan)), calc(var(--slot) * -3.5%), calc(var(--slot) * -150px))
     rotateY(calc(var(--slot) * 8deg)) scale(calc(1 - var(--slot) * 0.03));
   z-index: calc(30 - var(--slot) * 10);
@@ -1922,7 +1922,7 @@ html:has(.home-root) {
 }
 @media (min-width: 640px) {
   .home-deck-card {
-    --home-fan: -8.5%;
+    --home-fan: -3%;
   }
 }
 .home-deck-haze {
