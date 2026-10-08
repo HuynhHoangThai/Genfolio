@@ -2,9 +2,7 @@
 // they can be reviewed in the running app. Not linked from anywhere, and kept
 // out of the index.
 
-import OrbitMount from "@/components/motion/OrbitMount";
 import ThoughtsMount from "@/components/motion/ThoughtsMount";
-import GearsMount from "@/components/motion/GearsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 
 export const metadata = {
@@ -21,12 +19,6 @@ export default function MotionPage() {
           Thư viện đồ họa
         </h1>
 
-        <section className="mt-14">
-          <p className="home-label">Quỹ đạo (Orbit)</p>
-          <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
-            <OrbitMount />
-          </div>
-        </section>
 
 
         <section className="mt-12">
@@ -36,12 +28,6 @@ export default function MotionPage() {
           </div>
         </section>
 
-        <section className="mt-12">
-          <p className="home-label">Bánh răng (Gears)</p>
-          <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
-            <GearsMount />
-          </div>
-        </section>
 
         <section className="mt-12">
           <p className="home-label">Chúc mừng (Celebration)</p>

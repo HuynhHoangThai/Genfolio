@@ -4,8 +4,6 @@ import { templates } from "@/lib/portfolioData";
 import TemplateWall from "@/components/home/TemplateWall";
 import HeroDeck from "@/components/home/HeroDeck";
 import FAQSection from "@/components/home/FAQSection";
-import OrbitMount from "@/components/motion/OrbitMount";
-import GearsMount from "@/components/motion/GearsMount";
 import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 import { ArrowRight, GitHubMark, VercelMark } from "@/components/home/marks";
@@ -83,10 +81,6 @@ export default function Home() {
         <Hero />
 
         <Wall />
-
-        <MotionBreak>
-          <GearsMount />
-        </MotionBreak>
 
         <Handoff />
 
@@ -294,7 +288,7 @@ function Handoff() {
           <span className="text-[#3d4f97] text-[10px] font-bold tracking-wider">BÀN GIAO TRỰC TIẾP // CÔNG NGHỆ GEMINI AI</span>
         </div>
 
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
+        <div className="max-w-3xl">
           <div className="home-reveal">
             <p className="home-label">
               <span className="home-nums text-[#f68d1f]">NỀN TẢNG 02</span> // GIÁ TRỊ CỐT LÕI
@@ -305,10 +299,6 @@ function Handoff() {
             <p className="mt-5 text-[15px] leading-[1.6] text-[#3d4f97]">
               Gen-Folio giải quyết triệt để 3 bài toán lớn nhất của việc làm website hồ sơ cá nhân: khởi tạo tức thì dưới 30 giây, bố cục chuyên biệt cho từng vị trí nghề nghiệp, và bàn giao toàn quyền sở hữu mã nguồn.
             </p>
-          </div>
-
-          <div className="home-reveal lg:pl-20" style={{ "--home-stagger": "4%" }}>
-            <OrbitMount />
           </div>
         </div>
 
