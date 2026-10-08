@@ -38,7 +38,7 @@ export default function TemplateWall() {
                   : "border-t border-l border-white/90 border-r border-[#7a8aba] border-b-2 border-b-[#7a8aba] bg-[#cfcfcf] text-[#21242e] hover:bg-[#c2c2c2]"
               }`}
             >
-              <span className="font-mono text-[9px] font-black tracking-wider">
+              <span className="text-[9px] font-black tracking-wider">
                 [{cat.code}]
               </span>
               <span>{cat.label}</span>

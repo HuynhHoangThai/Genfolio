@@ -289,7 +289,7 @@ function Wall() {
             <span className="text-[#f68d1f]">≡</span>
             <span>KHO MẪU GIAO DIỆN CHUẨN NGÀNH</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">PHIÊN BẢN CHUẨN // 3 KHỐI NGÀNH</span>
+          <span className="text-[#3d4f97] text-[10px] font-bold tracking-wider">PHIÊN BẢN CHUẨN // 3 KHỐI NGÀNH</span>
         </div>
 
         <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
@@ -323,7 +323,7 @@ function Handoff() {
             <span className="text-[#f68d1f]">≡</span>
             <span>3 GIÁ TRỊ CỐT LÕI // NỀN TẢNG CÔNG NGHỆ</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">BÀN GIAO TRỰC TIẾP // CÔNG NGHỆ GEMINI AI</span>
+          <span className="text-[#3d4f97] text-[10px] font-bold tracking-wider">BÀN GIAO TRỰC TIẾP // CÔNG NGHỆ GEMINI AI</span>
         </div>
 
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
@@ -408,7 +408,7 @@ function HandoffBeat({ item, index }) {
           >
             <div className="flex items-center gap-3 border-b border-white/20 bg-[#21242e] px-4 py-3">
               {Mark && <Mark className="h-4 w-4 shrink-0 text-[#ecab37]" aria-hidden="true" />}
-              <span className="font-mono truncate text-[12px] font-bold text-white tracking-[0.5px]">
+              <span className="truncate text-[12px] font-bold text-white tracking-[0.5px]">
                 {item.head}
               </span>
               <span className="ml-auto shrink-0 rounded-[2px] border border-[#b87c14] bg-[#ecab37] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
@@ -420,7 +420,7 @@ function HandoffBeat({ item, index }) {
               {item.kind === "repo" ? (
                 <ul className="space-y-2">
                   {item.rows.map((row) => (
-                    <li key={row} className="font-mono truncate text-[11px] text-[#9fbee7]">
+                    <li key={row} className="truncate text-[11px] text-[#9fbee7] font-medium">
                       ✓ {row}
                     </li>
                   ))}
@@ -430,7 +430,7 @@ function HandoffBeat({ item, index }) {
                   {item.rows.map(([label, value]) => (
                     <div key={label} className="flex items-baseline justify-between gap-3 border-b border-white/5 pb-1">
                       <dt className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#9fbee7]">{label}</dt>
-                      <dd className="font-mono text-[11px] font-bold text-[#dedede]">{value}</dd>
+                      <dd className="text-[11px] font-bold text-[#dedede]">{value}</dd>
                     </div>
                   ))}
                 </dl>

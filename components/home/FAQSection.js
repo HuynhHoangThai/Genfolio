@@ -63,7 +63,7 @@ export default function FAQSection() {
             <span className="text-[#f68d1f]">≡</span>
             <span>CÂU HỎI THƯỜNG GẶP (HỎI ĐÁP HỆ THỐNG)</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">KHO KIẾN THỨC // TOÀN BỘ CHỦ ĐỀ</span>
+          <span className="text-[#3d4f97] text-[10px] font-bold tracking-wider">KHO KIẾN THỨC // TOÀN BỘ CHỦ ĐỀ</span>
         </div>
 
         {/* Section Header */}
@@ -99,7 +99,7 @@ export default function FAQSection() {
                   className="flex w-full items-center justify-between gap-4 p-4 sm:p-5 text-left transition hover:bg-[#d5d5d5] cursor-pointer"
                 >
                   <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                    <span className="font-mono shrink-0 text-[11px] font-black text-[#f68d1f]">
+                    <span className="shrink-0 text-[11px] font-black tracking-wide text-[#f68d1f]">
                       {itemCode}
                     </span>
                     <h3 className="text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.2px] text-[#21242e]">
@@ -124,7 +124,7 @@ export default function FAQSection() {
                 {isOpen && (
                   <div className="border-t border-[#3d4f97]/30 bg-[#21242e] p-5 sm:p-6 text-white animate-fadeIn">
                     <div className="flex items-start gap-3">
-                      <span className="font-mono text-[10px] font-black text-[#ecab37] shrink-0 mt-0.5 border border-white/20 bg-[#14161d] px-1.5 py-0.5 rounded-[2px]">
+                      <span className="text-[10px] font-black text-[#ecab37] shrink-0 mt-0.5 border border-white/20 bg-[#14161d] px-1.5 py-0.5 rounded-[2px]">
                         ĐÁP
                       </span>
                       <p className="text-[13.5px] sm:text-[14.5px] leading-[1.7] text-[#dedede]">
@@ -141,7 +141,7 @@ export default function FAQSection() {
         {/* Bottom Fast Action Prompt */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-[4px] border border-[#3d4f97] bg-[#7a8aba] p-5 text-[#21242e]">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[11px] font-black text-[#ecab37] bg-[#21242e] border border-[#3d4f97] px-2 py-1 rounded-[2px] shadow-xs">
+            <span className="text-[11px] font-black text-[#ecab37] bg-[#21242e] border border-[#3d4f97] px-2 py-1 rounded-[2px] shadow-xs">
               SẴN SÀNG
             </span>
             <div>
