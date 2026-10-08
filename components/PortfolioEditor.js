@@ -11,6 +11,7 @@ import { templateComponents } from "@/components/templates";
 import { loadStoredPortfolioData, saveStoredPortfolioData } from "@/lib/portfolioStorage";
 import { getPalettesForTemplate } from "@/lib/palettes";
 import UserProfileNav from "@/components/auth/UserProfileNav";
+import { useAuth } from "@/components/auth/AuthContext";
 
 const MIN_PANE_PERCENT = 25;
 const MAX_PANE_PERCENT = 75;
@@ -100,6 +101,14 @@ function ThemeSwatchBar({ palettes, selectedId, onChange }) {
 
 export default function PortfolioEditor({ template }) {
   const router = useRouter();
+  const { isAuth, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && !isAuth) {
+      router.replace(`/?auth=required&next=/editor/${template?.id || "newspaper"}`);
+    }
+  }, [authLoading, isAuth, router, template?.id]);
+
   const [data, setData] = useState(defaultPortfolioData);
   const [restored, setRestored] = useState(false);
   const Template = templateComponents[template.id];

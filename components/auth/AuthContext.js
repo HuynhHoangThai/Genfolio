@@ -39,6 +39,8 @@ function decodeJwt(token) {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [targetNextUrl, setTargetNextUrl] = useState(null);
 
   // Initialize session from localStorage / cookie on mount
   useEffect(() => {
@@ -56,6 +58,30 @@ export function AuthProvider({ children }) {
       setLoading(false);
     }
   }, []);
+
+  const openLoginModal = useCallback((nextUrl = null) => {
+    if (nextUrl) {
+      setTargetNextUrl(nextUrl);
+    }
+    setIsLoginModalOpen(true);
+  }, []);
+
+  const closeLoginModal = useCallback(() => {
+    setIsLoginModalOpen(false);
+  }, []);
+
+  const handlePostLoginRedirect = useCallback(() => {
+    if (typeof window === "undefined") return;
+
+    // Check target url from state or from URL search params
+    const searchParams = new URLSearchParams(window.location.search);
+    const urlNext = searchParams.get("next");
+    const destination = targetNextUrl || urlNext;
+
+    if (destination && destination !== window.location.pathname) {
+      window.location.href = destination;
+    }
+  }, [targetNextUrl]);
 
   const loginWithGoogleCredential = useCallback((credential) => {
     if (!credential) return false;
@@ -80,7 +106,6 @@ export function AuthProvider({ children }) {
     try {
       localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(userData));
       localStorage.setItem(STORAGE_KEY_TOKEN, credential);
-      // Set simple session cookie for multi-tab / server awareness
       if (typeof document !== "undefined") {
         document.cookie = `${COOKIE_KEY}=${encodeURIComponent(userData.email)}; path=/; max-age=604800; SameSite=Lax`;
       }
@@ -89,8 +114,15 @@ export function AuthProvider({ children }) {
     }
 
     setUser(userData);
+    setIsLoginModalOpen(false);
+
+    // If there is a pending redirect target, navigate immediately
+    setTimeout(() => {
+      handlePostLoginRedirect();
+    }, 100);
+
     return true;
-  }, []);
+  }, [handlePostLoginRedirect]);
 
   const loginDevFallback = useCallback((customEmail = "developer@genfolio.dev", customName = "Developer") => {
     const userData = {
@@ -116,8 +148,14 @@ export function AuthProvider({ children }) {
     }
 
     setUser(userData);
+    setIsLoginModalOpen(false);
+
+    setTimeout(() => {
+      handlePostLoginRedirect();
+    }, 100);
+
     return true;
-  }, []);
+  }, [handlePostLoginRedirect]);
 
   const logout = useCallback(() => {
     try {
@@ -126,7 +164,6 @@ export function AuthProvider({ children }) {
       if (typeof document !== "undefined") {
         document.cookie = `${COOKIE_KEY}=; path=/; max-age=0; SameSite=Lax`;
       }
-      // If Google Identity client is active, revoke session prompt
       if (typeof window !== "undefined" && window.google?.accounts?.id?.disableAutoSelect) {
         window.google.accounts.id.disableAutoSelect();
       }
@@ -134,6 +171,14 @@ export function AuthProvider({ children }) {
       console.warn("Lỗi khi đăng xuất:", e);
     }
     setUser(null);
+
+    // If currently on a protected route, redirect to home
+    if (typeof window !== "undefined") {
+      const path = window.location.pathname;
+      if (path.startsWith("/editor") || path.startsWith("/deployed")) {
+        window.location.href = "/";
+      }
+    }
   }, []);
 
   const value = {
@@ -141,6 +186,9 @@ export function AuthProvider({ children }) {
     isAuth: !!user,
     loading,
     googleClientId: GOOGLE_CLIENT_ID,
+    isLoginModalOpen,
+    openLoginModal,
+    closeLoginModal,
     loginWithGoogleCredential,
     loginDevFallback,
     logout,

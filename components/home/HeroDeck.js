@@ -16,6 +16,7 @@ import Link from "next/link";
 import { templateComponents } from "@/components/templates";
 import { defaultPortfolioData, getTemplate, templates } from "@/lib/portfolioData";
 import { ArrowRight } from "./marks";
+import { useAuth } from "@/components/auth/AuthContext";
 
 // Every template that has a component to render, in the same order the gallery
 // below lists them, so the deck and the wall tell the same story.
@@ -40,6 +41,7 @@ const ROTATE_MS = 3000;
 const EXIT_MS = 800;
 
 export default function HeroDeck() {
+  const { isAuth, openLoginModal } = useAuth();
   const [front, setFront] = useState(0);
   const [exiting, setExiting] = useState(null);
   const [paused, setPaused] = useState(false);
@@ -213,6 +215,12 @@ export default function HeroDeck() {
                   {isFront && (
                     <Link
                       href={`/editor/${id}`}
+                      onClick={(e) => {
+                        if (!isAuth) {
+                          e.preventDefault();
+                          openLoginModal(`/editor/${id}`);
+                        }
+                      }}
                       className="home-deck-open-link absolute inset-0 flex items-end justify-start rounded-[var(--home-radius)] p-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
                     >
                       <span className="home-label home-deck-open flex items-center gap-2 rounded-full px-4 py-2.5">
