@@ -270,8 +270,32 @@ function Hero() {
             </div>
           </div>
 
-          <div className="flex justify-center lg:justify-end">
-            <HeroDeck />
+          <div className="relative isolate flex min-h-[390px] items-center justify-center lg:min-h-[520px] lg:justify-end">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-0 left-0 z-20 w-[42%] max-w-[250px] -translate-x-2 translate-y-1 sm:w-[40%] lg:left-[-3%] lg:w-[43%] lg:max-w-[320px]"
+            >
+              <Image
+                src="/assets/genfolio/01-hero-mascot.svg"
+                alt=""
+                width={565}
+                height={595}
+                priority
+                className="h-auto w-full drop-shadow-[0_14px_12px_rgba(25,31,55,0.22)]"
+                sizes="(min-width: 1024px) 320px, 42vw"
+              />
+            </div>
+
+            <div className="relative z-10 w-full min-w-0 pl-[18%] sm:pl-[20%] lg:pl-[12%]">
+              <HeroDeck />
+            </div>
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute right-[2%] top-[8%] z-0 hidden rotate-[-7deg] rounded-sm border border-[#3d4f97]/40 bg-[#dce8ff]/70 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[1px] text-[#3d4f97] shadow-sm sm:block"
+            >
+              CV <span className="text-[#e48600]">→</span> Portfolio
+            </div>
           </div>
         </div>
       </div>
