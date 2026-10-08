@@ -5,10 +5,10 @@ import { templates } from "@/lib/portfolioData";
 import TemplatePreviewCard from "@/components/TemplatePreviewCard";
 
 const CATEGORIES = [
-  { id: "all", label: "TẤT CẢ MẪU", count: 12, icon: "🎮" },
-  { id: "tech", label: "KHỐI KỸ THUẬT (TECH)", count: 4, icon: "💻" },
-  { id: "creative", label: "KHỐI SÁNG TẠO (CREATIVE)", count: 5, icon: "🎨" },
-  { id: "business", label: "KHỐI KINH DOANH (BUSINESS)", count: 3, icon: "📈" },
+  { id: "all", label: "TẤT CẢ MẪU", count: 12, code: "ALL" },
+  { id: "tech", label: "KHỐI KỸ THUẬT (TECH)", count: 4, code: "DEV" },
+  { id: "creative", label: "KHỐI SÁNG TẠO (CREATIVE)", count: 5, code: "ART" },
+  { id: "business", label: "KHỐI KINH DOANH (BUSINESS)", count: 3, code: "BIZ" },
 ];
 
 export default function TemplateWall() {
@@ -38,7 +38,9 @@ export default function TemplateWall() {
                   : "border-t border-l border-white/90 border-r border-[#7a8aba] border-b-2 border-b-[#7a8aba] bg-[#cfcfcf] text-[#21242e] hover:bg-[#c2c2c2]"
               }`}
             >
-              <span>{cat.icon}</span>
+              <span className="font-mono text-[9px] font-black tracking-wider">
+                [{cat.code}]
+              </span>
               <span>{cat.label}</span>
               <span
                 className={`ml-1 rounded-[1px] px-1.5 py-0.2 text-[9px] font-black ${

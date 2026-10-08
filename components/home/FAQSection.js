@@ -124,7 +124,9 @@ export default function FAQSection() {
                 {isOpen && (
                   <div className="border-t border-[#3d4f97]/30 bg-[#21242e] p-5 sm:p-6 text-white animate-fadeIn">
                     <div className="flex items-start gap-3">
-                      <span className="text-[#ecab37] text-[15px] shrink-0 mt-0.5">💬</span>
+                      <span className="font-mono text-[10px] font-black text-[#ecab37] shrink-0 mt-0.5 border border-white/20 bg-[#14161d] px-1.5 py-0.5 rounded-[2px]">
+                        ANS
+                      </span>
                       <p className="text-[13.5px] sm:text-[14.5px] leading-[1.7] text-[#dedede]">
                         {item.answer}
                       </p>
@@ -139,7 +141,9 @@ export default function FAQSection() {
         {/* Bottom Fast Action Prompt */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-[4px] border border-[#3d4f97] bg-[#7a8aba] p-5 text-[#21242e]">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">⚡</span>
+            <span className="font-mono text-[11px] font-black text-[#ecab37] bg-[#21242e] border border-[#3d4f97] px-2 py-1 rounded-[2px] shadow-xs">
+              READY
+            </span>
             <div>
               <p className="text-[13px] font-black uppercase tracking-[0.5px]">
                 SẴN SÀNG TẠO PORTFOLIO CỦA BẠN?

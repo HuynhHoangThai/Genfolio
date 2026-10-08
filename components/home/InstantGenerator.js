@@ -140,14 +140,16 @@ export default function InstantGenerator() {
                 }`}
               >
                 <div className="flex w-full items-center justify-between">
-                  <span className="text-base">{ind.icon}</span>
+                  <span className="font-mono text-[10px] font-black text-[#ecab37] border border-[#3d4f97] bg-[#14161d] px-1.5 py-0.5 rounded-[2px]">
+                    {ind.icon}
+                  </span>
                   <span
                     className={`h-2 w-2 rounded-full ${
                       isSelected ? "bg-[#ecab37] shadow-[0_0_6px_#ecab37]" : "bg-[#7a8aba]"
                     }`}
                   />
                 </div>
-                <div className="mt-1 text-[12px] font-black uppercase tracking-tight">
+                <div className="mt-1.5 text-[12px] font-black uppercase tracking-tight">
                   {ind.label.split(" ")[1] || ind.label}
                 </div>
                 <div
@@ -199,7 +201,7 @@ export default function InstantGenerator() {
           {/* Nút 2: Tải CV thật lên */}
           <label className="n2001-btn-amber flex items-center justify-center gap-2 py-3 px-4 text-[11px] font-bold tracking-[0.5px] cursor-pointer shadow-md transition active:translate-y-[1px]">
             <span>TẢI CV LÊN (.PDF, .DOCX)</span>
-            <span className="text-[12px]">📄</span>
+            <span className="font-mono text-[11px] font-black">↑</span>
             <input
               ref={fileInputRef}
               type="file"

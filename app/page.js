@@ -212,7 +212,7 @@ function Hero() {
             {/* Mascot Speech Bubble */}
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] shadow-xs">
-                <span className="text-[15px]">🎮</span>
+                <span className="font-mono text-[11px] font-black text-[#f68d1f]">GF</span>
               </div>
               <div className="n2001-mascot-bubble">
                 GEN-FOLIO 3.0: TỰ ĐỘNG BIÊN DỊCH CV THÀNH LANDING PAGE DƯỚI 30 GIÂY!
