@@ -24,7 +24,7 @@ function CenteredMessage({ title, body }) {
         href="/"
         className="mt-3 text-sm font-medium text-emerald-600 hover:underline dark:text-emerald-400"
       >
-        ← Back to templates
+        ← Quay lại danh sách mẫu
       </Link>
     </div>
   );
@@ -62,7 +62,7 @@ export default function PreviewPage() {
   }, []);
 
   if (!template || !Template) {
-    return <CenteredMessage title="Template not found" />;
+    return <CenteredMessage title="Không tìm thấy mẫu giao diện" />;
   }
 
   if (status === "loading") {
@@ -72,8 +72,8 @@ export default function PreviewPage() {
   if (status === "empty") {
     return (
       <CenteredMessage
-        title="No draft to preview yet"
-        body="Open this template in the editor and add your details first — the preview reads your latest autosaved draft."
+        title="Chưa có bản nháp để xem trước"
+        body="Mở mẫu này trong trình chỉnh sửa và điền thông tin của bạn trước — chế độ xem trước sẽ đọc bản nháp tự động lưu gần nhất."
       />
     );
   }
@@ -94,7 +94,7 @@ export default function PreviewPage() {
       <Template data={sanitizePortfolioData(data)} />
       {palettes && isMobile && (
         <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 ring-black/10 backdrop-blur dark:bg-zinc-900/90 dark:ring-white/10">
-          <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Theme</span>
+          <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">Chủ đề</span>
           <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} />
         </div>
       )}
@@ -104,7 +104,7 @@ export default function PreviewPage() {
             className="text-xs font-medium text-zinc-500 dark:text-zinc-400"
             style={{ writingMode: "vertical-rl" }}
           >
-            Theme
+            Chủ đề
           </span>
           <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} vertical />
         </div>

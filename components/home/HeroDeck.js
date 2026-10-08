@@ -216,7 +216,7 @@ export default function HeroDeck() {
                       className="home-deck-open-link absolute inset-0 flex items-end justify-start rounded-[var(--home-radius)] p-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
                     >
                       <span className="home-label home-deck-open flex items-center gap-2 rounded-full px-4 py-2.5">
-                        Open {template.name}
+                        Mở mẫu {template.name}
                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </span>
                     </Link>
@@ -228,7 +228,7 @@ export default function HeroDeck() {
                       onClick={() => setFront(DECK_IDS.indexOf(id))}
                       className="absolute inset-0 cursor-pointer rounded-[var(--home-radius)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
                     >
-                      <span className="sr-only">Bring the {template.name} template to the front</span>
+                      <span className="sr-only">Đưa mẫu {template.name} lên trước</span>
                     </button>
                   )}
                 </div>

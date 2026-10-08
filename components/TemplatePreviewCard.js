@@ -62,7 +62,7 @@ export default function TemplatePreviewCard({ template, index = 0 }) {
           href={`/editor/${template.id}`}
           className="absolute inset-0 rounded-[var(--home-radius)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
         >
-          <span className="sr-only">Try the {template.name} template</span>
+          <span className="sr-only">Thử mẫu {template.name}</span>
         </Link>
       </div>
     </div>

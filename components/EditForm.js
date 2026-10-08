@@ -53,10 +53,10 @@ function ResumeImport({ onImport }) {
         throw new Error(
           result?.error ||
             (res.status === 413
-              ? "That file is too large to upload. Please try one under 4MB."
+              ? "Tệp tải lên quá lớn. Vui lòng chọn tệp dưới 4MB."
               : res.status === 504
-                ? "Reading that resume took too long and the server gave up. A shorter file usually works."
-                : `The server couldn't process that upload (error ${res.status}). Please try again.`)
+                ? "Quá trình đọc CV mất quá nhiều thời gian. Vui lòng thử lại với tệp ngắn gọn hơn."
+                : `Máy chủ không thể xử lý tệp tải lên (lỗi ${res.status}). Vui lòng thử lại.`)
         );
       }
 
@@ -78,11 +78,11 @@ function ResumeImport({ onImport }) {
           <IconUpload className="h-4 w-4" />
         </span>
         <p className="text-[15px] font-semibold" style={{ color: "var(--home-strong)" }}>
-          Import from a resume
+          Nhập dữ liệu từ CV
         </p>
       </div>
       <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--home-dim)" }}>
-        Upload a PDF or DOCX and we&rsquo;ll auto-fill everything below. Parsing isn&rsquo;t perfect, so review after.
+        Tải lên tệp PDF hoặc DOCX để hệ thống tự động điền các mục bên dưới. Vui lòng kiểm tra lại thông tin sau khi trích xuất.
       </p>
 
       <label
@@ -91,7 +91,7 @@ function ResumeImport({ onImport }) {
         }`}
       >
         <IconUpload className="h-4 w-4" />
-        {status === "loading" ? "Reading resume…" : "Choose file"}
+        {status === "loading" ? "Đang đọc CV…" : "Chọn tệp CV"}
         <input
           type="file"
           accept={RESUME_ACCEPT}
@@ -103,7 +103,7 @@ function ResumeImport({ onImport }) {
 
       {status === "loading" && fileName && (
         <p className="mt-2 text-xs" style={{ color: "var(--home-dim)" }}>
-          Parsing {fileName}…
+          Đang phân tích {fileName}…
         </p>
       )}
       {status === "error" && (
@@ -124,11 +124,7 @@ function IconLayers(props) {
   );
 }
 
-// Reordering sections is a structural, page-wide control, not a content
-// field — buried as just another FormSection between Links and Skills, it
-// read as one more input to skim past. Giving it the same "distinct card"
-// treatment as ResumeImport, right up top, is what makes it register as an
-// actual feature worth trying rather than something to overlook.
+// Reordering sections
 function SectionOrderCard({ order, onChange }) {
   return (
     <div className="ed-panel p-5">
@@ -140,18 +136,17 @@ function SectionOrderCard({ order, onChange }) {
           <IconLayers className="h-4 w-4" />
         </span>
         <p className="text-[15px] font-semibold" style={{ color: "var(--home-strong)" }}>
-          Reorder your sections
+          Sắp xếp thứ tự các mục
         </p>
         <span
           className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
           style={{ background: "var(--home-accent)", color: "#ffffff" }}
         >
-          New
+          Mới
         </span>
       </div>
       <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--home-dim)" }}>
-        Drag to change what flows first: lead with Projects if that&rsquo;s your strongest section, or Experience if
-        that is. Intro and Contact always stay first and last.
+        Kéo thả để sắp xếp thứ tự ưu tiên: hiển thị Dự án lên trước nếu đó là thế mạnh của bạn, hoặc Kinh nghiệm làm việc. Giới thiệu và Liên hệ luôn cố định ở đầu và cuối.
       </p>
       <div className="mt-4">
         <SectionOrderField order={order} onChange={onChange} />
@@ -260,7 +255,7 @@ function RemovableRow({ onRemove, children }) {
         onClick={onRemove}
         className="ed-focus absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-sm transition-colors hover:bg-[rgba(216,92,39,0.12)] hover:text-[var(--home-accent)]"
         style={{ color: "var(--home-faint)" }}
-        aria-label="Remove"
+        aria-label="Xóa"
       >
         ✕
       </button>
@@ -418,31 +413,31 @@ export default function EditForm({ data, onChange, templateId }) {
         onChange={(sectionOrder) => set({ sectionOrder })}
       />
 
-      <FormSection title="Basic info">
+      <FormSection title="Thông tin cơ bản">
         <Field
-          label="Name"
+          label="Họ và tên"
           value={data.name}
           onChange={(e) => set({ name: e.target.value })}
         />
         <Field
-          label="Role / Title"
+          label="Vị trí / Chức danh"
           value={data.role}
           onChange={(e) => set({ role: e.target.value })}
         />
         <TextArea
-          label="Bio"
+          label="Giới thiệu bản thân (Bio)"
           value={data.bio}
           onChange={(e) => set({ bio: e.target.value })}
         />
         <Field
-          label="Email"
+          label="Email liên hệ"
           value={data.email}
           onChange={(e) => set({ email: e.target.value })}
         />
         {showPhotoFields && (
           <Field
-            label="Photo URL (optional)"
-            hint="A casual, decent-quality photo works best — a stiff corporate headshot undercuts the vibe."
+            label="URL ảnh đại diện (tùy chọn)"
+            hint="Nên dùng ảnh chân dung tự nhiên, chất lượng tốt thay vì ảnh thẻ cứng nhắc."
             value={data.photoUrl || ""}
             onChange={(e) => set({ photoUrl: e.target.value })}
           />
@@ -450,20 +445,20 @@ export default function EditForm({ data, onChange, templateId }) {
         {showNowPlaying && (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Field
-              label="Now playing: song (optional)"
-              hint="Shown in the player bar. Nothing actually plays. Leave both blank and it reads Frank Sinatra, My Way."
+              label="Đang phát: bài hát (tùy chọn)"
+              hint="Hiển thị trên thanh phát nhạc. Để trống sẽ dùng mặc định Frank Sinatra, My Way."
               value={data.nowPlaying?.track || ""}
               onChange={(e) => setNowPlaying("track", e.target.value)}
             />
             <Field
-              label="Now playing: artist (optional)"
+              label="Đang phát: nghệ sĩ (tùy chọn)"
               value={data.nowPlaying?.artist || ""}
               onChange={(e) => setNowPlaying("artist", e.target.value)}
             />
             <div className="sm:col-span-2">
               <Field
-                label="Now playing: link (optional)"
-                hint="Point the title at the song, on YouTube or anywhere else. Left blank, the title is just text."
+                label="Đang phát: liên kết (tùy chọn)"
+                hint="Dẫn link bài hát trên YouTube hoặc Spotify. Để trống sẽ chỉ hiển thị dạng chữ."
                 value={data.nowPlaying?.url || ""}
                 onChange={(e) => setNowPlaying("url", e.target.value)}
               />
@@ -472,7 +467,7 @@ export default function EditForm({ data, onChange, templateId }) {
         )}
       </FormSection>
 
-      <FormSection title="Links">
+      <FormSection title="Liên kết cá nhân & Mạng xã hội">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Field
             label="GitHub"
@@ -485,176 +480,176 @@ export default function EditForm({ data, onChange, templateId }) {
             onChange={(e) => setLink("linkedin", e.target.value)}
           />
           <Field
-            label="Website"
+            label="Website cá nhân"
             value={data.links.website}
             onChange={(e) => setLink("website", e.target.value)}
           />
         </div>
       </FormSection>
 
-      <FormSection title="Skills" hint="Comma-separated.">
-        <CommaListField label="Skills" value={data.skills} onChange={(skills) => set({ skills })} />
+      <FormSection title="Kỹ năng chuyên môn" hint="Cách nhau bằng dấu phẩy.">
+        <CommaListField label="Kỹ năng" value={data.skills} onChange={(skills) => set({ skills })} />
       </FormSection>
 
-      <FormSection title="Coding profiles" hint="Optional — LeetCode, Codeforces, HackerRank, Kaggle, whatever you use.">
+      <FormSection title="Hồ sơ lập trình" hint="Tùy chọn — LeetCode, Codeforces, HackerRank, Kaggle, GitHub, v.v.">
         {data.codingProfiles.map((profile, i) => (
           <RemovableRow key={i} onRemove={() => removeCodingProfile(i)}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Field
-                label="Platform"
+                label="Nền tảng"
                 value={profile.platform}
                 onChange={(e) => updateCodingProfile(i, { platform: e.target.value })}
               />
               <Field
-                label="Profile URL"
+                label="Đường dẫn hồ sơ"
                 value={profile.url}
                 onChange={(e) => updateCodingProfile(i, { url: e.target.value })}
               />
             </div>
           </RemovableRow>
         ))}
-        <AddButton onClick={addCodingProfile}>+ Add coding profile</AddButton>
+        <AddButton onClick={addCodingProfile}>+ Thêm hồ sơ lập trình</AddButton>
       </FormSection>
 
-      <FormSection title="Experience">
+      <FormSection title="Kinh nghiệm làm việc">
         {data.experience.map((job, i) => (
           <RemovableRow key={i} onRemove={() => removeExperience(i)}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Field
-                label="Company"
+                label="Công ty / Tổ chức"
                 value={job.company}
                 onChange={(e) => updateExperience(i, { company: e.target.value })}
               />
               <Field
-                label="Role"
+                label="Vị trí đảm nhiệm"
                 value={job.role}
                 onChange={(e) => updateExperience(i, { role: e.target.value })}
               />
               <Field
-                label="Start"
+                label="Bắt đầu"
                 value={job.start}
                 onChange={(e) => updateExperience(i, { start: e.target.value })}
               />
               <Field
-                label="End"
+                label="Kết thúc"
                 value={job.end}
                 onChange={(e) => updateExperience(i, { end: e.target.value })}
               />
             </div>
             {showPhotoFields && (
               <Field
-                label="Image URL (optional)"
-                hint="A photo or screenshot worth sharing from this role — a shipped feature, a team moment, an award. Leave blank to skip."
+                label="URL hình ảnh (tùy chọn)"
+                hint="Ảnh chụp tính năng đã phát triển, khoảnh khắc cùng nhóm hoặc giải thưởng. Để trống nếu bỏ qua."
                 value={job.image || ""}
                 onChange={(e) => updateExperience(i, { image: e.target.value })}
               />
             )}
             <TextArea
-              label="Highlights (one per line)"
+              label="Điểm nổi bật (mỗi dòng một ý)"
               value={job.bullets.join("\n")}
               onChange={(e) => updateExperienceBullets(i, e.target.value)}
             />
           </RemovableRow>
         ))}
-        <AddButton onClick={addExperience}>+ Add experience</AddButton>
+        <AddButton onClick={addExperience}>+ Thêm kinh nghiệm</AddButton>
       </FormSection>
 
-      <FormSection title="Education">
+      <FormSection title="Học vấn & Bằng cấp">
         {data.education.map((edu, i) => (
           <RemovableRow key={i} onRemove={() => removeEducation(i)}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Field
-                label="School"
+                label="Trường / Cơ sở đào tạo"
                 value={edu.school}
                 onChange={(e) => updateEducation(i, { school: e.target.value })}
               />
               <Field
-                label="Degree"
+                label="Bằng cấp / Chuyên ngành"
                 value={edu.degree}
                 onChange={(e) => updateEducation(i, { degree: e.target.value })}
               />
               <Field
-                label="Start"
+                label="Bắt đầu"
                 value={edu.start}
                 onChange={(e) => updateEducation(i, { start: e.target.value })}
               />
               <Field
-                label="End"
+                label="Kết thúc"
                 value={edu.end}
                 onChange={(e) => updateEducation(i, { end: e.target.value })}
               />
             </div>
           </RemovableRow>
         ))}
-        <AddButton onClick={addEducation}>+ Add education</AddButton>
+        <AddButton onClick={addEducation}>+ Thêm học vấn</AddButton>
       </FormSection>
 
-      <FormSection title="Achievements / Certifications" hint="One per line.">
+      <FormSection title="Thành tựu & Chứng chỉ" hint="Mỗi dòng một mục.">
         <TextArea
-          label="Achievements"
+          label="Danh sách thành tựu"
           value={(data.achievements || []).join("\n")}
           onChange={(e) => setAchievements(e.target.value)}
         />
       </FormSection>
 
-      <FormSection title="Projects">
+      <FormSection title="Dự án tiêu biểu">
         {data.projects.map((project, i) => (
           <RemovableRow key={i} onRemove={() => removeProject(i)}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <Field
-                label="Name"
+                label="Tên dự án"
                 value={project.name}
                 onChange={(e) => updateProject(i, { name: e.target.value })}
               />
               <Field
-                label="Version"
+                label="Phiên bản"
                 value={project.version}
                 onChange={(e) => updateProject(i, { version: e.target.value })}
               />
               <Field
-                label="Status (Active / Archived / WIP)"
+                label="Trạng thái (Active / Archived / WIP)"
                 value={project.status}
                 onChange={(e) => updateProject(i, { status: e.target.value })}
               />
             </div>
             {showPhotoFields && (
               <Field
-                label="Image URL (optional)"
-                hint="Leave blank to show a soft placeholder instead."
+                label="URL ảnh chụp dự án (tùy chọn)"
+                hint="Để trống sẽ hiển thị khung placeholder mặc định."
                 value={project.image || ""}
                 onChange={(e) => updateProject(i, { image: e.target.value })}
               />
             )}
             <TextArea
-              label="Description"
+              label="Mô tả ngắn gọn"
               value={project.description}
               onChange={(e) => updateProject(i, { description: e.target.value })}
             />
             <TextArea
-              label="Highlights (one per line)"
+              label="Điểm nổi bật (mỗi dòng một ý)"
               value={(project.highlights || []).join("\n")}
               onChange={(e) => updateProjectHighlights(i, e.target.value)}
             />
             <CommaListField
-              label="Tags (comma-separated)"
+              label="Thẻ công nghệ (cách nhau bằng dấu phẩy)"
               value={project.tags}
               onChange={(tags) => updateProject(i, { tags })}
             />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Field
-                label="Repo link"
+                label="Liên kết mã nguồn (Repo)"
                 value={project.link}
                 onChange={(e) => updateProject(i, { link: e.target.value })}
               />
               <Field
-                label="Live demo link"
+                label="Liên kết xem thử (Live demo)"
                 value={project.demo}
                 onChange={(e) => updateProject(i, { demo: e.target.value })}
               />
             </div>
           </RemovableRow>
         ))}
-        <AddButton onClick={addProject}>+ Add project</AddButton>
+        <AddButton onClick={addProject}>+ Thêm dự án</AddButton>
       </FormSection>
     </div>
   );

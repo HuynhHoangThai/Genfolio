@@ -9,7 +9,7 @@ import GearsMount from "@/components/motion/GearsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 
 export const metadata = {
-  title: "Motion",
+  title: "Đồ họa chuyển động",
   robots: { index: false, follow: false },
 };
 
@@ -17,41 +17,41 @@ export default function MotionPage() {
   return (
     <main className="home-root grow px-6 py-16">
       <div className="mx-auto max-w-5xl">
-        <p className="home-label">Motion</p>
+        <p className="home-label">Hiệu ứng</p>
         <h1 className="mt-3 text-4xl" style={{ fontFamily: "var(--font-instrument)" }}>
-          Graphics library
+          Thư viện đồ họa
         </h1>
 
         <section className="mt-14">
-          <p className="home-label">Orbit</p>
+          <p className="home-label">Quỹ đạo (Orbit)</p>
           <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
             <OrbitMount />
           </div>
         </section>
 
         <section className="mt-12">
-          <p className="home-label">Creative thread</p>
+          <p className="home-label">Sợi chỉ sáng tạo (Creative thread)</p>
           <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
             <CreativeThreadMount />
           </div>
         </section>
 
         <section className="mt-12">
-          <p className="home-label">Thoughts</p>
+          <p className="home-label">Ý tưởng (Thoughts)</p>
           <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
             <ThoughtsMount />
           </div>
         </section>
 
         <section className="mt-12">
-          <p className="home-label">Gears</p>
+          <p className="home-label">Bánh răng (Gears)</p>
           <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
             <GearsMount />
           </div>
         </section>
 
         <section className="mt-12">
-          <p className="home-label">Celebration</p>
+          <p className="home-label">Chúc mừng (Celebration)</p>
           <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
             <CelebrationMount />
           </div>

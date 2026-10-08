@@ -62,7 +62,7 @@ function SortableRow({ id }) {
         {...attributes}
         {...listeners}
         className="ed-focus flex h-6 w-6 shrink-0 cursor-grab items-center justify-center rounded opacity-55 transition-opacity hover:opacity-100 active:cursor-grabbing"
-        aria-label={`Drag to reorder ${LABELS[id]}`}
+        aria-label={`Kéo để sắp xếp lại ${LABELS[id]}`}
       >
         <GripIcon className="h-4 w-4" />
       </button>

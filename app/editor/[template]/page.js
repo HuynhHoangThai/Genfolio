@@ -13,13 +13,13 @@ export default async function EditorPage({ params }) {
     return (
       <div className="home-root flex h-dvh flex-col items-center justify-center gap-3 px-6 text-center">
         <h1 className="text-xl font-semibold" style={{ color: "var(--home-strong)" }}>
-          {template.name} is coming next
+          {template.name} sắp ra mắt
         </h1>
         <p className="max-w-sm text-sm" style={{ color: "var(--home-dim)" }}>
-          This template isn&apos;t built yet. The Changelog template is ready to try.
+          Mẫu giao diện này đang được hoàn thiện. Bạn có thể trải nghiệm mẫu Changelog ngay bây giờ.
         </p>
         <Link href="/" className="home-quiet-link mt-2 text-sm font-medium">
-          ← Back to templates
+          ← Quay lại danh sách mẫu
         </Link>
       </div>
     );

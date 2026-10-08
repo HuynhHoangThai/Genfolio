@@ -38,24 +38,24 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Dev Portfolio Builder",
-    template: "%s | Dev Portfolio Builder",
+    default: "Genfolio — Trình tạo Portfolio Lập trình viên",
+    template: "%s | Genfolio",
   },
   description:
-    "Upload a resume, pick from twelve genuinely different templates, and deploy a developer portfolio to your own GitHub and Vercel. You keep the repo.",
+    "Tải CV lên, chọn từ 12 mẫu giao diện độc bản và xuất bản website portfolio cá nhân lên GitHub và Vercel của chính bạn. Bạn sở hữu toàn bộ mã nguồn.",
   openGraph: {
-    title: "Dev Portfolio Builder",
+    title: "Genfolio — Trình tạo Portfolio Lập trình viên",
     description:
-      "Upload a resume, pick from twelve genuinely different templates, and deploy a developer portfolio to your own GitHub and Vercel. You keep the repo.",
+      "Tải CV lên, chọn từ 12 mẫu giao diện độc bản và xuất bản website portfolio cá nhân lên GitHub và Vercel của chính bạn. Bạn sở hữu toàn bộ mã nguồn.",
     url: "/",
-    siteName: "Dev Portfolio Builder",
+    siteName: "Genfolio",
     images: [{ url: "/portfolio-generator-logo.png", width: 1024, height: 1024 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dev Portfolio Builder",
-    description: "Twelve developer portfolio templates. Deployed to your own GitHub and Vercel.",
+    title: "Genfolio — Trình tạo Portfolio Lập trình viên",
+    description: "12 mẫu portfolio lập trình viên độc bản. Triển khai trực tiếp lên GitHub và Vercel cá nhân của bạn.",
     images: ["/portfolio-generator-logo.png"],
   },
 };
@@ -63,7 +63,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="vi"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

@@ -90,7 +90,7 @@ function ThemeSwatchBar({ palettes, selectedId, onChange }) {
       style={{ borderColor: "var(--home-rule)", background: "var(--home-surface)" }}
     >
       <span className="text-xs font-medium" style={{ color: "var(--home-dim)" }}>
-        Theme
+        Chủ đề
       </span>
       <ThemeSwitcher palettes={palettes} selectedId={selectedId} onChange={onChange} />
     </div>
@@ -181,7 +181,7 @@ export default function PortfolioEditor({ template }) {
         return;
       }
 
-      if (!res.ok) throw new Error(result.error || "Couldn't create the repository.");
+      if (!res.ok) throw new Error(result.error || "Không thể tạo repository.");
       setHandoff(result);
       setDeployStatus("ready");
     } catch (err) {
@@ -208,7 +208,7 @@ export default function PortfolioEditor({ template }) {
         }),
       });
       const result = await res.json();
-      if (!res.ok) throw new Error(result.error || "Couldn't start deployment.");
+      if (!res.ok) throw new Error(result.error || "Không thể bắt đầu triển khai.");
       setDeployUrl(result.deployUrl);
       setDeployStatus("ready");
     } catch (err) {
@@ -222,27 +222,16 @@ export default function PortfolioEditor({ template }) {
     return saveDraftAndDeploy();
   }
 
-  // Restore any autosaved draft after mount. Reading localStorage during
-  // the initial render would return different values on the server than on
-  // the client and trigger a hydration mismatch, same reason templates never
-  // use Math.random()/Date.now() in render.
+  // Restore any autosaved draft after mount.
   useEffect(() => {
     const stored = loadStoredPortfolioData();
     if (stored) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberate one-time hydrate from a client-only source, not a derived-state loop
       setData(stored);
     }
     setRestored(true);
   }, []);
 
-  // Coming back from GitHub. The connect flow leaves the browser on this page
-  // with a marker in the query string; picking the deploy back up here is what
-  // makes the round trip invisible to the customer, who only ever pressed one
-  // button.
-  //
-  // Waits for `restored`, because resuming with the still-default sample data
-  // would commit Ada Lovelace into somebody's repository. The marker is
-  // stripped from the URL first so a refresh cannot fire a second repository.
+  // Coming back from GitHub.
   useEffect(() => {
     if (!restored) return;
 
@@ -254,14 +243,13 @@ export default function PortfolioEditor({ template }) {
     window.history.replaceState({}, "", window.location.pathname);
 
     if (failure) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of a client-only source (the URL the OAuth redirect landed on), not a derived-state loop
       setDeployStatus("error");
       setDeployError(
         failure === "cancelled"
-          ? "You cancelled the GitHub connection, so nothing was created."
+          ? "Bạn đã hủy kết nối GitHub, do đó chưa có gì được tạo."
           : failure === "unconfigured"
-            ? "Deploying isn't set up on this server yet. Please try again later."
-            : "That GitHub connection didn't complete. Please try again."
+            ? "Tính năng triển khai chưa được cấu hình trên máy chủ này. Vui lòng thử lại sau."
+            : "Kết nối GitHub chưa hoàn tất. Vui lòng thử lại."
       );
       return;
     }
@@ -390,24 +378,19 @@ export default function PortfolioEditor({ template }) {
       <header className="flex items-center justify-between border-b px-6 py-3" style={{ borderColor: "var(--home-rule)" }}>
         <div>
           <Link href="/" className="home-quiet-link text-xs font-medium">
-            ← Back to templates
+            ← Quay lại danh sách mẫu
           </Link>
           <h1 className="text-sm font-semibold" style={{ color: "var(--home-strong)" }}>
-            Editing: {template.name}
+            Chỉnh sửa: {template.name}
           </h1>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-y-2 gap-x-3">
-          {/* Two actions, not a toggle: neither button has a selected state,
-              so the group is drawn as one bordered object split by a hairline
-              rather than as a segmented control that implies one of the two is
-              currently on. The label names what the pair is for, which the
-              buttons alone never said. */}
           <div className="flex items-center gap-2.5">
             <span
               className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] sm:inline"
               style={{ color: "var(--home-dim)" }}
             >
-              Preview
+              Xem trước
             </span>
             <div
               className="flex items-center rounded-full border"
@@ -416,11 +399,11 @@ export default function PortfolioEditor({ template }) {
               <button
                 type="button"
                 onClick={openDesktopPreview}
-                title="See the full desktop layout in a new tab"
+                title="Xem toàn bộ giao diện máy tính trong tab mới"
                 className="ed-ghost ed-focus group flex items-center gap-1.5 rounded-l-full py-2 pl-3.5 pr-3 text-xs font-semibold"
               >
                 <DesktopIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Desktop
+                Máy tính
                 <ExternalIcon
                   className="h-2.5 w-2.5 shrink-0 opacity-60 transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
                   aria-hidden="true"
@@ -436,11 +419,11 @@ export default function PortfolioEditor({ template }) {
               <button
                 type="button"
                 onClick={() => setShowMobilePreview(true)}
-                title="See how this looks on a phone"
+                title="Xem trước giao diện trên điện thoại"
                 className="ed-ghost ed-focus flex items-center gap-1.5 rounded-r-full py-2 pl-3 pr-3.5 text-xs font-semibold"
               >
                 <MobileIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Mobile
+                Di động
               </button>
             </div>
           </div>
@@ -448,7 +431,7 @@ export default function PortfolioEditor({ template }) {
             className="rounded-full px-3 py-1 text-xs"
             style={{ background: "rgba(20, 54, 93, 0.07)", color: "var(--home-dim)" }}
           >
-            Autosaved to this browser
+            Đã tự động lưu trên trình duyệt
           </span>
           <button
             type="button"
@@ -456,7 +439,7 @@ export default function PortfolioEditor({ template }) {
             disabled={deployStatus === "saving"}
             className="ed-primary ed-focus rounded-full px-4 py-1.5 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {deployStatus === "saving" ? "Starting deployment…" : "Deploy my portfolio"}
+            {deployStatus === "saving" ? "Đang chuẩn bị xuất bản…" : "Xuất bản portfolio"}
           </button>
         </div>
       </header>
@@ -478,7 +461,7 @@ export default function PortfolioEditor({ template }) {
           onDoubleClick={handleDividerDoubleClick}
           className="hidden w-1.5 shrink-0 cursor-col-resize select-none transition-colors lg:block"
           style={{ background: isDragging ? "var(--home-strong)" : "var(--home-rule)" }}
-          title="Drag to resize. Double-click to reset."
+          title="Kéo để đổi kích thước. Nhấp đúp để đặt lại."
         />
 
         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -489,20 +472,6 @@ export default function PortfolioEditor({ template }) {
               onChange={(paletteId) => setData({ ...data, paletteId })}
             />
           )}
-          {/* `transform` makes this pane the containing block for any
-              `position: fixed` element a template renders (e.g. a fixed
-              background wallpaper) — without it, `fixed` inside a template
-              resolves against the real browser window, not this bounded
-              scrollable pane, and would cover the edit form on the left
-              instead of staying confined to the preview. Templates
-              themselves stay unaware of this — they use plain `fixed` as if
-              they were a normal full page, same as the actual deployed
-              site and the standalone /preview route, both of which have no
-              such wrapper and don't need one. */}
-          {/* An explicit white ground. The shell above carries the landing
-              page's peach, and a template that paints no background of its own
-              would otherwise sit on it and look nothing like the deployed
-              site, which lands on white. */}
           <div
             className="min-w-0 flex-1 overflow-y-auto"
             style={{ transform: "translateZ(0)", background: "#ffffff" }}
@@ -525,7 +494,7 @@ export default function PortfolioEditor({ template }) {
             <iframe
               key={template.id}
               src={`/preview/${template.id}?mode=mobile`}
-              title="Mobile preview"
+              title="Xem trước di động"
               className="h-full w-full rounded-[1.75rem] bg-white"
             />
           </div>
@@ -534,20 +503,11 @@ export default function PortfolioEditor({ template }) {
             onClick={() => setShowMobilePreview(false)}
             className="text-xs font-medium text-white/80 transition-colors hover:text-white"
           >
-            Close preview
+            Đóng xem trước
           </button>
         </div>
       )}
 
-      {/* Work in progress. Repo creation takes a few seconds of network round
-          trips, and the only sign of it used to be the label on a button in the
-          far corner, which on a page this wide is easy to miss entirely. An
-          overlay says plainly that something is happening and that the tab
-          needs to stay open.
-
-          Deliberately not a checklist that ticks itself off: the server
-          reports one result at the end, not per-step progress, so a staged
-          animation would be inventing detail it does not have. */}
       {deployStatus === "saving" && ownsItsData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
           <div
@@ -561,11 +521,10 @@ export default function PortfolioEditor({ template }) {
               style={{ borderColor: "var(--home-rule)", borderTopColor: "var(--home-strong)" }}
             />
             <h2 className="mt-5 text-base font-semibold" style={{ color: "var(--home-strong)" }}>
-              Building your repository
+              Đang khởi tạo repository của bạn
             </h2>
             <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-              Creating it in your GitHub account and committing your content into it. This takes a
-              few seconds, so please keep this tab open.
+              Đang tạo repo trong tài khoản GitHub của bạn và commit nội dung vào đó. Quá trình này mất vài giây, vui lòng giữ tab này mở.
             </p>
           </div>
         </div>
@@ -583,27 +542,17 @@ export default function PortfolioEditor({ template }) {
             className="ed-panel relative w-full max-w-md p-7 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* A real close control rather than a word buried under the
-                secondary links, so dismissing is findable without reading the
-                whole dialog first. */}
             <button
               type="button"
               onClick={() => setDeployStatus("idle")}
               className="ed-ghost ed-focus absolute right-3.5 top-3.5 rounded-full p-1.5"
             >
               <CloseIcon className="h-4 w-4" aria-hidden="true" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">Đóng</span>
             </button>
 
             {deployStatus === "ready" && handoff ? (
               <>
-                {/* The mark carries the whole mood of this dialog, so a live
-                    site gets a filled badge with a halo and a check that draws
-                    itself, not the same pale outline every other state wears.
-                    Everything about the success case is centred; the states
-                    that are still waiting or reporting a problem stay left
-                    aligned, because those are for reading rather than for
-                    celebrating. */}
                 <div className={buildState === "success" && vercelOpened ? "text-center" : ""}>
                   {vercelOpened && buildState === "pending" ? (
                     <span
@@ -620,8 +569,6 @@ export default function PortfolioEditor({ template }) {
                     </span>
                   ) : vercelOpened && buildState === "success" ? (
                     <span aria-hidden="true" className="relative mx-auto block h-16 w-16">
-                      {/* A ring that expands past the badge and fades, so the
-                          moment has a beat rather than just a shape. */}
                       <span className="dpb-ring absolute inset-0 rounded-full border-2 border-emerald-500" />
                       <span
                         className="dpb-pop relative flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 ring-8 ring-emerald-500/15"
@@ -651,19 +598,18 @@ export default function PortfolioEditor({ template }) {
                   {buildState === "success" && vercelOpened ? (
                     <>
                       <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                        Published
+                        Đã xuất bản
                       </p>
                       <h2
                         id="deploy-dialog-title"
                         className="mt-2.5 text-[28px] font-bold leading-[1.1] tracking-[-0.025em]"
                         style={{ color: "var(--home-strong)" }}
                       >
-                        {firstName ? `Congratulations, ${firstName}.` : "Congratulations."}
+                        {firstName ? `Chúc mừng, ${firstName}!` : "Chúc mừng bạn!"}
                       </h2>
                       <p className="mx-auto mt-3 max-w-[32ch] text-[14.5px] leading-[1.6]"
                         style={{ color: "var(--home-dim)" }}>
-                        Your portfolio is on the internet, on accounts you own, with nothing
-                        standing between you and it.
+                        Portfolio của bạn đã chính thức hoạt động trên internet, trên chính tài khoản cá nhân của bạn.
                       </p>
                     </>
                   ) : (
@@ -674,29 +620,26 @@ export default function PortfolioEditor({ template }) {
                         style={{ color: "var(--home-strong)" }}
                       >
                         {!vercelOpened
-                          ? "Your repository is ready"
+                          ? "Repository của bạn đã sẵn sàng"
                           : buildState === "failed"
-                            ? "Vercel couldn\u2019t build it"
+                            ? "Vercel không thể build dự án"
                             : buildState === "pending"
-                              ? "Building your site"
-                              : "Finishing up on Vercel"}
+                              ? "Đang build trang web của bạn"
+                              : "Đang hoàn tất trên Vercel"}
                       </h2>
                       <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
                         {!vercelOpened
-                          ? "Everything you typed is committed into a repository in your own GitHub account. Nothing here can change it or take it away."
+                          ? "Toàn bộ thông tin bạn nhập đã được commit vào repository trên tài khoản GitHub của bạn. Bạn hoàn toàn sở hữu và kiểm soát mã nguồn này."
                           : buildState === "failed"
-                            ? "The build reported an error. The log says what went wrong, and your repository is untouched, so nothing is lost."
+                            ? "Quá trình build xảy ra lỗi. Bạn có thể xem log để biết nguyên nhân, repository của bạn vẫn an toàn nguyên vẹn."
                             : buildState === "pending"
-                              ? "Once you finish the import on Vercel, the build starts and this updates on its own. It usually takes under a minute."
-                              : "Vercel didn\u2019t report back within a few minutes. That often just means the import is still open in the other tab, so check there."}
+                              ? "Sau khi bạn hoàn tất bước import trên Vercel, quá trình build sẽ tự động chạy và trạng thái này sẽ cập nhật ngay sau đó (thường dưới 1 phút)."
+                              : "Vercel chưa phản hồi kết quả sau vài phút. Có thể bạn chưa hoàn tất các bước ở tab Vercel, vui lòng kiểm tra lại."}
                       </p>
                     </>
                   )}
                 </div>
 
-                {/* The live site is the thing they came for, so once it exists
-                    it leads. Before that the deploy button holds the position,
-                    and the repo sits under whichever is showing. */}
                 {buildUrl && buildState === "success" ? (
                   <a
                     href={buildUrl}
@@ -704,7 +647,7 @@ export default function PortfolioEditor({ template }) {
                     rel="noreferrer"
                     className="mt-6 flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                   >
-                    Open your live site
+                    Mở trang web trực tiếp
                     <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 ) : null}
@@ -716,7 +659,7 @@ export default function PortfolioEditor({ template }) {
                     rel="noreferrer"
                     className="ed-primary ed-focus mt-6 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
                   >
-                    See the build log
+                    Xem nhật ký build lỗi
                     <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 ) : null}
@@ -741,8 +684,6 @@ export default function PortfolioEditor({ template }) {
                   />
                 </a>
 
-                {/* Once the site is up, going back to Vercel is a rare errand
-                    rather than the next step, so it stops being a button. */}
                 <a
                   href={handoff.deployUrl}
                   target="_blank"
@@ -756,16 +697,10 @@ export default function PortfolioEditor({ template }) {
                         : "ed-ghost ed-focus mt-3 flex items-center justify-center gap-2 rounded-full border border-[var(--home-rule)] px-5 py-2.5 text-[13px] font-medium"
                   }
                 >
-                  {!vercelOpened ? "Deploy it on Vercel" : "Reopen Vercel"}
+                  {!vercelOpened ? "Triển khai lên Vercel" : "Mở lại Vercel"}
                   <ExternalIcon className={vercelOpened ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden="true" />
                 </a>
 
-                {/* The single most useful thing anybody can be told here, and
-                    previously it read like a footnote: a small heading, small
-                    grey text and a small link. It is now a panel with the file
-                    named as an object, because "you can change this yourself,
-                    forever" is the product's whole argument and it should not
-                    look like fine print. */}
                 <div className="mt-6 rounded-xl p-4 text-left" style={{ background: "rgba(20, 54, 93, 0.05)" }}>
                   <div className="flex items-start gap-3">
                     <span
@@ -777,15 +712,14 @@ export default function PortfolioEditor({ template }) {
                     </span>
                     <div className="min-w-0">
                       <h3 className="text-[13.5px] font-semibold" style={{ color: "var(--home-strong)" }}>
-                        Yours to change, forever
+                        Bạn sở hữu và chỉnh sửa mãi mãi
                       </h3>
                       <p className="mt-1.5 text-[13px] leading-[1.6]" style={{ color: "var(--home-dim)" }}>
-                        Your whole portfolio is one file. Edit{" "}
+                        Toàn bộ dữ liệu portfolio nằm gọn trong 1 file. Bạn chỉ cần sửa file{" "}
                         <span className="font-mono text-[12.5px]" style={{ color: "var(--home-strong)" }}>
                           data/portfolio.js
                         </span>{" "}
-                        on GitHub, commit, and the site rebuilds itself. No account here, no
-                        dashboard, no us.
+                        trên GitHub rồi commit, website sẽ tự động cập nhật. Không phụ thuộc vào bất kỳ ai.
                       </p>
                       <a
                         href={handoff.editUrl}
@@ -794,19 +728,13 @@ export default function PortfolioEditor({ template }) {
                         className="ed-focus mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[13px] font-semibold shadow-sm transition-colors hover:bg-[rgba(255,255,255,0.6)]"
                         style={{ color: "var(--home-strong)" }}
                       >
-                        Open the file
+                        Mở file dữ liệu
                         <ExternalIcon className="h-3 w-3" aria-hidden="true" />
                       </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Finishing here means leaving, not returning to the form.
-                    The work is handed over and lives somewhere else now, so
-                    dropping somebody back on an editor for a portfolio they
-                    have already shipped reads as though nothing happened. The
-                    corner cross still just dismisses, for anyone who wants to
-                    look at the dialog's links again. */}
                 {vercelOpened && (
                   <button
                     type="button"
@@ -816,7 +744,7 @@ export default function PortfolioEditor({ template }) {
                     }}
                     className="ed-primary ed-focus mt-5 w-full rounded-full px-5 py-3 text-sm font-semibold"
                   >
-                    Done
+                    Hoàn tất
                   </button>
                 )}
               </>
@@ -826,11 +754,10 @@ export default function PortfolioEditor({ template }) {
                   id="deploy-dialog-title"
                   className="text-lg font-bold" style={{ color: "var(--home-strong)" }}
                 >
-                  Draft saved
+                  Đã lưu bản nháp
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
-                  Next, continue to Vercel to finish deploying: it creates a real repo and a live
-                  site under your own GitHub and Vercel accounts.
+                  Tiếp theo, tiếp tục đến Vercel để hoàn tất triển khai: hệ thống sẽ tạo repo thật và xuất bản website trực tiếp dưới tài khoản GitHub và Vercel của bạn.
                 </p>
                 <a
                   href={deployUrl}
@@ -838,7 +765,7 @@ export default function PortfolioEditor({ template }) {
                   rel="noreferrer"
                   className="mt-5 block rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                 >
-                  Continue to Vercel
+                  Tiếp tục đến Vercel
                 </a>
               </div>
             ) : (
@@ -847,7 +774,7 @@ export default function PortfolioEditor({ template }) {
                   id="deploy-dialog-title"
                   className="text-lg font-bold" style={{ color: "var(--home-strong)" }}
                 >
-                  Couldn&rsquo;t start deployment
+                  Không thể bắt đầu triển khai
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--home-dim)" }}>
                   {deployError}
@@ -857,7 +784,7 @@ export default function PortfolioEditor({ template }) {
                   onClick={() => setDeployStatus("idle")}
                   className="ed-ghost ed-focus mt-5 w-full rounded-full border border-[var(--home-rule)] px-5 py-2.5 text-sm font-semibold"
                 >
-                  Close
+                  Đóng
                 </button>
               </div>
             )}

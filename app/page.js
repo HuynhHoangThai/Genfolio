@@ -20,38 +20,38 @@ const FOOTER_TEMPLATES = templates.slice(0, 5);
 // paragraphs made the product's whole selling point read as filler.
 const HANDOFF = [
   {
-    title: "You own the source",
-    body: "Deploying clones a standalone Next.js app straight into your GitHub account.",
+    title: "Bạn sở hữu mã nguồn",
+    body: "Khi xuất bản, hệ thống sẽ clone trực tiếp một ứng dụng Next.js độc lập vào tài khoản GitHub của bạn.",
     kind: "repo",
     mark: GitHubMark,
     head: "you/portfolio",
-    chip: "Public",
+    chip: "Công khai",
     rows: ["app/page.js", "components/PortfolioTemplate.js", "lib/portfolioData.js", "package.json"],
   },
   {
-    title: "You own the hosting",
-    body: "It ships on your own Vercel project, on whatever domain you decide to point at it.",
+    title: "Bạn làm chủ hạ tầng hosting",
+    body: "Website chạy trực tiếp trên dự án Vercel cá nhân của bạn, dễ dàng trỏ về bất kỳ tên miền riêng nào.",
     kind: "deploy",
     mark: VercelMark,
     head: "you.vercel.app",
-    chip: "Ready",
+    chip: "Sẵn sàng",
     rows: [
-      ["Environment", "Production"],
-      ["Source", "your GitHub repo"],
-      ["Domain", "yours to point"],
+      ["Môi trường", "Production"],
+      ["Nguồn", "GitHub repo của bạn"],
+      ["Tên miền", "Tùy bạn trỏ"],
     ],
   },
   {
-    title: "No subscription",
-    body: "One payment, once. Nothing recurring, and nothing that can switch your site off later.",
+    title: "Không phí duy trì định kỳ",
+    body: "Thanh toán một lần duy nhất. Không phí gia hạn hàng tháng và không ai có thể can thiệp tắt trang web của bạn.",
     kind: "ledger",
     mark: null,
-    head: "Ongoing costs",
-    chip: "None",
+    head: "Chi phí phát sinh",
+    chip: "Không có",
     rows: [
-      ["Payment", "one-time"],
-      ["Subscription", "none"],
-      ["Hosting bill from us", "none"],
+      ["Hình thức", "Một lần duy nhất"],
+      ["Gói đăng ký", "Không có"],
+      ["Phí duy trì từ chúng tôi", "0 đ"],
     ],
   },
 ];
@@ -67,7 +67,7 @@ export default function Home() {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--home-strong)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[var(--home-bg)]"
       >
-        Skip to content
+        Chuyển đến nội dung chính
       </a>
 
       <SiteHeader />
@@ -127,7 +127,7 @@ function Wordmark({ size = 30, textClassName = "text-[14px] font-medium" }) {
         />
       </span>
       <span className={`hidden tracking-tight text-[var(--home-strong)] sm:inline ${textClassName}`}>
-        Dev Portfolio Builder
+        Genfolio
       </span>
     </span>
   );
@@ -149,19 +149,19 @@ function SiteHeader() {
             href="#handoff"
             className="home-label hidden transition-colors hover:text-[var(--home-strong)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)] sm:inline"
           >
-            How it works
+            Cách hoạt động
           </a>
           <a
             href="#custom"
             className="home-label hidden transition-colors hover:text-[var(--home-strong)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)] sm:inline"
           >
-            Custom work
+            Thiết kế riêng
           </a>
           <a
             href="#templates"
             className="whitespace-nowrap rounded-full bg-[var(--home-strong)] px-4 py-2 text-[13px] font-medium text-[var(--home-bg)] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
           >
-            Start building
+            Bắt đầu tạo
           </a>
         </nav>
       </div>
@@ -174,27 +174,19 @@ function Hero() {
     <section className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
       <div className="grid items-center gap-14 pb-12 pt-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-14 lg:pb-16 lg:pt-20">
         <div>
-          <p className="home-label">Resume in. Repo out.</p>
+          <p className="home-label">Đưa CV vào. Nhận Repo ra.</p>
 
           <h1 className="home-display home-display-xl mt-7">
-            Your resume,
+            Biên dịch CV,
             <br />
-            <span className="home-em">compiled.</span>
+            <span className="home-em">thành Portfolio.</span>
           </h1>
 
           <p className="mt-8 max-w-[46ch] text-[16px] leading-[1.6] text-[var(--home-dim)]">
-            Developer portfolios that look nothing alike.
+            Portfolio lập trình viên với phong cách độc bản, không rập khuôn.
           </p>
 
-          {/* The differentiator, shown rather than claimed. Written out as a
-              sentence it read as one more feature and got skipped, and anyone
-              who never scrolls past the fold is exactly the person who needs to
-              know this is not another site that rents you a subdomain.
-
-              So the two things a customer actually walks away with are put on
-              screen as the artifacts themselves, in the same navy the handoff
-              plates use further down, carrying the same two addresses those
-              plates carry. The stamp is the whole argument in one word. */}
+          {/* The differentiator, shown rather than claimed. */}
           <div className="home-hero-slab home-inset mt-8 max-w-[36rem]">
             <span className="home-hero-slab-item">
               <GitHubMark className="home-hero-mark" width={18} height={18} aria-hidden="true" />
@@ -205,16 +197,11 @@ function Hero() {
               <VercelMark className="home-hero-mark" width={18} height={18} aria-hidden="true" />
               you.vercel.app
             </span>
-            <span className="home-hero-slab-tag">Yours</span>
+            <span className="home-hero-slab-tag">Của bạn</span>
           </div>
 
-          {/* Deliberately silent on price. The cost is stated plainly in the
-              handoff section and again in the footer, so it is disclosed before
-              anyone commits to anything; leading with it above the fold only
-              loses the people who have not yet been told what they get. */}
           <p className="mt-5 max-w-[38ch] text-[15px] leading-[1.6] text-[var(--home-dim)]">
-            Both land in accounts you already own, so your portfolio never depends on this app to
-            stay online.
+            Cả hai đều nằm trong tài khoản cá nhân của bạn, website của bạn sẽ luôn hoạt động độc lập mà không bị ràng buộc bởi ứng dụng này.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
@@ -222,7 +209,7 @@ function Hero() {
               href="#templates"
               className="group flex items-center gap-2 rounded-full bg-[var(--home-strong)] px-5 py-3 text-[14px] font-medium text-[var(--home-bg)] transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-strong)]"
             >
-              Pick a template
+              Chọn mẫu giao diện
               <ArrowRight
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
                 aria-hidden="true"
@@ -232,7 +219,7 @@ function Hero() {
               href="#handoff"
               className="border-b border-[var(--home-blue)]/40 pb-0.5 text-[14px] text-[var(--home-blue)] transition-colors hover:border-[var(--home-blue)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-blue)]"
             >
-              What you actually get
+              Những gì bạn nhận được
             </a>
           </div>
         </div>
@@ -253,14 +240,14 @@ function Wall() {
       <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
         <div>
           <p className="home-label">
-            <span className="home-nums">01</span> Templates
+            <span className="home-nums">01</span> Mẫu giao diện
           </p>
           <h2 className="home-grotesque home-display-lg mt-5 max-w-[22ch]">
-            A git log. A broadsheet. A foil card deck.
+            Một Git log. Một trang nhật báo. Một bộ thẻ bài phản quang.
           </h2>
         </div>
         <p className="max-w-[30ch] text-[14px] leading-[1.6] text-[var(--home-dim)]">
-          Every thumbnail below is the live template rendering real data, not a screenshot of one.
+          Mỗi hình xem trước bên dưới là bản dựng trực tiếp render dữ liệu thật, không phải ảnh chụp màn hình.
         </p>
       </div>
 
@@ -278,20 +265,16 @@ function Handoff() {
   return (
     <section id="handoff" className="scroll-mt-16 pb-2 pt-6 lg:pb-4 lg:pt-8">
       <div className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
-        {/* The claim and the orbit share a row. A mark circling a core that
-            stays put is this section's own argument, so it reads beside the
-            sentence rather than stacked under it. */}
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums">02</span> The handoff
+              <span className="home-nums">02</span> Bàn giao toàn quyền
             </p>
             <h2 className="home-grotesque home-display-shout mt-6">
-              You keep <em className="home-em">everything</em>.
+              Bạn giữ <em className="home-em">toàn bộ</em>.
             </h2>
             <p className="mt-8 text-[16px] leading-[1.6] text-[var(--home-dim)]">
-              Most builders rent you a page on their domain. This one hands over the code and walks
-              away.
+              Đa số nền tảng khác chỉ cho bạn thuê một trang con trên tên miền của họ. Genfolio bàn giao trọn vẹn mã nguồn cho bạn.
             </p>
           </div>
 
@@ -306,12 +289,10 @@ function Handoff() {
           ))}
         </ol>
 
-        {/* The spine ends in a mark and the closing line hangs off it, so the
-            sequence resolves instead of just running out. */}
         <div className="flex flex-col items-start gap-3 lg:items-center">
           <span className="home-beat-end" aria-hidden="true" />
           <p className="home-label">
-            Every template ships as its own standalone app
+            Mỗi mẫu giao diện đều là một ứng dụng web độc lập hoàn chỉnh
           </p>
         </div>
       </div>
@@ -404,33 +385,24 @@ function HandoffBeat({ item, index }) {
 }
 
 // The page has spent two sections arguing for the template gallery, so it
-// closes by admitting what a gallery cannot do. This is the only section
-// written in the first person, deliberately: the rest of the page is about a
-// product, and this part is about hiring a person.
+// closes by admitting what a gallery cannot do.
 function Commission() {
   return (
     <section id="custom" className="home-band scroll-mt-16 pb-24 pt-14 lg:pb-28 lg:pt-20">
       <div className="mx-auto w-full max-w-[86rem] px-6 lg:px-10">
-        {/* Same split the handoff header uses: the claim on the left, the
-            drawn graphic holding the column beside it, so the statement is not
-            left sitting against half a screen of empty ground. */}
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,52ch)_minmax(0,1fr)] lg:gap-12">
           <div className="home-reveal">
             <p className="home-label">
-              <span className="home-nums">03</span> Custom work
+              <span className="home-nums">03</span> Thiết kế theo yêu cầu
             </p>
             <h2 className="home-grotesque home-display-lg mt-5">
-              None of these? Then I&rsquo;ll <em className="home-em">build</em> it.
+              Chưa ưng ý mẫu nào? Tôi sẽ <em className="home-em">thiết kế riêng</em> cho bạn.
             </h2>
             <p className="mt-8 text-[16px] leading-[1.6] text-[var(--home-dim)]">
-              I am Shruti, the engineer behind this site and every template on it. If you already
-              know the portfolio you want and none of the ones above is it, commission it.
-              Your idea, your data, built to the same standard, and handed over the same way: the
-              source lands in your GitHub and it ships on your Vercel.
+              Tôi là Shruti, kỹ sư xây dựng trang web này cùng toàn bộ các mẫu giao diện. Nếu bạn đã có ý tưởng riêng cho portfolio của mình mà không mẫu nào phía trên đáp ứng được, hãy đặt thiết kế riêng. Ý tưởng của bạn, dữ liệu của bạn, được xây dựng theo tiêu chuẩn chỉn chu nhất và bàn giao tương tự: mã nguồn nằm trọn trong GitHub và chạy trên Vercel của bạn.
             </p>
             <p className="mt-5 text-[16px] leading-[1.6] text-[var(--home-dim)]">
-              Answer the three questions below and the brief writes itself. Send it when it says
-              what you mean.
+              Trả lời 3 câu hỏi dưới đây, bản tóm tắt yêu cầu sẽ tự động được soạn thảo. Hãy gửi đi khi bạn thấy đã đúng ý mình.
             </p>
           </div>
 
@@ -447,8 +419,6 @@ function Commission() {
   );
 }
 
-// The one blue field on the site. Every link here resolves to a route that
-// actually exists: no invented legal, social or docs pages.
 function SiteFooter() {
   return (
     <footer className="home-invert">
@@ -457,13 +427,12 @@ function SiteFooter() {
           <div>
             <Wordmark size={36} textClassName="text-[16px] font-semibold" />
             <p className="mt-5 max-w-[32ch] text-[13.5px] leading-[1.65] text-[var(--home-dim)]">
-              Upload a resume, fill one form, and deploy a developer portfolio to accounts you own.
-              One payment, no subscription.
+              Tải CV lên, điền thông tin và xuất bản portfolio lập trình viên lên tài khoản của chính bạn. Chi phí một lần, không phí duy trì.
             </p>
           </div>
 
           <div>
-            <p className="home-label">Templates</p>
+            <p className="home-label">Mẫu giao diện</p>
             <ul className="mt-5 space-y-3">
               {FOOTER_TEMPLATES.map((template) => (
                 <li key={template.id}>
@@ -474,50 +443,50 @@ function SiteFooter() {
               ))}
               <li>
                 <a href="#templates" className="home-footer-link">
-                  Browse every template
+                  Khám phá tất cả mẫu
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="home-label">Product</p>
+            <p className="home-label">Sản phẩm</p>
             <ul className="mt-5 space-y-3">
               <li>
                 <a href="#handoff" className="home-footer-link">
-                  How the handoff works
+                  Quy trình bàn giao
                 </a>
               </li>
               <li>
                 <Link href={`/editor/${FOOTER_TEMPLATES[0].id}`} className="home-footer-link">
-                  Import a resume
+                  Nhập dữ liệu từ CV
                 </Link>
               </li>
               <li>
                 <a href="#custom" className="home-footer-link">
-                  Commission a custom build
+                  Đặt thiết kế riêng
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="home-label">What you get</p>
+            <p className="home-label">Quyền lợi của bạn</p>
             <ul className="mt-5 space-y-3 text-[13.5px] leading-[1.5] text-[var(--home-dim)]">
-              <li>A standalone Next.js app in your GitHub</li>
-              <li>A deployment on your own Vercel project</li>
-              <li>Your own domain, whenever you want it</li>
-              <li>No account here, no subscription</li>
+              <li>Một ứng dụng Next.js độc lập trên GitHub của bạn</li>
+              <li>Website chạy trực tiếp trên dự án Vercel cá nhân</li>
+              <li>Tự do gắn tên miền riêng bất cứ lúc nào</li>
+              <li>Không cần tạo tài khoản tại đây, không phí duy trì</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[var(--home-rule)] pt-8">
           <p className="text-[12.5px] text-[var(--home-faint)]">
-            &copy; 2026 Dev Portfolio Builder
+            &copy; 2026 Genfolio
           </p>
           <p className="text-[12.5px] text-[var(--home-faint)]">
-            Nothing is saved anywhere until you deploy it yourself.
+            Không có dữ liệu nào bị lưu trữ cho đến khi bạn tự mình xuất bản.
           </p>
         </div>
       </div>

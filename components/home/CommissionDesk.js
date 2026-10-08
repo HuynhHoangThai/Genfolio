@@ -26,37 +26,29 @@ const COMMISSION_EMAIL = "shru.jain2604@gmail.com";
 const COMMISSION_NAME = "Shruti";
 const STARTING_PRICE = "Rs. 4,999";
 
-// Single choice: what the thing even is. Phrased as the visitor would say it
-// out loud, since these strings are read back to them inside their own email.
+// Single choice: what the thing even is.
 const BUILD_KINDS = [
-  { id: "beyond", label: "A portfolio, but none of the ones you have" },
-  { id: "idea", label: "A personal site built around one idea" },
-  { id: "rebuild", label: "A rebuild of a site I already have" },
-  { id: "other", label: "Something else entirely" },
+  { id: "beyond", label: "Một portfolio khác biệt hoàn toàn với các mẫu sẵn có" },
+  { id: "idea", label: "Website cá nhân xoay quanh một ý tưởng độc đáo" },
+  { id: "rebuild", label: "Làm mới lại trang web cá nhân hiện có của tôi" },
+  { id: "other", label: "Một ý tưởng hoàn toàn khác" },
 ];
 
-// Multiple choice: the direction. Deliberately about craft rather than
-// features, because that is what changes the price of a build and what is
-// worth agreeing on before a call rather than during one.
+// Multiple choice: the direction.
 const DIRECTIONS = [
-  { id: "three-d", label: "3D or WebGL" },
-  { id: "scroll", label: "Scroll-driven motion" },
-  { id: "pastiche", label: "An interface pastiche: IDE, terminal, OS" },
-  { id: "editorial", label: "Editorial and print-led" },
-  { id: "playful", label: "Playful or game-like" },
-  { id: "data", label: "Driven by real data" },
+  { id: "three-d", label: "3D hoặc WebGL" },
+  { id: "scroll", label: "Chuyển động theo cuộn chuột (Scroll-driven)" },
+  { id: "pastiche", label: "Mô phỏng giao diện: IDE, Terminal, OS" },
+  { id: "editorial", label: "Phong cách báo chí & in ấn (Editorial)" },
+  { id: "playful", label: "Phong cách game / tương tác thú vị" },
+  { id: "data", label: "Trực quan hóa từ dữ liệu thật" },
 ];
 
-// Long enough for a real sentence, short enough that the composed mailto stays
-// well inside the length a mail client will accept without truncating it.
 const NOTE_LIMIT = 240;
 
-const SUBJECT = "Custom portfolio commission";
+const SUBJECT = "Yêu cầu thiết kế portfolio riêng";
 
-// The three questions are headings, not captions. A numbered ordinal in the
-// accent beside a display-face line is the same device the handoff beats use
-// further up the page, so the form reads as part of the argument rather than
-// as a widget bolted onto the end of it.
+// The three questions are headings, not captions.
 function GroupHead({ step, htmlFor, children }) {
   const inner = (
     <>
@@ -65,8 +57,6 @@ function GroupHead({ step, htmlFor, children }) {
     </>
   );
 
-  // A fieldset labels itself with a legend; the note is a single control, so it
-  // takes a real label pointing at the textarea instead.
   return htmlFor ? (
     <label htmlFor={htmlFor} className="flex items-baseline gap-3">
       {inner}
@@ -94,23 +84,15 @@ export default function CommissionDesk() {
   const kindLabel = BUILD_KINDS.find((item) => item.id === kind)?.label || "";
   const trimmedNote = note.trim();
 
-  // Keys are stable identities rather than the text itself, so typing in the
-  // note does not remount its line and replay the write-in animation on every
-  // keystroke. Direction lines key on their own id, which is what makes each
-  // newly ticked chip, and only that one, animate into the document.
-  // Labels are written from the sender's side, because these head the sections
-  // of an email they are signing. They are shared with the plate rather than
-  // restated there, so the document on screen and the message that leaves are
-  // worded identically.
   const rows = [
     {
       key: "build",
-      label: "What I want built",
+      label: "Dạng website mong muốn",
       items: kindLabel ? [{ key: kind, text: kindLabel }] : [],
     },
     {
       key: "direction",
-      label: "Direction",
+      label: "Định hướng thiết kế",
       items: DIRECTIONS.filter((item) => directions.includes(item.id)).map((item) => ({
         key: item.id,
         text: item.label,
@@ -118,7 +100,7 @@ export default function CommissionDesk() {
     },
     {
       key: "notes",
-      label: "In my own words",
+      label: "Mô tả theo ý tưởng cá nhân",
       items: trimmedNote ? [{ key: "note", text: trimmedNote }] : [],
     },
   ];
@@ -126,25 +108,17 @@ export default function CommissionDesk() {
   const filled = rows.filter((row) => row.items.length > 0);
   const started = filled.length > 0;
 
-  // The plain-text twin of the plate, built from the same rows so the two can
-  // never describe different briefs.
-  //
-  // It deliberately does not restate the handoff. That is a promise this site
-  // makes to the sender, not a term the sender needs to recite back, and an
-  // email in which someone quotes your own offer to you reads like a form.
-  // Someone who picked nothing gets a blank space to write into instead of a
-  // near-empty message, since the point is to leave them somewhere to start.
   const body = [
-    `Hi ${COMMISSION_NAME},`,
+    `Chào ${COMMISSION_NAME},`,
     "",
-    "I found you through Dev Portfolio Builder and I would like to commission a custom portfolio.",
+    "Tôi biết đến bạn qua Genfolio và muốn đặt thiết kế một portfolio riêng.",
     "",
     ...(started
-      ? filled.flatMap((row) => [row.label, ...row.items.map((item) => `  ${item.text}`), ""])
-      : ["Here is what I have in mind:", "", "", ""]),
-    `I have seen that custom builds start at ${STARTING_PRICE} including the handoff, and I am happy to settle scope and the final number on a call.`,
+      ? filled.flatMap((row) => [row.label + ":", ...row.items.map((item) => `  ${item.text}`), ""])
+      : ["Dưới đây là ý tưởng ban đầu của tôi:", "", "", ""]),
+    `Tôi được biết chi phí thiết kế khởi điểm từ ${STARTING_PRICE} (đã bao gồm toàn bộ quy trình bàn giao mã nguồn), và rất mong có thể trao đổi chi tiết hơn về phạm vi dự án.`,
     "",
-    "Thanks,",
+    "Trân trọng,",
     "",
   ].join("\n");
 
@@ -176,7 +150,7 @@ export default function CommissionDesk() {
     <div className="home-commission grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:gap-16">
       <div className="home-reveal">
         <fieldset className="border-0 p-0">
-          <GroupHead step="01">What should it be</GroupHead>
+          <GroupHead step="01">Bạn muốn xây dựng gì?</GroupHead>
           <div className="mt-6 flex flex-wrap gap-3">
             {BUILD_KINDS.map((item) => (
               <label key={item.id} className="home-chip">
@@ -196,7 +170,7 @@ export default function CommissionDesk() {
         </fieldset>
 
         <fieldset className="mt-14 border-0 p-0">
-          <GroupHead step="02">Direction, pick any</GroupHead>
+          <GroupHead step="02">Định hướng phong cách (chọn bất kỳ)</GroupHead>
           <div className="mt-6 flex flex-wrap gap-3">
             {DIRECTIONS.map((item) => (
               <label key={item.id} className="home-chip">
@@ -216,7 +190,7 @@ export default function CommissionDesk() {
 
         <div className="mt-14">
           <GroupHead step="03" htmlFor="commission-note">
-            In one line, what is in your head
+            Tóm tắt ngắn gọn ý tưởng trong đầu bạn
           </GroupHead>
           <textarea
             id="commission-note"
@@ -224,7 +198,7 @@ export default function CommissionDesk() {
             onChange={(event) => setNote(event.target.value)}
             maxLength={NOTE_LIMIT}
             rows={3}
-            placeholder="A site that opens like a case file, one document at a time."
+            placeholder="Ví dụ: Một trang web mở ra như một tập hồ sơ mật, hiển thị từng tài liệu một..."
             className="home-field mt-6 w-full resize-none rounded-[var(--home-radius)] px-5 py-4 text-[16px] leading-[1.6]"
           />
           <p className="home-nums mt-2 text-right text-[11px] text-[var(--home-faint)]">
@@ -233,38 +207,22 @@ export default function CommissionDesk() {
         </div>
       </div>
 
-      {/* The document, on the same navy plate the handoff artifacts use. It is
-          sticky so it stays beside the questions the whole way down, which also
-          gives the section its parallax: the plate holds while the column
-          beside it scrolls, with no scroll handler involved.
-
-          It starts a little above the first question rather than level with it.
-          This column runs taller than the one beside it, so matching their tops
-          left the two ending at visibly different heights; lifting it settles
-          the pair on a shared baseline, which is the edge the eye actually
-          reads. The offset is desktop-only, since the columns stack below lg
-          and there is no second edge to line up against. */}
       <div className="home-brief-stage lg:-mt-24 lg:sticky lg:top-24 lg:self-start">
         <div className="home-brief-plate home-inset overflow-hidden rounded-xl">
           <div className="flex items-center gap-3 border-b border-white/15 px-7 py-5">
             <BriefMark className="h-5 w-5 shrink-0 text-[var(--home-strong)]" aria-hidden="true" />
             <span className="home-nums truncate text-[15px] text-[var(--home-strong)]">
-              Commission brief
+              Bản tóm tắt yêu cầu
             </span>
             <span className="home-label ml-auto shrink-0 rounded-full border border-white/20 px-3 py-1.5">
-              {started ? "Ready" : "Draft"}
+              {started ? "Sẵn sàng" : "Bản nháp"}
             </span>
           </div>
 
-          {/* Announced politely rather than assertively: lines land here as a
-              consequence of the choice just made, so a screen reader should
-              hear the confirmation after the control it came from, not cut
-              across it. */}
           <dl className="min-h-[15rem] space-y-7 px-7 py-7" aria-live="polite">
             {!started && (
               <p className="text-[15px] leading-[1.65] text-[var(--home-faint)]">
-                Answer anything on the left and it gets written here. This is the message that
-                gets sent, so nothing arrives that you did not put in it.
+                Chọn các mục bên trái và nội dung sẽ tự động xuất hiện tại đây. Đây chính là nội dung email sẽ gửi, đảm bảo không có chi tiết thừa thãi nào ngoài ý muốn của bạn.
               </p>
             )}
 
@@ -286,29 +244,19 @@ export default function CommissionDesk() {
 
           </dl>
 
-          {/* Below the rule are the terms, not the message. Keeping the handoff
-              down here rather than as a line in the document above is what lets
-              the plate stay an honest preview: everything above the rule is
-              exactly what gets sent, and nothing more.
-
-              The price stacks under its own label rather than sharing a
-              baseline with it, which is what lets the number be set large
-              enough to read as the answer to the question the whole section is
-              asking. */}
           <div className="border-t border-white/15 px-7 py-6">
-            <p className="home-label">Starting at</p>
+            <p className="home-label">Khởi điểm từ</p>
             <p className="home-nums mt-2 text-[30px] italic leading-none text-[var(--home-strong)]">
               {STARTING_PRICE}
             </p>
             <p className="mt-3 text-[13px] leading-[1.55] text-[var(--home-faint)]">
-              Includes the handoff: the source in your GitHub, hosted on your Vercel. Scope and
-              the final number get settled on a call.
+              Đã bao gồm bàn giao: mã nguồn trong GitHub và chạy trên Vercel của bạn. Phạm vi cụ thể và chi phí cuối cùng sẽ được thống nhất qua trao đổi trực tiếp.
             </p>
           </div>
         </div>
 
         <div className="mt-8">
-          <p className="home-grotesque text-[19px] leading-none">Send it with</p>
+          <p className="home-grotesque text-[19px] leading-none">Gửi yêu cầu qua</p>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
             <a
@@ -324,15 +272,12 @@ export default function CommissionDesk() {
               />
             </a>
 
-            {/* Still here for anyone who genuinely lives in a desktop client.
-                It is quiet rather than primary because it is the option most
-                likely to open something the visitor never uses. */}
             <a href={mailto} className="home-quiet-link">
-              Your mail app
+              Ứng dụng Email
             </a>
 
             <button type="button" onClick={handleCopy} className="home-quiet-link">
-              Copy the brief
+              Sao chép nội dung
             </button>
           </div>
 
@@ -340,13 +285,12 @@ export default function CommissionDesk() {
             aria-live="polite"
             className="mt-4 min-h-[1.2em] text-[12.5px] leading-[1.55] text-[var(--home-faint)]"
           >
-            {copy === "done" && "Copied, address and all. Paste it wherever you write email."}
-            {copy === "failed" && "Your browser blocked the copy. The address is just below."}
+            {copy === "done" && "Đã sao chép kèm địa chỉ nhận. Hãy dán vào ứng dụng email của bạn."}
+            {copy === "failed" && "Trình duyệt chặn sao chép. Bạn có thể sao chép địa chỉ bên dưới."}
           </p>
 
           <p className="mt-1 max-w-[36ch] text-[12.5px] leading-[1.55] text-[var(--home-faint)]">
-            Whichever you pick, the brief arrives already written. Nothing is sent from this page
-            and nothing is stored here. You can also just write to{" "}
+            Dù bạn chọn cách nào, nội dung bản tóm tắt đã được soạn sẵn. Không có dữ liệu nào tự động gửi hay lưu trữ tại trang này. Bạn cũng có thể gửi thư trực tiếp đến{" "}
             <a href={mailto} className="home-quiet-link">
               {COMMISSION_EMAIL}
             </a>
