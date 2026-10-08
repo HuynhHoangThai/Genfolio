@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 590" role="img" aria-labelledby="title desc">
+<title id="title">Genfolio retro computer mascot</title>
+<desc id="desc">A friendly beige retro CRT computer mascot with a teal smiling face, white gloves and blue sneakers, pointing toward a portfolio.</desc>
+<defs>
+  <pattern id="dots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#4e4a3f" opacity=".35"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#1d2031" flood-opacity=".24"/></filter>
+</defs>
+<ellipse cx="280" cy="556" rx="154" ry="19" fill="#2f1a10"/>
+<g stroke="#321d12" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)">
+  <path d="M204 390 Q145 410 132 458 L111 484 Q101 497 116 509 L153 529 Q177 541 195 518 L235 467" fill="#d9cbb0"/>
+  <path d="M127 477 Q111 475 104 492 Q98 507 114 521 L145 539 Q163 545 176 526 L183 512 Q188 500 176 493 L155 481 Q143 472 127 477Z" fill="#fffaf1"/>
+  <path d="M345 393 Q383 420 405 447 L445 440 Q461 437 466 451 Q471 464 456 474 L407 495 Q389 502 376 488 L320 450" fill="#d9cbb0"/>
+  <path d="M444 442 Q462 421 479 414 L499 393 Q512 379 524 390 Q536 403 520 418 L502 439 Q497 456 481 467 Q465 480 449 467 L436 457Z" fill="#fffaf1"/>
+  <path d="M244 430 L227 484 Q220 502 235 510 L258 521 Q273 527 285 511 L304 474" fill="#d9cbb0"/>
+  <path d="M327 432 L345 492 Q351 510 368 510 L389 509 Q405 507 407 489 L392 451" fill="#d9cbb0"/>
+  <path d="M230 492 Q204 505 208 530 Q212 552 239 557 L270 557 Q291 553 290 535 Q289 518 270 510 L254 495Z" fill="#177c9b"/>
+  <path d="M353 493 Q377 481 398 501 Q419 522 406 544 L388 560 Q375 570 361 555 L342 533 Q334 512 353 493Z" fill="#177c9b"/>
+  <path d="M224 530 Q241 536 258 531" fill="none" stroke="#fffaf1" stroke-width="5"/>
+  <path d="M371 539 L389 531" fill="none" stroke="#fffaf1" stroke-width="5"/>
+  <path d="M145 201 Q145 171 176 155 L310 127 Q348 121 368 148 L411 327 Q419 359 390 375 L226 415 Q193 422 180 392Z" fill="#bcae91"/>
+  <path d="M145 201 Q145 171 176 155 L310 127 Q348 121 368 148 L411 327 Q419 359 390 375 L226 415 Q193 422 180 392Z" fill="url(#dots)" stroke-width="2"/>
+  <path d="M111 199 Q111 170 143 160 L311 128 Q345 122 361 151 L393 335 Q398 363 369 375 L194 411 Q163 417 151 388Z" fill="#e4d8be"/>
+  <path d="M135 201 Q135 180 158 174 L307 145 Q329 141 339 162 L368 321 Q372 339 351 346 L202 379 Q182 383 175 364Z" fill="#67aeb0"/>
+  <path d="M135 201 Q135 180 158 174 L307 145 Q329 141 339 162 L368 321 Q372 339 351 346 L202 379 Q182 383 175 364Z" fill="url(#dots)" stroke="none"/>
+  <path d="M182 228 Q177 207 193 206 Q212 205 217 229 L226 262 Q228 275 216 276 Q203 277 198 262Z" fill="#fffaf1"/>
+  <path d="M272 209 Q267 190 282 189 Q300 190 305 211 L314 245 Q317 258 304 260 Q292 260 287 246Z" fill="#fffaf1"/>
+  <ellipse cx="204" cy="241" rx="8" ry="13" fill="#321d12" stroke="none"/>
+  <ellipse cx="294" cy="224" rx="8" ry="13" fill="#321d12" stroke="none"/>
+  <path d="M220 291 Q258 317 299 278 Q291 319 256 324 Q232 323 220 291Z" fill="#fffaf1"/>
+  <path d="M235 302 Q259 314 281 299 Q270 320 251 317Z" fill="#d18d8b" stroke="none"/>
+  <path d="M183 280 l-12 -5 M187 292 l-13 1 M319 270 l10 -7 M321 283 l12 3" fill="none" stroke-width="4"/>
+  <path d="M185 166 Q187 143 210 143 Q229 144 232 165" fill="#321d12"/>
+  <path d="M270 148 Q274 126 296 128 Q315 130 315 150" fill="#321d12"/>
+  <path d="M192 397 L367 358 L373 386 L207 426Z" fill="#e4d8be"/>
+  <rect x="225" y="392" width="100" height="24" rx="3" fill="#765b43" stroke-width="4"/>
+  <circle cx="349" cy="390" r="9" fill="#f6ead3"/>
+  <circle cx="373" cy="384" r="6" fill="#e9a332"/>
+</g>
+<g fill="#fffaf1" stroke="#321d12" stroke-width="5" stroke-linejoin="round">
+  <path d="M445 439 Q432 450 441 463 Q452 475 469 461 L491 439 Q502 426 492 416 Q483 408 473 418 L463 427 L469 406 Q471 392 459 389 Q445 386 441 402 L435 422 Q427 412 418 419 Q409 428 420 440Z"/>
+</g>
+<g fill="none" stroke="#321d12" stroke-width="4" stroke-linecap="round">
+  <path d="M105 222 Q87 236 89 258"/><path d="M388 130 l18 -16 l17 10"/><path d="M435 334 l15 -6 l8 12"/>
+  <path d="M160 450 q-13 9 -11 22"/><path d="M408 483 q12 4 16 16"/>
+</g>
+<path d="M392 114 l10 -16 l10 16 M402 98 l0 22" stroke="#177c9b" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
