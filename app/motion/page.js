@@ -2,7 +2,6 @@
 // they can be reviewed in the running app. Not linked from anywhere, and kept
 // out of the index.
 
-import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 
 export const metadata = {
@@ -21,12 +20,6 @@ export default function MotionPage() {
 
 
 
-        <section className="mt-12">
-          <p className="home-label">Ý tưởng (Thoughts)</p>
-          <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
-            <ThoughtsMount />
-          </div>
-        </section>
 
 
         <section className="mt-12">

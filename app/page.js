@@ -4,8 +4,6 @@ import { templates } from "@/lib/portfolioData";
 import TemplateWall from "@/components/home/TemplateWall";
 import HeroDeck from "@/components/home/HeroDeck";
 import FAQSection from "@/components/home/FAQSection";
-import ThoughtsMount from "@/components/motion/ThoughtsMount";
-import CelebrationMount from "@/components/motion/CelebrationMount";
 import { ArrowRight, GitHubMark, VercelMark } from "@/components/home/marks";
 import UserProfileNav from "@/components/auth/UserProfileNav";
 import { RetroCheckIcon } from "@/components/icons/RetroIcons";
@@ -84,10 +82,6 @@ export default function Home() {
 
         <Handoff />
 
-        <MotionBreak>
-          <ThoughtsMount />
-        </MotionBreak>
-
         <FAQSection />
       </main>
 
@@ -96,16 +90,6 @@ export default function Home() {
   );
 }
 
-// A drawn graphic in the seam between two sections. It does the work a rule
-// would do, marking where one argument ends, and it earns the space by being
-// the only thing on the row.
-function MotionBreak({ children }) {
-  return (
-    <div className="home-reveal mx-auto w-full max-w-[86rem] px-6 py-1 lg:px-10 lg:py-3">
-      {children}
-    </div>
-  );
-}
 
 function Wordmark() {
   return (
