@@ -28,8 +28,8 @@ import { IconGithub, IconLinkedin, IconLink, IconMail, initials, stripProtocol }
 // anywhere, which is what a foil surface wants. Manrope reads the body. No
 // monospace at all, deliberately: a mono face is the strongest single signal
 // of "terminal chrome", and four templates here already use one.
-const display = Outfit({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--ir-display" });
-const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--ir-body" });
+const display = Outfit({ subsets: ["latin"], display: "swap", variable: "--ir-display" });
+const body = Manrope({ subsets: ["latin"], display: "swap", variable: "--ir-body" });
 
 const SECTION_LABELS = Object.fromEntries(SECTION_DEFINITIONS.map((s) => [s.id, s.label]));
 

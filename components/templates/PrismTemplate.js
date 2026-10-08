@@ -30,12 +30,13 @@ import { IconGithub, IconLinkedin, IconLink, IconMail, dotColor, shade, tint, st
 // wavelength, and year, so numbers stay in one clearly mechanical register.
 const display = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
   variable: "--pr-display",
 });
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
   variable: "--pr-mono",
 });
 

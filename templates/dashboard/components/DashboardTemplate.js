@@ -41,8 +41,8 @@ import RevealOnScroll from "./RevealOnScroll";
 // where most of this template's type actually lives. Azeret Mono carries every
 // number, year, and axis tick, and nothing else, so the numeric register stays
 // unmistakably instrument-like. Two faces, one job each.
-const display = Archivo({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--dash-display" });
-const mono = Azeret_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--dash-mono" });
+const display = Archivo({ subsets: ["latin"], display: "swap", variable: "--dash-display" });
+const mono = Azeret_Mono({ subsets: ["latin"], display: "swap", variable: "--dash-mono" });
 
 const SECTION_DEFS = Object.fromEntries(SECTION_DEFINITIONS.map((s) => [s.id, s]));
 

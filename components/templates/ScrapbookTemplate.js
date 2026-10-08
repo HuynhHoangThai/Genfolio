@@ -27,10 +27,10 @@ import ScrapbookTabs from "./ScrapbookTabs";
 // binder: labels, dates, page numbers, stamps, captions, tags. Caveat is
 // the one handwritten accent and appears in exactly three places, so it
 // stays a margin annotation instead of becoming the template's voice.
-const bodoni = Bodoni_Moda({ subsets: ["latin"], weight: ["500", "700", "900"], style: ["normal", "italic"] });
-const newsreader = Newsreader({ subsets: ["latin"], weight: ["400", "500"], style: ["normal", "italic"] });
-const courier = Courier_Prime({ subsets: ["latin"], weight: ["400", "700"] });
-const caveat = Caveat({ subsets: ["latin"], weight: ["600"] });
+const bodoni = Bodoni_Moda({ subsets: ["latin"], style: ["normal", "italic"], display: "swap" });
+const newsreader = Newsreader({ subsets: ["latin"], style: ["normal", "italic"], display: "swap" });
+const courier = Courier_Prime({ subsets: ["latin"], weight: ["400", "700"], display: "swap" });
+const caveat = Caveat({ subsets: ["latin"], display: "swap" });
 
 // Real paper stays paper whatever the theme is: a photo print's border and
 // a stuck-on address label are white in every palette, the same way they

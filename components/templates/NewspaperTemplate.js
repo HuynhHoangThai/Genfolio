@@ -35,14 +35,14 @@ import FitToPage from "./FitToPage";
 // className.
 const display = Playfair_Display({
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
   style: ["normal", "italic"],
+  display: "swap",
   variable: "--np-display",
 });
 const serif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
   variable: "--np-serif",
 });
 // Datelines, kickers, and tags only — a mono reads as press furniture (and
