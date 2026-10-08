@@ -5,7 +5,6 @@ import TemplateWall from "@/components/home/TemplateWall";
 import HeroDeck from "@/components/home/HeroDeck";
 import FAQSection from "@/components/home/FAQSection";
 import OrbitMount from "@/components/motion/OrbitMount";
-import CreativeThreadMount from "@/components/motion/CreativeThreadMount";
 import GearsMount from "@/components/motion/GearsMount";
 import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
@@ -82,10 +81,6 @@ export default function Home() {
 
       <main id="main" className="relative z-10">
         <Hero />
-
-        <MotionBreak>
-          <CreativeThreadMount />
-        </MotionBreak>
 
         <Wall />
 
@@ -276,9 +271,7 @@ function Wall() {
               Một Git log. Một trang nhật báo. Một bộ thẻ bài phản quang.
             </h2>
           </div>
-          <p className="max-w-[36ch] text-[13px] leading-[1.6] text-[#3d4f97] font-medium">
-            12 mẫu giao diện được thiết kế đặc thù cho Khối Kỹ Thuật, Khối Sáng Tạo và Khối Kinh Doanh. Render trực tiếp dữ liệu thật, xem trước tràn viền toàn màn hình.
-          </p>
+
         </div>
 
         {/* Component Wall với bộ lọc theo ngành */}
@@ -354,17 +347,15 @@ function HandoffBeat({ item, index }) {
       </p>
 
       <div
-        className={`home-reveal relative z-10 lg:row-start-1 ${
-          flipped ? "lg:col-start-3 lg:pl-12" : "lg:col-start-1 lg:pr-12 lg:text-right"
-        }`}
+        className={`home-reveal relative z-10 lg:row-start-1 ${flipped ? "lg:col-start-3 lg:pl-12" : "lg:col-start-1 lg:pr-12 lg:text-right"
+          }`}
       >
         <h3 className="home-grotesque text-[20px] sm:text-[24px] font-bold uppercase tracking-tight text-[#21242e]">
           {item.title}
         </h3>
         <p
-          className={`mt-3 max-w-[34ch] text-[14px] leading-[1.6] text-[#3d4f97] ${
-            flipped ? "" : "lg:ml-auto"
-          }`}
+          className={`mt-3 max-w-[34ch] text-[14px] leading-[1.6] text-[#3d4f97] ${flipped ? "" : "lg:ml-auto"
+            }`}
         >
           {item.body}
         </p>
@@ -372,9 +363,8 @@ function HandoffBeat({ item, index }) {
 
       {/* Nintendo 2001 Hardware Spec Plate */}
       <div
-        className={`home-beat-art relative z-10 lg:row-start-1 ${
-          flipped ? "lg:col-start-1 lg:pr-12" : "lg:col-start-3 lg:pl-12"
-        }`}
+        className={`home-beat-art relative z-10 lg:row-start-1 ${flipped ? "lg:col-start-1 lg:pr-12" : "lg:col-start-3 lg:pl-12"
+          }`}
       >
         <div className="home-beat-stage">
           <div

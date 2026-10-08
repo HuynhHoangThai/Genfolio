@@ -3,7 +3,6 @@
 // out of the index.
 
 import OrbitMount from "@/components/motion/OrbitMount";
-import CreativeThreadMount from "@/components/motion/CreativeThreadMount";
 import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import GearsMount from "@/components/motion/GearsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
@@ -29,12 +28,6 @@ export default function MotionPage() {
           </div>
         </section>
 
-        <section className="mt-12">
-          <p className="home-label">Sợi chỉ sáng tạo (Creative thread)</p>
-          <div className="mt-4 rounded-[var(--home-radius)] border border-[var(--home-rule)] bg-[var(--home-surface)]">
-            <CreativeThreadMount />
-          </div>
-        </section>
 
         <section className="mt-12">
           <p className="home-label">Ý tưởng (Thoughts)</p>
