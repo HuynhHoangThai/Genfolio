@@ -61,16 +61,16 @@ export default function FAQSection() {
         <div className="n2001-section-bar mb-8 rounded-[2px]">
           <span className="flex items-center gap-2">
             <span className="text-[#f68d1f]">≡</span>
-            <span>CÂU HỎI THƯỜNG GẶP (SYSTEM DIAGNOSTIC & FAQ)</span>
+            <span>CÂU HỎI THƯỜNG GẶP (HỎI ĐÁP HỆ THỐNG)</span>
           </span>
-          <span className="font-mono text-[#3d4f97]">KNOWLEDGE BASE // ALL MODULES</span>
+          <span className="font-mono text-[#3d4f97]">KHO KIẾN THỨC // TOÀN BỘ CHỦ ĐỀ</span>
         </div>
 
         {/* Section Header */}
         <div className="home-reveal flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
           <div>
             <p className="home-label">
-              <span className="home-nums text-[#f68d1f]">CARTRIDGE NO. 03</span> // GIẢI ĐÁP THẮC MẮC
+              <span className="home-nums text-[#f68d1f]">HỎI ĐÁP 03</span> // GIẢI ĐÁP THẮC MẮC
             </p>
             <h2 className="home-grotesque text-[28px] sm:text-[38px] font-black uppercase tracking-tight text-[#21242e] mt-3 max-w-[28ch]">
               Mọi điều bạn cần biết về <em className="home-em">Gen-Folio</em>.
@@ -85,7 +85,7 @@ export default function FAQSection() {
         <div className="mt-10 space-y-3.5">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openId === item.id;
-            const itemCode = `FAQ-${String(index + 1).padStart(2, "0")}`;
+            const itemCode = `HỎI-${String(index + 1).padStart(2, "0")}`;
 
             return (
               <div
@@ -125,7 +125,7 @@ export default function FAQSection() {
                   <div className="border-t border-[#3d4f97]/30 bg-[#21242e] p-5 sm:p-6 text-white animate-fadeIn">
                     <div className="flex items-start gap-3">
                       <span className="font-mono text-[10px] font-black text-[#ecab37] shrink-0 mt-0.5 border border-white/20 bg-[#14161d] px-1.5 py-0.5 rounded-[2px]">
-                        ANS
+                        ĐÁP
                       </span>
                       <p className="text-[13.5px] sm:text-[14.5px] leading-[1.7] text-[#dedede]">
                         {item.answer}
@@ -142,7 +142,7 @@ export default function FAQSection() {
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-[4px] border border-[#3d4f97] bg-[#7a8aba] p-5 text-[#21242e]">
           <div className="flex items-center gap-3">
             <span className="font-mono text-[11px] font-black text-[#ecab37] bg-[#21242e] border border-[#3d4f97] px-2 py-1 rounded-[2px] shadow-xs">
-              READY
+              SẴN SÀNG
             </span>
             <div>
               <p className="text-[13px] font-black uppercase tracking-[0.5px]">

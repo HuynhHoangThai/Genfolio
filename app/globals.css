@@ -8,10 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-inter), monospace;
-  --font-display: var(--font-inter), system-ui, sans-serif;
-  --font-grotesque: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-sans-main), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-sans-main), monospace;
+  --font-display: var(--font-sans-main), system-ui, sans-serif;
+  --font-grotesque: var(--font-sans-main), system-ui, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,7 +24,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans-main), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Terminal template flourishes — classes prefixed so they can't collide

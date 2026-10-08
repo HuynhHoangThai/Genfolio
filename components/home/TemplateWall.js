@@ -5,10 +5,10 @@ import { templates } from "@/lib/portfolioData";
 import TemplatePreviewCard from "@/components/TemplatePreviewCard";
 
 const CATEGORIES = [
-  { id: "all", label: "TẤT CẢ MẪU", count: 12, code: "ALL" },
-  { id: "tech", label: "KHỐI KỸ THUẬT (TECH)", count: 4, code: "DEV" },
-  { id: "creative", label: "KHỐI SÁNG TẠO (CREATIVE)", count: 5, code: "ART" },
-  { id: "business", label: "KHỐI KINH DOANH (BUSINESS)", count: 3, code: "BIZ" },
+  { id: "all", label: "TẤT CẢ MẪU", count: 12, code: "TẤT CẢ" },
+  { id: "tech", label: "KHỐI KỸ THUẬT", count: 4, code: "KỸ THUẬT" },
+  { id: "creative", label: "KHỐI SÁNG TẠO", count: 5, code: "SÁNG TẠO" },
+  { id: "business", label: "KHỐI KINH DOANH", count: 3, code: "KINH DOANH" },
 ];
 
 export default function TemplateWall() {
