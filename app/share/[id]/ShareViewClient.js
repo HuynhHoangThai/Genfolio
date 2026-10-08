@@ -4,6 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { templateComponents } from "@/components/templates";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import {
+  RetroCheckIcon,
+  RetroCloseIcon,
+  RetroCopyIcon,
+} from "@/components/icons/RetroIcons";
 
 export default function ShareViewClient({
   id,
@@ -71,7 +76,17 @@ export default function ShareViewClient({
                 onClick={handleCopyLink}
                 className="n2001-btn-base flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-sm cursor-pointer"
               >
-                <span>{copied ? "✓ ĐÃ SAO CHÉP" : "🔗 SAO CHÉP LINK"}</span>
+                {copied ? (
+                  <>
+                    <RetroCheckIcon className="w-3 h-3 text-[#f68d1f]" />
+                    <span>ĐÃ SAO CHÉP</span>
+                  </>
+                ) : (
+                  <>
+                    <RetroCopyIcon className="w-3 h-3 text-[#21242e]" />
+                    <span>SAO CHÉP LINK</span>
+                  </>
+                )}
               </button>
 
               <Link
@@ -85,10 +100,10 @@ export default function ShareViewClient({
               <button
                 type="button"
                 onClick={() => setShowBanner(false)}
-                className="ml-1 text-[14px] text-white/60 hover:text-white cursor-pointer px-1"
+                className="ml-1 flex h-4 w-4 items-center justify-center rounded-[1px] bg-white/10 text-white hover:bg-[#e60012] cursor-pointer"
                 title="Ẩn thanh công cụ"
               >
-                ✕
+                <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
               </button>
             </div>
           </div>

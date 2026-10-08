@@ -5,6 +5,7 @@
 // https://vercel.com/docs/deploy-button/callback).
 import Link from "next/link";
 import { publishPortfolio } from "@/lib/portfolios";
+import { RetroCloseIcon, RetroStarIcon } from "@/components/icons/RetroIcons";
 
 export const dynamic = "force-dynamic";
 
@@ -49,7 +50,13 @@ export default async function DeployedPage({ searchParams }) {
                     <span className="text-[8px] font-black uppercase text-[#e60012]">GENFOLIO</span>
                     <span className="text-[7px] font-bold uppercase text-[#21242e]">SEAL OF</span>
                     <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">QUALITY</span>
-                    <span className="text-[8px] text-[#f68d1f]">★★★★★</span>
+                    <div className="flex items-center gap-0.5 text-[#f68d1f] mt-0.5">
+                      <RetroStarIcon className="w-2 h-2" />
+                      <RetroStarIcon className="w-2 h-2" />
+                      <RetroStarIcon className="w-2 h-2" />
+                      <RetroStarIcon className="w-2 h-2" />
+                      <RetroStarIcon className="w-2 h-2" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -96,8 +103,8 @@ export default async function DeployedPage({ searchParams }) {
             </>
           ) : (
             <>
-              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-[2px] bg-[#e60012] text-xl font-bold text-white shadow-md">
-                ✕
+              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-[2px] bg-[#e60012] text-white shadow-md">
+                <RetroCloseIcon className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-base font-bold uppercase tracking-[0.5px] text-[#e60012]">
                 ĐÃ XẢY RA SỰ CỐ TRIỂN KHAI

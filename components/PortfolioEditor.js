@@ -14,6 +14,14 @@ import UserProfileNav from "@/components/auth/UserProfileNav";
 import { useAuth } from "@/components/auth/AuthContext";
 import ShareModal from "@/components/ShareModal";
 import SavedPortfoliosModal from "@/components/SavedPortfoliosModal";
+import {
+  SaveCartridgeIcon,
+  ShareLinkIcon,
+  FolderArchiveIcon,
+  RetroCheckIcon,
+  RetroCloseIcon,
+  RetroStarIcon,
+} from "@/components/icons/RetroIcons";
 
 const MIN_PANE_PERCENT = 25;
 const MAX_PANE_PERCENT = 75;
@@ -262,7 +270,7 @@ export default function PortfolioEditor({ template }) {
         setCurrentPortfolioId(json.portfolio.id);
       }
       setSaveStatus("saved");
-      setSaveToast("✓ Đã lưu portfolio vào cơ sở dữ liệu!");
+      setSaveToast("Đã lưu portfolio vào cơ sở dữ liệu!");
       setTimeout(() => {
         setSaveStatus("idle");
         setSaveToast("");
@@ -504,7 +512,22 @@ export default function PortfolioEditor({ template }) {
             }`}
             title="Lưu bản thiết kế này vào cơ sở dữ liệu"
           >
-            <span>{saveStatus === "saving" ? "ĐANG LƯU…" : saveStatus === "saved" ? "✓ ĐÃ LƯU" : "💾 LƯU DỰ ÁN"}</span>
+            {saveStatus === "saving" ? (
+              <>
+                <span className="flex h-2 w-2 animate-ping rounded-full bg-[#21242e]" />
+                <span>ĐANG LƯU…</span>
+              </>
+            ) : saveStatus === "saved" ? (
+              <>
+                <RetroCheckIcon className="w-3.5 h-3.5 text-[#ecab37]" />
+                <span>ĐÃ LƯU</span>
+              </>
+            ) : (
+              <>
+                <SaveCartridgeIcon className="w-3.5 h-3.5 text-[#21242e]" />
+                <span>LƯU DỰ ÁN</span>
+              </>
+            )}
           </button>
 
           <button
@@ -513,17 +536,19 @@ export default function PortfolioEditor({ template }) {
             className="n2001-btn-base flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-sm transition cursor-pointer"
             title="Tạo liên kết xem trực tiếp và chia sẻ"
           >
-            <span>🔗 CHIA SẺ</span>
+            <ShareLinkIcon className="w-3.5 h-3.5 text-[#21242e]" />
+            <span>CHIA SẺ</span>
           </button>
 
           {user && (
             <button
               type="button"
               onClick={() => setIsSavedModalOpen(true)}
-              className="flex items-center gap-1 rounded-[2px] border border-[#3d4f97] bg-[#dedede] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer shadow-sm"
+              className="flex items-center gap-1.5 rounded-[2px] border border-[#3d4f97] bg-[#dedede] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer shadow-sm"
               title="Xem danh sách các portfolio đã lưu của bạn"
             >
-              <span>📂 ĐÃ LƯU</span>
+              <FolderArchiveIcon className="w-3.5 h-3.5 text-[#21242e]" />
+              <span>ĐÃ LƯU</span>
             </button>
           )}
 
@@ -660,9 +685,9 @@ export default function PortfolioEditor({ template }) {
               <button
                 type="button"
                 onClick={() => setDeployStatus("idle")}
-                className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-[11px] font-bold hover:brightness-110"
+                className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white hover:brightness-110"
               >
-                ✕
+                <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
                 <span className="sr-only">Đóng</span>
               </button>
             </div>
@@ -679,9 +704,9 @@ export default function PortfolioEditor({ template }) {
                     ) : vercelOpened && buildState === "failed" ? (
                       <span
                         aria-hidden="true"
-                        className="mx-auto flex h-10 w-10 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-base font-bold shadow-sm"
+                        className="mx-auto flex h-10 w-10 items-center justify-center rounded-[2px] bg-[#e60012] text-white shadow-sm"
                       >
-                        ✕
+                        <RetroCloseIcon className="w-5 h-5 text-white" />
                       </span>
                     ) : vercelOpened && buildState === "success" ? (
                       <div className="mx-auto mb-3 flex flex-col items-center">
@@ -691,7 +716,13 @@ export default function PortfolioEditor({ template }) {
                             <span className="text-[8px] font-black uppercase text-[#e60012]">GENFOLIO</span>
                             <span className="text-[7px] font-bold uppercase text-[#21242e]">SEAL OF</span>
                             <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">QUALITY</span>
-                            <span className="text-[8px] text-[#f68d1f]">★★★★★</span>
+                            <div className="flex items-center gap-0.5 text-[#f68d1f] mt-0.5">
+                              <RetroStarIcon className="w-2 h-2" />
+                              <RetroStarIcon className="w-2 h-2" />
+                              <RetroStarIcon className="w-2 h-2" />
+                              <RetroStarIcon className="w-2 h-2" />
+                              <RetroStarIcon className="w-2 h-2" />
+                            </div>
                           </div>
                         </div>
                       </div>

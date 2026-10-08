@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import {
+  RetroCheckIcon,
+  RetroCloseIcon,
+  RetroCopyIcon,
+  RetroSocialTwitterIcon,
+  RetroSocialLinkedInIcon,
+  RetroSocialFacebookIcon,
+} from "@/components/icons/RetroIcons";
 
 export default function ShareModal({
   isOpen,
@@ -97,9 +105,9 @@ export default function ShareModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-[11px] font-bold text-white hover:bg-[#e60012] transition cursor-pointer"
+            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-white hover:bg-[#e60012] transition cursor-pointer"
           >
-            ✕
+            <RetroCloseIcon className="w-2.5 h-2.5" />
           </button>
         </div>
 
@@ -167,9 +175,19 @@ export default function ShareModal({
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="n2001-btn-signal shrink-0 px-4 py-2 text-xs font-bold uppercase tracking-[0.5px] cursor-pointer"
+                  className="n2001-btn-signal shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-[0.5px] cursor-pointer"
                 >
-                  {copied ? "✓ ĐÃ SAO CHÉP" : "SAO CHÉP"}
+                  {copied ? (
+                    <>
+                      <RetroCheckIcon className="w-3.5 h-3.5" />
+                      <span>ĐÃ SAO CHÉP</span>
+                    </>
+                  ) : (
+                    <>
+                      <RetroCopyIcon className="w-3.5 h-3.5" />
+                      <span>SAO CHÉP</span>
+                    </>
+                  )}
                 </button>
               </div>
 
@@ -186,14 +204,14 @@ export default function ShareModal({
                   <span className="text-[10px] font-bold uppercase text-[#21242e]">Chia sẻ qua:</span>
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      `Khám phá portfolio lập trình viên của tôi trên Genfolio! 🚀 ${shareUrl}`
+                      `Khám phá portfolio lập trình viên của tôi trên Genfolio: ${shareUrl}`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-xs font-bold text-[#21242e] hover:bg-[#9fbee7] transition"
+                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
                     title="Chia sẻ lên X / Twitter"
                   >
-                    𝕏
+                    <RetroSocialTwitterIcon className="w-3.5 h-3.5" />
                   </a>
                   <a
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
@@ -201,10 +219,10 @@ export default function ShareModal({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-xs font-bold text-[#21242e] hover:bg-[#9fbee7] transition"
+                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
                     title="Chia sẻ lên LinkedIn"
                   >
-                    in
+                    <RetroSocialLinkedInIcon className="w-3.5 h-3.5" />
                   </a>
                   <a
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -212,10 +230,10 @@ export default function ShareModal({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-xs font-bold text-[#21242e] hover:bg-[#9fbee7] transition"
+                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
                     title="Chia sẻ lên Facebook"
                   >
-                    fb
+                    <RetroSocialFacebookIcon className="w-3.5 h-3.5" />
                   </a>
                 </div>
 

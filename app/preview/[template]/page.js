@@ -16,6 +16,7 @@ import { getPalettesForTemplate } from "@/lib/palettes";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import ShareModal from "@/components/ShareModal";
 import { useAuth } from "@/components/auth/AuthContext";
+import { ShareLinkIcon } from "@/components/icons/RetroIcons";
 
 function CenteredMessage({ title, body }) {
   return (
@@ -119,9 +120,10 @@ export default function PreviewPage() {
           <button
             type="button"
             onClick={() => setIsShareModalOpen(true)}
-            className="n2001-btn-signal px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px]"
+            className="n2001-btn-signal flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
           >
-            CHIA SẺ 🔗
+            <ShareLinkIcon className="w-3 h-3 text-white" />
+            <span>CHIA SẺ</span>
           </button>
         </div>
       ) : (
@@ -129,10 +131,11 @@ export default function PreviewPage() {
           <button
             type="button"
             onClick={() => setIsShareModalOpen(true)}
-            className="n2001-btn-signal px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] writing-vertical"
+            className="n2001-btn-signal flex flex-col items-center gap-1 px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
             title="Tạo liên kết chia sẻ công khai"
           >
-            CHIA SẺ 🔗
+            <ShareLinkIcon className="w-3.5 h-3.5 text-white" />
+            <span style={{ writingMode: "vertical-rl" }}>CHIA SẺ</span>
           </button>
           {palettes && (
             <>

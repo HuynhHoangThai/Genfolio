@@ -6,6 +6,7 @@ import { useAuth } from "./AuthContext";
 import SavedPortfoliosModal from "@/components/SavedPortfoliosModal";
 import ShareModal from "@/components/ShareModal";
 import { saveStoredPortfolioData } from "@/lib/portfolioStorage";
+import { FolderArchiveIcon } from "@/components/icons/RetroIcons";
 
 export default function UserProfileNav() {
   const router = useRouter();
@@ -49,10 +50,11 @@ export default function UserProfileNav() {
         <button
           type="button"
           onClick={() => setIsSavedModalOpen(true)}
-          className="inline-flex items-center gap-1 rounded-[2px] border-t border-l border-white/40 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#7a8aba] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-xs hover:bg-[#9fbee7] transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-[2px] border-t border-l border-white/40 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-xs hover:bg-[#9fbee7] transition cursor-pointer"
           title="Xem các portfolio đã lưu của bạn"
         >
-          <span>📂 DỰ ÁN</span>
+          <FolderArchiveIcon className="w-3.5 h-3.5 text-[#21242e]" />
+          <span>DỰ ÁN</span>
         </button>
 
         {/* Player 1 Console Identity Badge */}

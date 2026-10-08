@@ -11,6 +11,7 @@ import ThoughtsMount from "@/components/motion/ThoughtsMount";
 import CelebrationMount from "@/components/motion/CelebrationMount";
 import { ArrowRight, GitHubMark, VercelMark } from "@/components/home/marks";
 import UserProfileNav from "@/components/auth/UserProfileNav";
+import { RetroCheckIcon } from "@/components/icons/RetroIcons";
 
 // Real routes only: each of these resolves to /editor/<id>.
 const FOOTER_TEMPLATES = templates.slice(0, 5);
@@ -394,8 +395,9 @@ function HandoffBeat({ item, index }) {
               {item.kind === "repo" ? (
                 <ul className="space-y-2">
                   {item.rows.map((row) => (
-                    <li key={row} className="truncate text-[11px] text-[#9fbee7] font-medium">
-                      ✓ {row}
+                    <li key={row} className="flex items-center gap-1.5 truncate text-[11px] text-[#9fbee7] font-medium">
+                      <RetroCheckIcon className="w-3 h-3 shrink-0 text-[#ecab37]" />
+                      <span>{row}</span>
                     </li>
                   ))}
                 </ul>
@@ -476,10 +478,22 @@ function SiteFooter() {
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600]">Quyền lợi của bạn</p>
             <ul className="mt-4 space-y-2.5 text-[12px] leading-[1.5] text-[#9fbee7]">
-              <li>✓ Một ứng dụng Next.js độc lập trên GitHub của bạn</li>
-              <li>✓ Website chạy trực tiếp trên dự án Vercel cá nhân</li>
-              <li>✓ Tự do gắn tên miền riêng bất cứ lúc nào</li>
-              <li>✓ Không cần tạo tài khoản tại đây, không phí duy trì</li>
+              <li className="flex items-start gap-1.5">
+                <RetroCheckIcon className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#ecab37]" />
+                <span>Một ứng dụng Next.js độc lập trên GitHub của bạn</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <RetroCheckIcon className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#ecab37]" />
+                <span>Website chạy trực tiếp trên dự án Vercel cá nhân</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <RetroCheckIcon className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#ecab37]" />
+                <span>Tự do gắn tên miền riêng bất cứ lúc nào</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <RetroCheckIcon className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#ecab37]" />
+                <span>Không cần tạo tài khoản tại đây, không phí duy trì</span>
+              </li>
             </ul>
           </div>
         </div>

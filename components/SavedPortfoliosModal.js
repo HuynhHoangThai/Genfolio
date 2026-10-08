@@ -2,6 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import {
+  SaveCartridgeIcon,
+  ShareLinkIcon,
+  RetroCloseIcon,
+} from "@/components/icons/RetroIcons";
 
 export default function SavedPortfoliosModal({
   isOpen,
@@ -77,9 +82,9 @@ export default function SavedPortfoliosModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-[11px] font-bold text-white hover:bg-[#e60012] transition cursor-pointer"
+            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-white hover:bg-[#e60012] transition cursor-pointer"
           >
-            ✕
+            <RetroCloseIcon className="w-2.5 h-2.5" />
           </button>
         </div>
 
@@ -96,14 +101,14 @@ export default function SavedPortfoliosModal({
             </div>
           ) : list.length === 0 ? (
             <div className="text-center py-12">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#dedede] text-xl">
-                💾
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#dedede] text-[#3d4f97] shadow-inner">
+                <SaveCartridgeIcon className="w-7 h-7 text-[#3d4f97]" />
               </div>
               <h4 className="mt-3 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">
                 Chưa có portfolio nào được lưu
               </h4>
               <p className="mt-1 text-xs text-[#3d4f97] max-w-sm mx-auto">
-                Khi chỉnh sửa hồ sơ, hãy bấm nút <strong>"LƯU PORTFOLIO"</strong> trên thanh công cụ để lưu dữ liệu vào cơ sở dữ liệu.
+                Khi chỉnh sửa hồ sơ, hãy bấm nút <strong>"LƯU DỰ ÁN"</strong> trên thanh công cụ để lưu dữ liệu vào cơ sở dữ liệu.
               </p>
             </div>
           ) : (
@@ -145,20 +150,21 @@ export default function SavedPortfoliosModal({
                         onSharePortfolio(item);
                         onClose();
                       }}
-                      className="n2001-btn-amber px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
+                      className="n2001-btn-amber flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
                       title="Chia sẻ portfolio này"
                     >
-                      CHIA SẺ 🔗
+                      <ShareLinkIcon className="w-3 h-3 text-[#21242e]" />
+                      <span>CHIA SẺ</span>
                     </button>
 
                     <button
                       type="button"
                       disabled={deletingId === item.id}
                       onClick={(e) => handleDelete(item.id, e)}
-                      className="rounded-[2px] border border-[#3d4f97] bg-[#dedede] px-2 py-1 text-[10px] font-bold text-[#e60012] hover:bg-[#e60012] hover:text-white transition cursor-pointer"
+                      className="rounded-[2px] border border-[#3d4f97] bg-[#dedede] p-1.5 text-[10px] font-bold text-[#e60012] hover:bg-[#e60012] hover:text-white transition cursor-pointer flex items-center justify-center min-w-[22px] min-h-[22px]"
                       title="Xóa portfolio"
                     >
-                      {deletingId === item.id ? "…" : "✕"}
+                      {deletingId === item.id ? "…" : <RetroCloseIcon className="w-2.5 h-2.5" />}
                     </button>
                   </div>
                 </div>

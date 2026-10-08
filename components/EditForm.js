@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import SectionOrderField from "./SectionOrderField";
 import { normalizeSectionOrder } from "@/lib/portfolioData";
+import { RetroCloseIcon } from "@/components/icons/RetroIcons";
 
 const RESUME_ACCEPT = ".pdf,.docx";
 
@@ -249,10 +250,10 @@ function RemovableRow({ onRemove, children }) {
       <button
         type="button"
         onClick={onRemove}
-        className="ed-focus absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white text-[10px] font-bold border-t border-t-[rgba(255,255,255,0.6)] border-b border-b-[#7a181b] shadow-sm hover:brightness-110 active:translate-y-[1px]"
+        className="ed-focus absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white border-t border-t-[rgba(255,255,255,0.6)] border-b border-b-[#7a181b] shadow-sm hover:brightness-110 active:translate-y-[1px] cursor-pointer"
         aria-label="Xóa"
       >
-        ✕
+        <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
       </button>
       <div className="space-y-3">{children}</div>
     </div>

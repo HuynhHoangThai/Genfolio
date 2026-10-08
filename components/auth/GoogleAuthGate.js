@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useAuth } from "./AuthContext";
+import { RetroCloseIcon, RetroLightningIcon } from "@/components/icons/RetroIcons";
 
 export default function GoogleAuthGate({ children }) {
   const {
@@ -197,11 +198,11 @@ export default function GoogleAuthGate({ children }) {
             <button
               type="button"
               onClick={handleDismissModal}
-              className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#21242e] bg-[#dedede] text-[10px] font-black text-[#21242e] hover:bg-[#e60012] hover:text-white transition cursor-pointer"
+              className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#21242e] bg-[#dedede] hover:bg-[#e60012] hover:text-white transition cursor-pointer"
               title="Đóng"
               aria-label="Đóng"
             >
-              ✕
+              <RetroCloseIcon className="w-2.5 h-2.5" />
             </button>
 
             {/* Brand mark */}
@@ -238,9 +239,10 @@ export default function GoogleAuthGate({ children }) {
                   setUrlAuthRequired(false);
                   loginDevFallback("developer@genfolio.dev", "Lập trình viên Genfolio");
                 }}
-                className="n2001-btn-amber text-[10px] w-full"
+                className="n2001-btn-amber text-[10px] w-full flex items-center justify-center gap-1.5"
               >
-                ⚡ ĐĂNG NHẬP NHANH (CHẾ ĐỘ DEV)
+                <RetroLightningIcon className="w-3 h-3 text-[#21242e]" />
+                <span>ĐĂNG NHẬP NHANH (CHẾ ĐỘ DEV)</span>
               </button>
             </div>
           </div>
