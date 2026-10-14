@@ -1,14 +1,25 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Press_Start_2P, Russo_One, Chakra_Petch } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const pixel = Press_Start_2P({
+  variable: "--lu-pixel",
   subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const display = Russo_One({
+  variable: "--lu-display",
   subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const body = Chakra_Petch({
+  variable: "--lu-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -18,8 +29,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+    <html
+      lang="vi"
+      className={`${pixel.variable} ${display.variable} ${body.variable} h-full antialiased`}
+    >
+      <body className="min-h-full bg-[#0d091a] text-[#f3f4f6] font-body">{children}</body>
     </html>
   );
 }

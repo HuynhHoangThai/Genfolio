@@ -1246,7 +1246,7 @@ export default function DashboardTemplate({ data }) {
             <span>© {new Date().getFullYear()} {name || "Your Name"}</span>
             <span aria-hidden="true">·</span>
             <span>{palette.label} console</span>
-            <span className="ml-auto">Made with Dev Portfolio Builder</span>
+            <span className="ml-auto">Được tạo bởi Genfolio</span>
           </footer>
         </main>
       </div>

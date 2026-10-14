@@ -118,8 +118,8 @@ async function extractWithOpenRouter(text) {
     headers: {
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "http://localhost:3000",
-      "X-Title": "Dev Portfolio Builder",
+      "HTTP-Referer": "https://genfolio.dev",
+      "X-Title": "Genfolio",
     },
     body: JSON.stringify({
       model,

@@ -82,7 +82,7 @@ function SectionLabel({ children }) {
   );
 }
 
-function WindowBar() {
+function WindowBar({ deployedAt }) {
   return (
     <div className="sticky top-0 z-10 flex flex-col border-b border-white/10 bg-zinc-900/90 backdrop-blur">
       <div className="flex items-center gap-3 px-4 py-2.5">
@@ -94,7 +94,7 @@ function WindowBar() {
           CHANGELOG.md
         </div>
         <div className="ml-auto hidden items-center gap-3 text-xs text-zinc-500 sm:flex">
-          <DeployedAgo deployedAt={data?.updatedAt || data?.deployedAt} />
+          <DeployedAgo deployedAt={deployedAt} />
           <span className="text-zinc-700">•</span>
           <div className="flex items-center gap-1.5">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor">
@@ -454,7 +454,7 @@ export default function ChangelogTemplate({ data }) {
       <CommitRain side="left" seed={name || role || "guest"} />
       <CommitRain side="right" seed={name || role || "guest"} />
 
-      <WindowBar />
+      <WindowBar deployedAt={data?.deployedAt || data?.updatedAt} />
 
       <div className="relative mx-auto max-w-5xl px-6 pb-24 pt-14 sm:px-10">
         {/* Header */}
@@ -507,7 +507,7 @@ export default function ChangelogTemplate({ data }) {
           </div>
         </header>
 
-        <DeployLog name={name} />
+        <DeployLog name={name} deployedAt={data?.deployedAt || data?.updatedAt} />
 
         <CommitGraph seed={name || role || "guest"} />
 

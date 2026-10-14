@@ -17,10 +17,9 @@ const portfolio = {
     website: "ada.dev",
   },
 
-  // The order your sections appear in, top to bottom. Rearrange these lines
-  // to rearrange the page. Anything you leave out gets added back at the end,
-  // so a section can never go missing by accident.
   sectionOrder: ["skills", "codingProfiles", "experience", "education", "achievements", "projects"],
+  deployedAt: "2026-10-14T05:00:00.000Z",
+  updatedAt: "2026-10-14T05:00:00.000Z",
 
   skills: ["JavaScript", "React", "Node.js", "PostgreSQL", "Python"],
 

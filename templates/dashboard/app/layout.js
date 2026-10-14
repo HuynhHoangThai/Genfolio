@@ -1,14 +1,16 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Azeret_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const display = Archivo({
+  variable: "--dash-display",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = Azeret_Mono({
+  variable: "--dash-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -18,8 +20,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+    <html lang="vi" className={`${display.variable} ${mono.variable} h-full antialiased`}>
+      <body className="min-h-full bg-[#0a0c10] text-[#d8dee9] font-sans">{children}</body>
     </html>
   );
 }

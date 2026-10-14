@@ -795,7 +795,7 @@ export default function HolographicTemplate({ data }) {
               © {new Date().getFullYear()} {name || "Your Name"}
             </p>
             <p className="ir-body text-[13px]" style={{ color: MUTED }}>
-              Made with Dev Portfolio Builder
+              Được tạo bởi Genfolio
             </p>
           </footer>
         </div>

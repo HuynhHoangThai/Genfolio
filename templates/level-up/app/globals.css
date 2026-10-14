@@ -1,19 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme inline {
+  --color-background: #0d091a;
+  --color-foreground: #f3f4f6;
+  --font-pixel: var(--lu-pixel, "Press Start 2P", monospace);
+  --font-display: var(--lu-display, "Russo One", sans-serif);
+  --font-body: var(--lu-body, "Chakra Petch", sans-serif);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --background: #0d091a;
+  --foreground: #f3f4f6;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
+  font-family: var(--font-body);
 }
 
+.lu-pixel {
+  font-family: var(--font-pixel);
+}
+
+.lu-display {
+  font-family: var(--font-display);
+}
