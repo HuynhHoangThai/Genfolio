@@ -1010,7 +1010,7 @@ export default function DashboardTemplate({ data }) {
                   {domain.from} → {domain.to}
                 </span>
               )}
-              <LiveSynced accent={PALETTE[1] || PALETTE[0]} textColor={MUTED} />
+              <LiveSynced deployedAt={data?.deployedAt || data?.updatedAt} accent={PALETTE[1] || PALETTE[0]} textColor={MUTED} />
             </div>
           </div>
           <ConsoleRail items={navItems} theme={railTheme} variant="strip" />
