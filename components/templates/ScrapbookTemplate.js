@@ -973,7 +973,7 @@ export default function ScrapbookTemplate({ data }) {
                 </div>
               </div>
               <p className={`${courier.className} mt-8 border-t pt-4 text-[10px] uppercase tracking-[0.2em]`} style={{ borderColor: tint(INK, 14), color: INK_SOFT }}>
-                © {new Date().getFullYear()} {name || "Your Name"} · Made with Dev Portfolio Builder
+                © {new Date().getFullYear()} {name || "Your Name"} · Được tạo bởi Genfolio
               </p>
             </Sheet>
           </div>

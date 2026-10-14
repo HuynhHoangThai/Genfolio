@@ -12,13 +12,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Portfolio",
-  description: "Built with Dev Portfolio Builder.",
+  title: "Hồ sơ năng lực | Genfolio",
+  description: "Trang hồ sơ năng lực cá nhân trực tuyến được tạo bởi Genfolio.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

@@ -423,17 +423,67 @@ function Section({ id, title, action, children }) {
 // with playlists and their track counts; every count here is the real length of
 // the list it points at, and clicking a row scrolls the middle pane to it.
 function Sidebar({ name, entries }) {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filteredEntries = entries.filter((entry) => {
+    if (activeFilter === "playlists" && entry.type && entry.type !== "playlist") {
+      return false;
+    }
+    if (activeFilter === "artists" && entry.type && entry.type !== "artist") {
+      return false;
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      return entry.title?.toLowerCase().includes(q);
+    }
+    return true;
+  });
+
   return (
     <nav aria-label="Sections" className="hidden w-[280px] shrink-0 flex-col gap-2 lg:flex">
       <div className="rounded-lg px-3 py-4" style={{ backgroundColor: PANE }}>
-        <a href="#top" className="flex h-10 items-center gap-5 px-3 text-[15px] font-bold text-white">
+        <a href="#top" className="flex h-10 items-center gap-5 px-3 text-[15px] font-bold text-white transition hover:opacity-80">
           <IconHome className="h-6 w-6" />
           Home
         </a>
-        <span className="flex h-10 items-center gap-5 px-3 text-[15px] font-bold" style={{ color: SUBDUED }}>
+        <button
+          type="button"
+          onClick={() => setSearchOpen((prev) => !prev)}
+          className="flex h-10 w-full items-center gap-5 px-3 text-[15px] font-bold transition hover:text-white cursor-pointer text-left"
+          style={{ color: searchOpen || searchQuery ? "#ffffff" : SUBDUED }}
+          aria-expanded={searchOpen}
+        >
           <IconSearch className="h-6 w-6" />
           Search
-        </span>
+        </button>
+
+        {searchOpen && (
+          <div className="mt-2 px-1">
+            <div className="relative flex items-center rounded-md bg-[#242424] px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-white">
+              <IconSearch className="h-4 w-4 shrink-0 text-[#b3b3b3]" />
+              <input
+                type="text"
+                placeholder="Tìm danh mục, dự án..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                autoFocus
+                className="w-full bg-transparent px-2 text-xs text-white placeholder-[#7c7c7c] outline-hidden"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-[#b3b3b3] hover:text-white cursor-pointer text-xs"
+                  aria-label="Xóa tìm kiếm"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col rounded-lg pt-2" style={{ backgroundColor: PANE }}>
@@ -442,21 +492,46 @@ function Sidebar({ name, entries }) {
             <IconLibrary className="h-6 w-6" />
             Your Library
           </span>
-          <span className="flex h-8 w-8 items-center justify-center rounded-full" style={{ color: SUBDUED }} aria-hidden>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-500" aria-hidden>
             <IconPlus className="h-4 w-4" />
           </span>
         </div>
 
-        <div className="flex gap-2 px-4 pb-2 pt-1" aria-hidden>
-          {["Playlists", "Artists"].map((chip) => (
-            <span key={chip} className="rounded-full px-3 py-1.5 text-[13px] text-white" style={{ backgroundColor: CHIP }}>
-              {chip}
-            </span>
-          ))}
+        <div className="flex items-center gap-2 px-4 pb-2 pt-1" role="toolbar" aria-label="Bộ lọc thư viện">
+          {["Playlists", "Artists"].map((chip) => {
+            const chipKey = chip.toLowerCase();
+            const isActive = activeFilter === chipKey;
+            return (
+              <button
+                key={chip}
+                type="button"
+                onClick={() => setActiveFilter(isActive ? "all" : chipKey)}
+                aria-pressed={isActive}
+                className={`rounded-full px-3 py-1.5 text-[13px] font-medium transition cursor-pointer ${
+                  isActive
+                    ? "bg-white text-black font-bold"
+                    : "text-white hover:bg-[#333333]"
+                }`}
+                style={{ backgroundColor: isActive ? "#ffffff" : CHIP }}
+              >
+                {chip}
+              </button>
+            );
+          })}
+          {activeFilter !== "all" && (
+            <button
+              type="button"
+              onClick={() => setActiveFilter("all")}
+              className="rounded-full px-2 py-1 text-[11px] text-[#b3b3b3] hover:text-white cursor-pointer"
+              title="Xóa bộ lọc"
+            >
+              ✕
+            </button>
+          )}
         </div>
 
         <div className="spot-scroll min-h-0 flex-1 overflow-y-auto px-2 pb-3">
-          {entries.map((entry) => (
+          {filteredEntries.map((entry) => (
             <a key={entry.id} href={`#section-${entry.id}`} className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-white/10">
               <span className="h-12 w-12 shrink-0">
                 <Art seed={entry.title} label={entry.title[0]} rounded="rounded" text="text-lg" />
@@ -464,14 +539,14 @@ function Sidebar({ name, entries }) {
               <span className="min-w-0">
                 <span className="block truncate text-[15px] font-medium text-white">{entry.title}</span>
                 <span className="block truncate text-[13px]" style={{ color: SUBDUED }}>
-                  Playlist &middot; {entry.count} {entry.count === 1 ? "item" : "items"}
+                  {entry.type === "artist" ? "Artist profile" : "Playlist"} &middot; {entry.count} {entry.count === 1 ? "item" : "items"}
                 </span>
               </span>
             </a>
           ))}
-          {entries.length === 0 && (
-            <p className="px-3 py-6 text-[13px]" style={{ color: SUBDUED }}>
-              Nothing in the library yet.
+          {filteredEntries.length === 0 && (
+            <p className="px-3 py-6 text-[13px] text-center" style={{ color: SUBDUED }}>
+              {searchQuery ? "Không tìm thấy nội dung phù hợp." : "Nothing in the library yet."}
             </p>
           )}
         </div>
@@ -894,12 +969,12 @@ export default function SpotifyTemplate({ data }) {
   const order = (sectionOrder || []).filter((id) => sections[id]);
 
   const libraryEntries = [
-    experience?.length > 0 && { id: "experience", title: "Popular", count: experience.length },
-    projects?.length > 0 && { id: "projects", title: "Discography", count: projects.length },
-    education?.length > 0 && { id: "education", title: "Education", count: education.length },
-    achievements?.length > 0 && { id: "achievements", title: "Top Charts", count: achievements.length },
-    codingProfiles?.length > 0 && { id: "codingProfiles", title: "Appears On", count: codingProfiles.length },
-    skills?.length > 0 && { id: "about", title: "About", count: skills.length },
+    experience?.length > 0 && { id: "experience", title: "Popular", count: experience.length, type: "playlist" },
+    projects?.length > 0 && { id: "projects", title: "Discography", count: projects.length, type: "playlist" },
+    education?.length > 0 && { id: "education", title: "Education", count: education.length, type: "playlist" },
+    achievements?.length > 0 && { id: "achievements", title: "Top Charts", count: achievements.length, type: "playlist" },
+    codingProfiles?.length > 0 && { id: "codingProfiles", title: "Appears On", count: codingProfiles.length, type: "artist" },
+    skills?.length > 0 && { id: "about", title: "About", count: skills.length, type: "artist" },
   ].filter(Boolean);
 
   const socials = [
@@ -1058,7 +1133,7 @@ export default function SpotifyTemplate({ data }) {
           )}
 
           <footer className="px-4 pb-10 text-[11px] sm:px-6" style={{ color: "#6a6a6a" }}>
-            &copy; {new Date().getFullYear()} {name || "Your Name"} &middot; Made with Dev Portfolio Builder
+            &copy; {new Date().getFullYear()} {name || "Your Name"} &middot; Được tạo bởi Genfolio
           </footer>
         </main>
       </div>

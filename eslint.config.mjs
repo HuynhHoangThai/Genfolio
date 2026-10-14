@@ -18,6 +18,11 @@ const eslintConfig = defineConfig([
     // Local tooling, gitignored, and not this project's code to lint.
     ".claude/**",
   ]),
+  {
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

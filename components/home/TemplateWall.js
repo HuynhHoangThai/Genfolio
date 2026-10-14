@@ -20,9 +20,9 @@ export default function TemplateWall() {
 
   return (
     <div>
-      {/* Category Filter Tabs Bar Nintendo 2001 style */}
-      <div className="mt-8 flex flex-wrap items-center gap-2 border-b border-[#3d4f97] pb-4">
-        <span className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] mr-2 hidden sm:inline">
+      {/* Category Filter Tabs Bar MindMarket style */}
+      <div className="mt-8 flex flex-wrap items-center gap-2.5 border-b border-[#d5d5d4] pb-4">
+        <span className="text-[12px] font-semibold uppercase tracking-[0.5px] text-[#2c2e2a] mr-2 hidden sm:inline">
           LỌC THEO NGÀNH:
         </span>
         {CATEGORIES.map((cat) => {
@@ -32,19 +32,19 @@ export default function TemplateWall() {
               key={cat.id}
               type="button"
               onClick={() => setActiveTab(cat.id)}
-              className={`flex items-center gap-2 rounded-[2px] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] transition cursor-pointer ${
+              className={`flex items-center gap-2 rounded-[50px] px-4 py-2 text-[12px] font-medium tracking-[0.2px] transition cursor-pointer ${
                 isActive
-                  ? "border-t border-l border-white border-r border-[#21242e] border-b-2 border-b-[#21242e] bg-[#21242e] text-[#ecab37] shadow-sm translate-y-[1px]"
-                  : "border-t border-l border-white/90 border-r border-[#7a8aba] border-b-2 border-b-[#7a8aba] bg-[#cfcfcf] text-[#21242e] hover:bg-[#c2c2c2]"
+                  ? "bg-[#2c2e2a] text-white shadow-none"
+                  : "border border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#e0dbce]"
               }`}
             >
-              <span className="text-[9px] font-black tracking-wider">
+              <span className="text-[10px] font-bold tracking-wider">
                 [{cat.code}]
               </span>
               <span>{cat.label}</span>
               <span
-                className={`ml-1 rounded-[1px] px-1.5 py-0.2 text-[9px] font-black ${
-                  isActive ? "bg-[#ecab37] text-[#21242e]" : "bg-[#7a8aba] text-[#21242e]"
+                className={`ml-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                  isActive ? "bg-[#8ed462] text-[#2c2e2a]" : "bg-[#f5f1e4] text-[#80827f]"
                 }`}
               >
                 {cat.count}
@@ -55,14 +55,14 @@ export default function TemplateWall() {
       </div>
 
       {/* Templates Cartridge Grid */}
-      <div className="mt-8 grid auto-rows-fr grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid auto-rows-fr grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
         {filteredTemplates.map((template, index) => (
           <TemplatePreviewCard key={template.id} template={template} index={index} />
         ))}
       </div>
 
       {filteredTemplates.length === 0 && (
-        <div className="mt-12 text-center text-[13px] font-bold text-[#3d4f97]">
+        <div className="mt-12 text-center text-[14px] font-medium text-[#80827f]">
           Không có mẫu giao diện nào trong phân mục này.
         </div>
       )}

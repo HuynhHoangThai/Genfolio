@@ -1,13 +1,13 @@
-import { Be_Vietnam_Pro } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/auth/AuthContext";
 import GoogleAuthGate from "@/components/auth/GoogleAuthGate";
 
-const beVietnamPro = Be_Vietnam_Pro({
-  weight: ["400", "500", "600", "700", "800", "900"],
+const inter = Inter({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin", "vietnamese"],
   display: "swap",
-  variable: "--font-sans-main",
+  variable: "--font-inter",
 });
 
 // Relative OG/Twitter image paths need an absolute base to resolve against.
@@ -47,9 +47,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="vi"
-      className={`${beVietnamPro.variable} font-sans h-full antialiased`}
+      className={`${inter.variable} font-sans h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans bg-[var(--color-cream-paper)] text-[var(--color-ink-black)]">
         <AuthProvider>
           <GoogleAuthGate>{children}</GoogleAuthGate>
         </AuthProvider>

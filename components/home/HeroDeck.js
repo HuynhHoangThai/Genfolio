@@ -160,28 +160,28 @@ export default function HeroDeck() {
                   key={id}
                   data-exit={isLeaving ? "true" : undefined}
                   aria-hidden={isLeaving ? "true" : undefined}
-                  className={`home-deck-card absolute inset-0 rounded-[4px] border-t border-l border-white/70 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] ${
+                  className={`home-deck-card absolute inset-0 rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] overflow-hidden ${
                     isLeaving ? "pointer-events-none" : ""
                   }`}
                   style={{
                     "--slot": slot,
                     boxShadow: isFront
-                      ? "inset 1px 1px 0 rgba(255,255,255,0.4), 0 4px 16px rgba(33,36,46,0.35)"
-                      : "0 10px 24px -10px rgba(33,36,46,0.3)",
+                      ? "0 8px 24px -6px rgba(44, 46, 42, 0.12)"
+                      : "0 4px 12px -4px rgba(44, 46, 42, 0.08)",
                   }}
                 >
-                  <div className="relative h-full w-full overflow-hidden rounded-[3px] bg-[#21242e]">
-                    {/* Cartridge console chrome header plate */}
-                    <div className="flex items-center gap-3 border-b border-[#3d4f97] bg-[#7a8aba] px-3.5 py-1.5 text-[#21242e]">
+                  <div className="relative h-full w-full overflow-hidden bg-[#ffffff]">
+                    {/* Storybook editorial header plate */}
+                    <div className="flex items-center gap-3 border-b border-[#e0dbce] bg-[#f5f1e4] px-4 py-2 text-[#2c2e2a]">
                       {slot <= 0 ? (
                         <>
-                          <span className="font-mono text-[9px] font-bold text-[#3d4f97]">
+                          <span className="font-mono text-[10px] font-medium text-[#80827f]">
                             DISC-{String(DECK_IDS.indexOf(id) + 1).padStart(2, "0")}
                           </span>
-                          <span className="truncate text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
+                          <span className="truncate text-[11px] font-semibold uppercase tracking-[0.5px] text-[#2c2e2a]">
                             {template.name}
                           </span>
-                          <span className="ml-auto flex h-4 items-center rounded-[1px] border border-[#21242e] bg-white px-1 text-[8px] font-black text-[#21242e]">
+                          <span className="ml-auto flex h-4 items-center rounded-full bg-[#8ed462] px-1.5 text-[8px] font-bold text-[#2c2e2a]">
                             E
                           </span>
                         </>
@@ -190,15 +190,15 @@ export default function HeroDeck() {
                       )}
                     </div>
 
-                    <div className="relative flex-1 overflow-hidden" style={{ height: "calc(100% - 31px)" }}>
+                    <div className="relative flex-1 overflow-hidden" style={{ height: "calc(100% - 33px)" }}>
                       <div className="home-frame-render pointer-events-none absolute left-0 top-0">
                         <Template data={defaultPortfolioData} />
                       </div>
 
-                      {/* Screen CRT glare */}
+                      {/* Paper card haze */}
                       <div
                         aria-hidden="true"
-                        className="home-deck-haze pointer-events-none absolute inset-0 bg-[#21242e]"
+                        className="home-deck-haze pointer-events-none absolute inset-0 bg-[#f5f1e4]"
                         style={{ "--slot": slot }}
                       />
                     </div>
@@ -213,9 +213,9 @@ export default function HeroDeck() {
                           openLoginModal(`/editor/${id}`);
                         }
                       }}
-                      className="home-deck-open-link absolute inset-0 flex items-end justify-start p-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f68d1f]"
+                      className="home-deck-open-link absolute inset-0 flex items-end justify-start p-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed462]"
                     >
-                      <span className="n2001-btn-signal flex items-center gap-2 rounded-[2px] px-3.5 py-1.5 text-[11px] font-bold shadow-md">
+                      <span className="inline-flex items-center gap-2 rounded-[50px] bg-[#ff705d] px-4 py-2 text-[12px] font-medium text-white transition hover:opacity-90">
                         THỬ MẪU {template.name.toUpperCase()} ▶
                       </span>
                     </Link>
@@ -225,7 +225,7 @@ export default function HeroDeck() {
                     <button
                       type="button"
                       onClick={() => setFront(DECK_IDS.indexOf(id))}
-                      className="absolute inset-0 cursor-pointer rounded-[var(--home-radius)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--home-strong)]"
+                      className="absolute inset-0 cursor-pointer rounded-[25.5px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed462]"
                     >
                       <span className="sr-only">Đưa mẫu {template.name} lên trước</span>
                     </button>

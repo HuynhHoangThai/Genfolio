@@ -1210,7 +1210,7 @@ export default function PrismTemplate({ data }) {
               © {new Date().getFullYear()} {name || "Your Name"}
             </p>
             <p className="pr-mono text-[10.5px] uppercase tracking-[0.2em]" style={{ color: MUTED, opacity: 0.7 }}>
-              Made with Dev Portfolio Builder
+              Được tạo bởi Genfolio
             </p>
           </footer>
         </div>

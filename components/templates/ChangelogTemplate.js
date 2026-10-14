@@ -94,7 +94,7 @@ function WindowBar() {
           CHANGELOG.md
         </div>
         <div className="ml-auto hidden items-center gap-3 text-xs text-zinc-500 sm:flex">
-          <DeployedAgo />
+          <DeployedAgo deployedAt={data?.updatedAt || data?.deployedAt} />
           <span className="text-zinc-700">•</span>
           <div className="flex items-center gap-1.5">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor">
@@ -588,7 +588,7 @@ export default function ChangelogTemplate({ data }) {
             © {new Date().getFullYear()} {name || "Your Name"}
           </p>
           <p className="mt-1 font-mono text-[10px] text-zinc-700">
-            Made with Dev Portfolio Builder
+            Được tạo bởi Genfolio
           </p>
         </footer>
       </div>

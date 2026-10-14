@@ -13,7 +13,7 @@ The quickest way to edit it, no tools required:
 3. Make your change.
 4. Scroll down and press **Commit changes**.
 
-Your live site rebuilds itself and shows the change about a minute later.
+When connected to CI/CD and Genfolio webhooks, your live site triggers a server build and publishes the latest changes automatically.
 
 If you would rather work locally:
 

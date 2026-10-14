@@ -15,10 +15,8 @@ export function proxy(request) {
     (pathname.startsWith('/api/portfolios') && !(pathname === '/api/portfolios/share' && request.method === 'GET')) ||
     pathname.startsWith('/api/github');
 
-  // Protected user-facing pages (creating / editing template, deploying)
-  const isProtectedPage =
-    pathname.startsWith('/editor') ||
-    pathname.startsWith('/deployed');
+  // Protected user-facing pages (creating / editing template)
+  const isProtectedPage = pathname.startsWith('/editor');
 
   if (!isAuthenticated) {
     if (isProtectedApi) {
@@ -45,7 +43,6 @@ export function proxy(request) {
 export const config = {
   matcher: [
     '/editor/:path*',
-    '/deployed/:path*',
     '/api/parse-resume',
     '/api/portfolios/:path*',
     '/api/github/:path*',

@@ -1,32 +1,21 @@
-// Step three, and the whole point of the exercise: create a repository in the
-// customer's own GitHub account containing the template AND their content, in
-// one commit, and hand back the two links they need.
-//
-// Nothing is written to our database on this path. The data arrives from the
-// browser, goes into their repository, and is not kept here: once their repo
-// exists we have no reason to hold a copy of somebody's employment history,
-// and the safest place for personal data is a system that never stores it.
+// Bước ba: Tạo repository trên tài khoản GitHub của người dùng chứa toàn bộ
+// mã nguồn mẫu và dữ liệu portfolio trong một commit duy nhất, đồng thời
+// kết nối với hệ thống webhook và bàn giao liên kết triển khai Vercel.
 
 import { cookies } from "next/headers";
 import { createRepoWithFallback, commitFiles, getViewer, repoNameFor } from "@/lib/github";
 import { DATA_FILE, buildDataFile, readTemplateFiles, supportsHandoff } from "@/lib/templateFiles";
 import { sanitizePortfolioData } from "@/lib/portfolioData";
 import { GITHUB_TOKEN_COOKIE } from "@/lib/githubSession";
+import { updatePortfolioDeployment } from "@/lib/db";
 
-// Creating the repository is one request, but the commit is not: every binary
-// asset becomes a blob of its own first, and templates/retro-desktop ships
-// fifty-eight of them. That comfortably outruns the ten seconds a serverless
-// function gets by default, and a function killed mid-flight answers with an
-// HTML error page rather than anything this route wrote.
 export const maxDuration = 60;
 
 export async function POST(request) {
-  // Checked before anything else, so a server missing its GitHub credentials
-  // says so in place rather than sending the customer off on an OAuth round
-  // trip that cannot possibly complete.
+  // Kiểm tra cấu hình GitHub OAuth trên máy chủ trước tiên
   if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     return Response.json(
-      { error: "Deploying isn't set up on this server yet. Please try again later." },
+      { error: "Chức năng triển khai chưa được thiết lập trên máy chủ. Vui lòng thử lại sau." },
       { status: 503 }
     );
   }
@@ -34,8 +23,6 @@ export async function POST(request) {
   const jar = await cookies();
   const token = jar.get(GITHUB_TOKEN_COOKIE)?.value;
 
-  // Not an error state: it is the normal first pass, and the editor answers it
-  // by sending the customer through the connect flow.
   if (!token) {
     return Response.json({ needsAuth: true }, { status: 401 });
   }
@@ -44,18 +31,16 @@ export async function POST(request) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ error: "Malformed request." }, { status: 400 });
+    return Response.json({ error: "Yêu cầu không hợp lệ." }, { status: 400 });
   }
 
   const { template, data } = body || {};
 
-  // Validated here and not merely in the browser, because a request body is
-  // never evidence of anything.
   if (typeof template !== "string" || !supportsHandoff(template)) {
-    return Response.json({ error: "That template can't be deployed this way yet." }, { status: 400 });
+    return Response.json({ error: "Mẫu giao diện này hiện chưa hỗ trợ triển khai." }, { status: 400 });
   }
   if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return Response.json({ error: "Missing portfolio data." }, { status: 400 });
+    return Response.json({ error: "Thiếu dữ liệu portfolio." }, { status: 400 });
   }
 
   const clean = sanitizePortfolioData(data);
@@ -66,7 +51,7 @@ export async function POST(request) {
     const repo = await createRepoWithFallback(
       token,
       repoNameFor(clean.name),
-      "My portfolio site."
+      "Trang portfolio cá nhân của tôi được khởi tạo từ Genfolio."
     );
 
     const files = await readTemplateFiles(template);
@@ -78,18 +63,50 @@ export async function POST(request) {
       repo.name,
       repo.default_branch,
       files,
-      "Add my portfolio"
+      "Khởi tạo mã nguồn portfolio từ Genfolio"
     );
 
-    // Import, not clone. Vercel's /new/clone is the deploy-button flow for
-    // copying somebody else's template into a repo you do not yet have, so
-    // pointing it at a repository the customer already owns made it bounce
-    // them through an extra "import this instead" step. /new/import is the
-    // flow for a repo that exists, and pre-filling the framework and project
-    // name means the screen it lands on is already filled in.
-    //
-    // No env vars in the link, because the site has nothing to configure:
-    // there are no services behind it.
+    // Tự động cấu hình Webhook nếu server có cấu hình secret và base url
+    const webhookSecret = process.env.GITHUB_WEBHOOK_SECRET;
+    const origin = request.headers.get("origin");
+    const appUrl = process.env.APP_URL || (origin?.startsWith("https://") ? origin : null);
+    if (webhookSecret && appUrl) {
+      try {
+        await fetch(`https://api.github.com/repos/${viewer.login}/${repo.name}/hooks`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "web",
+            active: true,
+            events: ["push", "deployment_status"],
+            config: {
+              url: `${appUrl}/api/webhooks/github`,
+              content_type: "json",
+              secret: webhookSecret,
+              insecure_ssl: "0",
+            },
+          }),
+        });
+      } catch (webhookErr) {
+        console.warn("Không thể tự động gán webhook cho repo mới:", webhookErr.message);
+      }
+    }
+
+    // Ghi nhận sự kiện triển khai vào cơ sở dữ liệu nền
+    try {
+      await updatePortfolioDeployment({
+        repoName: repo.name,
+        isPublished: true,
+        deployedAt: new Date().toISOString(),
+      });
+    } catch (dbErr) {
+      console.warn("Lưu trạng thái triển khai nền gặp lỗi:", dbErr.message);
+    }
+
     const deployUrl = new URL("https://vercel.com/new/import");
     deployUrl.searchParams.set("s", repo.html_url);
     deployUrl.searchParams.set("framework", "nextjs");
@@ -101,32 +118,23 @@ export async function POST(request) {
       deployUrl: deployUrl.toString(),
       owner: viewer.login,
       repo: repo.name,
-      // The editor watches this branch's commit status to find out whether
-      // Vercel's build actually succeeded.
       branch: repo.default_branch,
     });
   } catch (error) {
-    // The message is GitHub's own and may quote what we sent, so it is not
-    // returned to the browser. Only a status is worth distinguishing.
     if (error.status === 401 || error.status === 403) {
       jar.delete(GITHUB_TOKEN_COOKIE);
       return Response.json({ needsAuth: true }, { status: 401 });
     }
-    // GitHub's own message for these endpoints is a fixed API string such as
-    // "Git Repository is empty." and never echoes the payload we sent, so it
-    // is safe to record and it is the only thing that makes a failure here
-    // diagnosable at all. Nothing from the customer's data is logged.
     console.error(
       "github handoff failed:",
       error.status ?? "no-status",
       error.code ?? error.message ?? "unknown"
     );
     return Response.json(
-      { error: "Couldn't create the repository. Please try again." },
+      { error: "Không thể tạo repository trên GitHub. Vui lòng thử lại." },
       { status: 502 }
     );
   } finally {
-    // The token existed to do one job, which is now either done or failed.
     jar.delete(GITHUB_TOKEN_COOKIE);
   }
 }

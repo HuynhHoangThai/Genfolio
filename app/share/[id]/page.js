@@ -38,24 +38,24 @@ export default async function SharedPortfolioPage({ params }) {
 
   if (!result || result.notFound) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center bg-[#21242e] px-4 text-center">
-        <div className="n2001-hardware-card w-full max-w-md overflow-hidden p-6 shadow-2xl border-2 border-[#3d4f97]">
-          <div className="n2001-carbon-bar mb-4 flex items-center justify-between px-3 py-1.5 rounded-[2px]">
-            <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#e60012]">
+      <div className="flex min-h-dvh flex-col items-center justify-center bg-[#f5f1e4] px-4 text-center">
+        <div className="w-full max-w-md overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] p-6 shadow-xl">
+          <div className="mb-4 flex items-center justify-between px-3 py-1.5 rounded-[10px] bg-[#f5f1e4] border border-[#d5d5d4]">
+            <span className="font-mono text-[9px] font-bold text-[#2c2e2a]">GENFOLIO</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ff705d]">
               LỖI TRUY CẬP (404)
             </span>
           </div>
-          <h1 className="text-base font-bold uppercase tracking-[0.5px] text-[#21242e]">
+          <h1 className="text-base font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
             Không tìm thấy portfolio này
           </h1>
-          <p className="mt-2.5 text-xs leading-relaxed text-[#3d4f97]">
+          <p className="mt-2.5 text-xs leading-relaxed text-[#80827f]">
             Liên kết chia sẻ có thể không chính xác, đã bị gỡ bỏ hoặc chưa từng tồn tại trên hệ thống.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/"
-              className="n2001-btn-signal inline-flex items-center gap-2 px-5 py-2 text-xs font-bold uppercase tracking-[0.5px]"
+              className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white inline-flex items-center gap-2 px-5 py-2 text-xs font-bold uppercase tracking-[0.5px]"
             >
               <span>VỀ TRANG CHỦ GENFOLIO</span>
               <span className="font-mono">▶</span>
@@ -68,24 +68,24 @@ export default async function SharedPortfolioPage({ params }) {
 
   if (result.expired) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center bg-[#21242e] px-4 text-center">
-        <div className="n2001-hardware-card w-full max-w-md overflow-hidden p-6 shadow-2xl border-2 border-[#e60012]">
-          <div className="n2001-carbon-bar mb-4 flex items-center justify-between px-3 py-1.5 rounded-[2px]">
-            <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#e60012]">
+      <div className="flex min-h-dvh flex-col items-center justify-center bg-[#f5f1e4] px-4 text-center">
+        <div className="w-full max-w-md overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] p-6 shadow-xl">
+          <div className="mb-4 flex items-center justify-between px-3 py-1.5 rounded-[10px] bg-[#f5f1e4] border border-[#d5d5d4]">
+            <span className="font-mono text-[9px] font-bold text-[#2c2e2a]">GENFOLIO</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ff705d]">
               HẾT HẠN CHIA SẺ (410)
             </span>
           </div>
-          <h1 className="text-base font-bold uppercase tracking-[0.5px] text-[#21242e]">
+          <h1 className="text-base font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
             Liên kết chia sẻ đã hết hạn
           </h1>
-          <p className="mt-2.5 text-xs leading-relaxed text-[#3d4f97]">
+          <p className="mt-2.5 text-xs leading-relaxed text-[#80827f]">
             Người tạo portfolio đã đặt thời hạn xem tạm thời cho liên kết này và thời gian đã kết thúc.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/"
-              className="n2001-btn-amber inline-flex items-center gap-2 px-5 py-2 text-xs font-bold uppercase tracking-[0.5px]"
+              className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white inline-flex items-center gap-2 px-5 py-2 text-xs font-bold uppercase tracking-[0.5px]"
             >
               <span>TỰ TẠO PORTFOLIO CHO BẠN</span>
               <span className="font-mono">▶</span>
