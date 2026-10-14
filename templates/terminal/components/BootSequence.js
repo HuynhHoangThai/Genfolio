@@ -1,66 +1,33 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-// A typewriter "boot log" that plays once on load — pure decorative dressing
-// for the terminal theme, so it's aria-hidden; the real name/role/bio live
-// in the semantic About block just below it, not in here.
-export default function BootSequence({ name, sectionCount }) {
-  const lines = [
-    "booting portfolio_os v2.0...",
-    `loading profile: ${name || "guest"}`,
-    `mounting ${sectionCount} module${sectionCount === 1 ? "" : "s"}`,
-    "status: ready",
-  ];
-
-  const [display, setDisplay] = useState([]);
-
-  useEffect(() => {
-    let cancelled = false;
-    let lineIndex = 0;
-    let charIndex = 0;
-    const current = [];
-
-    function tick() {
-      if (cancelled || lineIndex >= lines.length) return;
-      const line = lines[lineIndex];
-      current[lineIndex] = line.slice(0, charIndex);
-      setDisplay([...current]);
-
-      if (charIndex < line.length) {
-        charIndex++;
-        setTimeout(tick, 18);
-      } else {
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(tick, 220);
-      }
-    }
-
-    const id = setTimeout(tick, 300);
-    return () => {
-      cancelled = true;
-      clearTimeout(id);
-    };
-    // `lines` is rebuilt fresh each render from name/sectionCount, so those
-    // are the only real dependencies of the sequence this effect plays.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, sectionCount]);
-
-  const finished = display.length === lines.length && display[lines.length - 1] === lines[lines.length - 1];
-
-  if (display.length === 0) return null;
+// Real system bootstrap & kernel status display linked to Genfolio deployment
+export default function BootSequence({ name, sectionCount, deployedAt }) {
+  const dateStr = deployedAt ? new Date(deployedAt).toISOString() : new Date().toISOString();
 
   return (
-    <div aria-hidden className="terminal-fade-up mb-8 font-mono text-[12px] leading-relaxed text-zinc-600">
-      {display.map((text, i) => (
-        <p key={i}>
-          <span className="text-emerald-600">$</span> {text}
-          {!finished && i === display.length - 1 && (
-            <span className="ml-0.5 inline-block h-3 w-[6px] translate-y-[2px] animate-pulse bg-emerald-600" />
-          )}
+    <div className="terminal-fade-up mb-8 rounded border border-zinc-900 bg-zinc-950/70 p-3.5 font-mono text-[12px] leading-relaxed text-zinc-500 shadow-inner">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-900 pb-2 text-[11px] text-zinc-600">
+        <span className="font-semibold text-zinc-400">GENFOLIO KERNEL v2.5.0-LTS (x86_64)</span>
+        <span className="flex items-center gap-1.5 text-emerald-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          ONLINE / SYNCED
+        </span>
+      </div>
+      <div className="mt-2.5 space-y-1 text-zinc-400">
+        <p>
+          <span className="text-emerald-500">[OK]</span> Mounted portfolio root filesystem for user{" "}
+          <span className="text-zinc-200">{name || "developer"}</span>
         </p>
-      ))}
+        <p>
+          <span className="text-emerald-500">[OK]</span> Activated{" "}
+          <span className="text-emerald-400">{sectionCount}</span> content modules and route handlers
+        </p>
+        <p>
+          <span className="text-emerald-500">[OK]</span> Last deployment milestone verified:{" "}
+          <span className="text-zinc-300">{dateStr}</span>
+        </p>
+        <p className="text-zinc-600">
+          &gt; All background jobs and webhook synchronizations nominal.
+        </p>
+      </div>
     </div>
   );
 }

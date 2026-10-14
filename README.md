@@ -1,4 +1,4 @@
-# Dev Portfolio Builder
+# Genfolio — AI Portfolio Generator
 
 Pick a template, fill in one form, watch your portfolio come alive — live, in your browser.
 

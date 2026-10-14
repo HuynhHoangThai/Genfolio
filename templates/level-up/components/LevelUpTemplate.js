@@ -1381,7 +1381,7 @@ export default function LevelUpTemplate({ data }) {
             </div>
           )}
           <p className="lu-credits-line">
-            {`\u00a9 ${new Date().getFullYear()} ${name || "Your Name"} \u00b7 Made with Dev Portfolio Builder`}
+            {`\u00a9 ${new Date().getFullYear()} ${name || "Your Name"} \u00b7 Được tạo bởi Genfolio`}
           </p>
         </footer>
       </main>

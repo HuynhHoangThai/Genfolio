@@ -425,7 +425,7 @@ export default function TerminalTemplate({ data }) {
       <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-zinc-800/80 bg-zinc-950/95 px-4 py-2.5 backdrop-blur">
         <TrafficLights />
         <span className="text-xs text-zinc-600">{user}@dev — zsh</span>
-        <SessionUptime />
+        <SessionUptime startTime={data?.deployedAt || data?.updatedAt} />
       </div>
       <StatusTicker />
 
@@ -440,7 +440,11 @@ export default function TerminalTemplate({ data }) {
         {/* about — the only contact info shown up top is the "Get in touch"
             CTA at the very bottom of the page; a second contact list here
             duplicated it for no reason. */}
-        <BootSequence name={name} sectionCount={activeSectionCount} />
+        <BootSequence
+          name={name}
+          sectionCount={activeSectionCount}
+          deployedAt={data?.deployedAt || data?.updatedAt}
+        />
 
         <Block label="About">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
