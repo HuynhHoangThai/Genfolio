@@ -165,7 +165,7 @@ export async function POST(request) {
   const openRouterKey = process.env.OPENROUTER_API_KEY;
   if (!geminiKey && !openRouterKey) {
     return Response.json(
-      { error: "Resume import isn't set up yet: the server is missing GEMINI_API_KEY or OPENROUTER_API_KEY." },
+      { error: "Tính năng trích xuất CV chưa sẵn sàng: Máy chủ chưa cấu hình GEMINI_API_KEY hoặc OPENROUTER_API_KEY." },
       { status: 500 }
     );
   }
@@ -175,18 +175,18 @@ export async function POST(request) {
     formData = await request.formData();
   } catch {
     return Response.json(
-      { error: "That upload didn't arrive intact. Please try again." },
+      { error: "Tệp tải lên không nguyên vẹn. Vui lòng thử lại." },
       { status: 400 }
     );
   }
 
   const file = formData.get("resume");
   if (!file || typeof file === "string") {
-    return Response.json({ error: "No resume file was uploaded." }, { status: 400 });
+    return Response.json({ error: "Chưa có tệp CV nào được tải lên." }, { status: 400 });
   }
   if (file.size > MAX_FILE_BYTES) {
     return Response.json(
-      { error: "That file is too large. Please upload a resume under 4MB." },
+      { error: "Kích thước tệp quá lớn. Vui lòng tải lên tệp CV có dung lượng dưới 4MB." },
       { status: 400 }
     );
   }
@@ -206,14 +206,14 @@ export async function POST(request) {
       text = result.value;
     } else {
       return Response.json(
-        { error: "Unsupported file type. Please upload a PDF or DOCX resume." },
+        { error: "Định dạng tệp không được hỗ trợ. Vui lòng tải lên tệp định dạng PDF hoặc DOCX." },
         { status: 400 }
       );
     }
   } catch (err) {
     console.error("resume text extraction failed:", err);
     return Response.json(
-      { error: "Couldn't read that file. It may be corrupted or password-protected." },
+      { error: "Không thể đọc nội dung tệp. Tệp có thể bị hỏng hoặc đã được đặt mật khẩu." },
       { status: 400 }
     );
   }
@@ -222,7 +222,7 @@ export async function POST(request) {
     return Response.json(
       {
         error:
-          "Couldn't find readable text in that file. If it's a scanned image rather than a text-based resume, this won't work.",
+          "Không tìm thấy nội dung văn bản trong tệp. Hệ thống hiện chưa hỗ trợ CV dạng ảnh quét không có lớp ký tự.",
       },
       { status: 400 }
     );
@@ -233,9 +233,10 @@ export async function POST(request) {
   let extracted;
   if (geminiKey) {
     try {
+      const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
       const ai = new GoogleGenAI({ apiKey: geminiKey });
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: modelName,
         contents: `Extract structured portfolio data from this resume text. Only use information actually present in the text. Never invent companies, dates, numbers, or achievements. Leave a field as an empty string or empty array if the resume doesn't contain it.\n\n---\n${text}\n---`,
         config: {
           responseMimeType: "application/json",
@@ -258,7 +259,7 @@ export async function POST(request) {
 
   if (!extracted) {
     return Response.json(
-      { error: "The resume parser is temporarily unavailable. Please try again in a moment." },
+      { error: "Trình trích xuất CV tạm thời không khả dụng. Vui lòng thử lại trong giây lát." },
       { status: 502 }
     );
   }

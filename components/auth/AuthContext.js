@@ -125,6 +125,15 @@ export function AuthProvider({ children }) {
   }, [handlePostLoginRedirect]);
 
   const loginDevFallback = useCallback((customEmail = "developer@genfolio.dev", customName = "Developer") => {
+    const isDevAllowed =
+      process.env.NODE_ENV === "development" ||
+      process.env.NEXT_PUBLIC_ENABLE_DEV_LOGIN === "true";
+
+    if (!isDevAllowed) {
+      console.warn("Chế độ đăng nhập nhà phát triển bị vô hiệu hóa trong môi trường sản phẩm (production).");
+      return false;
+    }
+
     const userData = {
       id: "dev-" + Date.now(),
       email: customEmail,
@@ -175,7 +184,7 @@ export function AuthProvider({ children }) {
     // If currently on a protected route, redirect to home
     if (typeof window !== "undefined") {
       const path = window.location.pathname;
-      if (path.startsWith("/editor") || path.startsWith("/deployed")) {
+      if (path.startsWith("/editor")) {
         window.location.href = "/";
       }
     }

@@ -87,25 +87,27 @@ export default function ShareModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#21242e]/80 p-4 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2e2a]/40 p-4 backdrop-blur-xs"
       onClick={onClose}
     >
       <div
-        className="n2001-hardware-card w-full max-w-lg overflow-hidden border-2 border-[#3d4f97] bg-[#7a8aba] shadow-2xl"
+        className="w-full max-w-lg overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="n2001-carbon-bar flex items-center justify-between px-4 py-2.5">
+        <div className="flex items-center justify-between px-5 py-3 bg-[#f5f1e4] border-b border-[#d5d5d4]">
           <div className="flex items-center gap-2">
-            <span className="n2001-racetrack text-[9px] py-0 px-2 tracking-tight">GENFOLIO</span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+            <span className="rounded-[10px] border border-[#d5d5d4] bg-[#ffffff] px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-tight text-[#2c2e2a]">
+              GENFOLIO
+            </span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
               CHIA SẺ PORTFOLIO TRỰC TUYẾN
             </span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-white hover:bg-[#e60012] transition cursor-pointer"
+            className="flex h-6 w-6 items-center justify-center rounded-full border border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer"
           >
             <RetroCloseIcon className="w-2.5 h-2.5" />
           </button>
@@ -114,17 +116,17 @@ export default function ShareModal({
         {/* Modal Body */}
         <div className="p-6">
           <div className="mb-4">
-            <h3 className="text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">
+            <h3 className="text-sm font-bold text-[#2c2e2a]">
               LIÊN KẾT XEM TRỰC TIẾP
             </h3>
-            <p className="mt-1 text-xs text-[#3d4f97]">
+            <p className="mt-1 text-xs text-[#80827f]">
               Bất kỳ ai có liên kết này đều có thể xem portfolio của bạn với giao diện hoàn chỉnh, dữ liệu thật và tương thích mọi thiết bị.
             </p>
           </div>
 
           {/* Expiration Options */}
-          <div className="mb-5 rounded-[4px] border border-[#3d4f97] bg-[#dedede] p-3">
-            <label className="block text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] mb-2">
+          <div className="mb-5 rounded-[20px] border border-[#d5d5d4] bg-[#f5f1e4] p-3.5">
+            <label className="block text-[11px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] mb-2">
               Thời hạn của liên kết:
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -141,10 +143,10 @@ export default function ShareModal({
                     setExpiresInHours(opt.value);
                     handleCreateShare(opt.value);
                   }}
-                  className={`rounded-[2px] border px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] transition cursor-pointer ${
+                  className={`rounded-[50px] border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] transition cursor-pointer ${
                     expiresInHours === opt.value
-                      ? "border-[#21242e] bg-[#f68d1f] text-white shadow-xs"
-                      : "border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7]"
+                      ? "border-[#8ed462] bg-[#8ed462] text-[#2c2e2a]"
+                      : "border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#e0dbce]"
                   }`}
                 >
                   {opt.label}
@@ -156,11 +158,11 @@ export default function ShareModal({
           {/* Share Link Input & Copy */}
           {loading ? (
             <div className="flex items-center justify-center py-6">
-              <span className="flex h-3 w-3 animate-ping rounded-full bg-[#f68d1f] mr-2" />
-              <span className="text-xs font-bold text-[#21242e]">Đang khởi tạo liên kết chia sẻ…</span>
+              <span className="flex h-3 w-3 animate-ping rounded-full bg-[#8ed462] mr-2" />
+              <span className="text-xs font-bold text-[#2c2e2a]">Đang khởi tạo liên kết chia sẻ…</span>
             </div>
           ) : error ? (
-            <div className="mb-4 rounded-[2px] border border-[#e60012] bg-white p-3 text-xs text-[#e60012]">
+            <div className="mb-4 rounded-[20px] border border-[#ff705d] bg-white p-3 text-xs text-[#ff705d]">
               {error}
             </div>
           ) : (
@@ -170,12 +172,12 @@ export default function ShareModal({
                   type="text"
                   readOnly
                   value={shareUrl}
-                  className="flex-1 rounded-[2px] border border-[#3d4f97] bg-white px-3 py-2 text-xs font-mono text-[#21242e] select-all focus:outline-none shadow-inner"
+                  className="flex-1 rounded-[50px] border border-[#d5d5d4] bg-white px-3.5 py-2 text-xs font-mono text-[#2c2e2a] select-all focus:outline-none focus:border-[#8ed462]"
                 />
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="n2001-btn-signal shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-[0.5px] cursor-pointer"
+                  className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-[0.5px] cursor-pointer"
                 >
                   {copied ? (
                     <>
@@ -192,23 +194,23 @@ export default function ShareModal({
               </div>
 
               {expiresAt && (
-                <p className="mt-2 text-[10px] text-[#3d4f97] font-semibold">
+                <p className="mt-2 text-[10px] text-[#80827f] font-semibold">
                   * Liên kết sẽ tự động hết hạn vào:{" "}
                   {new Date(expiresAt).toLocaleString("vi-VN")}
                 </p>
               )}
 
               {/* Quick Actions */}
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#3d4f97]/40 pt-4">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#d5d5d4] pt-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase text-[#21242e]">Chia sẻ qua:</span>
+                  <span className="text-[10px] font-bold uppercase text-[#2c2e2a]">Chia sẻ qua:</span>
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                       `Khám phá portfolio lập trình viên của tôi trên Genfolio: ${shareUrl}`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d5d5d4] bg-white text-[#2c2e2a] hover:bg-[#f5f1e4] hover:border-[#8ed462] transition cursor-pointer"
                     title="Chia sẻ lên X / Twitter"
                   >
                     <RetroSocialTwitterIcon className="w-3.5 h-3.5" />
@@ -219,7 +221,7 @@ export default function ShareModal({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d5d5d4] bg-white text-[#2c2e2a] hover:bg-[#f5f1e4] hover:border-[#8ed462] transition cursor-pointer"
                     title="Chia sẻ lên LinkedIn"
                   >
                     <RetroSocialLinkedInIcon className="w-3.5 h-3.5" />
@@ -230,7 +232,7 @@ export default function ShareModal({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-white text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d5d5d4] bg-white text-[#2c2e2a] hover:bg-[#f5f1e4] hover:border-[#8ed462] transition cursor-pointer"
                     title="Chia sẻ lên Facebook"
                   >
                     <RetroSocialFacebookIcon className="w-3.5 h-3.5" />
@@ -240,7 +242,7 @@ export default function ShareModal({
                 <button
                   type="button"
                   onClick={handleOpenLink}
-                  className="n2001-btn-base flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] cursor-pointer"
+                  className="rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:bg-[#f5f1e4] flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] cursor-pointer"
                 >
                   <span>MỞ XEM THỬ</span>
                   <span className="font-mono">↗</span>

@@ -688,7 +688,7 @@ export default function EditorialTemplate({ data }) {
                 © {new Date().getFullYear()} {name || "Your Name"}
               </p>
               <p className="mt-1 font-sans text-[10px]" style={{ color: `${MUTED}99` }}>
-                Made with Dev Portfolio Builder
+                Được tạo bởi Genfolio
               </p>
               <p className="editorial-breathe mt-2 font-sans text-[10px] italic" style={{ color: `${MUTED}99` }}>
                 Set in Fraunces · printed fresh for every visit

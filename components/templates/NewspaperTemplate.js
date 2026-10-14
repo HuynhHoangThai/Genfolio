@@ -652,7 +652,7 @@ export default function NewspaperTemplate({ data }) {
             </div>
           )}
           <span className={`${mono.className} text-[8px] uppercase tracking-[0.14em]`} style={{ color: FAINT }}>
-            &copy; {new Date().getFullYear()} {name || "Your Name"} &middot; Made with Dev Portfolio Builder
+            &copy; {new Date().getFullYear()} {name || "Your Name"} &middot; Được tạo bởi Genfolio
           </span>
         </footer>
       </FitToPage>

@@ -1,30 +1,146 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* MindMarket Design System — Tokens */
+  --color-fresh-grass: #8ed462;
+  --color-cream-paper: #f5f1e4;
+  --color-ink-black: #2c2e2a;
+  --color-pure-white: #ffffff;
+  --color-sandstone: #e0dbce;
+  --color-stone-gray: #80827f;
+  --color-hairline-mist: #d5d5d4;
+  --color-pure-ink: #000000;
+  --color-sky-pop: #2ba0ff;
+  --color-coral-pop: #ff705d;
+  --color-sunshine-pop: #f5e211;
+
+  /* Typography — Font Families */
+  --font-inter: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans-main: var(--font-inter);
+
+  /* Typography — Scale */
+  --text-body-sm: 15px;
+  --leading-body-sm: 1.5;
+  --text-body-lg: 18px;
+  --leading-body-lg: 1.5;
+  --text-subheading: 20px;
+  --leading-subheading: 1.25;
+  --text-heading-sm: 30px;
+  --leading-heading-sm: 1.2;
+  --text-heading: 53px;
+  --leading-heading: 1.15;
+  --tracking-heading: -2.12px;
+  --text-heading-lg: 81px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: -4.86px;
+  --text-display: 140px;
+  --leading-display: 0.95;
+  --tracking-display: -8.4px;
+  --text-display-lg: 144px;
+  --leading-display-lg: 0.95;
+  --tracking-display-lg: -8.64px;
+
+  /* Typography — Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  /* Spacing */
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
+  --spacing-20: 20px;
+  --spacing-60: 60px;
+  --spacing-136: 136px;
+  --spacing-216: 216px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 80px;
+  --card-padding: 21px;
+  --element-gap: 20px;
+
+  /* Border Radius */
+  --radius-lg: 10px;
+  --radius-2xl: 20px;
+  --radius-3xl: 25.5px;
+  --radius-full: 50px;
+  --radius-full-2: 63.75px;
+
+  /* Named Radii */
+  --radius-nav: 50px;
+  --radius-cards: 50px;
+  --radius-small: 10px;
+  --radius-buttons: 50px;
+  --radius-illustration-containers: 63.75px;
+
+  /* Surfaces */
+  --surface-cream-paper: #f5f1e4;
+  --surface-pure-white: #ffffff;
+  --surface-sandstone: #e0dbce;
+
+  /* Base canvas */
+  --background: var(--color-cream-paper);
+  --foreground: var(--color-ink-black);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans-main), sans-serif;
-  --font-mono: var(--font-sans-main), monospace;
-  --font-display: var(--font-sans-main), sans-serif;
-  --font-grotesque: var(--font-sans-main), sans-serif;
-}
+@theme {
+  /* Colors */
+  --color-fresh-grass: #8ed462;
+  --color-cream-paper: #f5f1e4;
+  --color-ink-black: #2c2e2a;
+  --color-pure-white: #ffffff;
+  --color-sandstone: #e0dbce;
+  --color-stone-gray: #80827f;
+  --color-hairline-mist: #d5d5d4;
+  --color-pure-ink: #000000;
+  --color-sky-pop: #2ba0ff;
+  --color-coral-pop: #ff705d;
+  --color-sunshine-pop: #f5e211;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Typography */
+  --font-inter: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-body-sm: 15px;
+  --leading-body-sm: 1.5;
+  --text-body-lg: 18px;
+  --leading-body-lg: 1.5;
+  --text-subheading: 20px;
+  --leading-subheading: 1.25;
+  --text-heading-sm: 30px;
+  --leading-heading-sm: 1.2;
+  --text-heading: 53px;
+  --leading-heading: 1.15;
+  --tracking-heading: -2.12px;
+  --text-heading-lg: 81px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: -4.86px;
+  --text-display: 140px;
+  --leading-display: 0.95;
+  --tracking-display: -8.4px;
+  --text-display-lg: 144px;
+  --leading-display-lg: 0.95;
+  --tracking-display-lg: -8.64px;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-20: 20px;
+  --spacing-60: 60px;
+  --spacing-136: 136px;
+  --spacing-216: 216px;
+
+  /* Border Radius */
+  --radius-lg: 10px;
+  --radius-2xl: 20px;
+  --radius-3xl: 25.5px;
+  --radius-full: 50px;
+  --radius-full-2: 63.75px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans-main), sans-serif;
+  font-family: var(--font-inter);
 }
 
 /* Terminal template flourishes — classes prefixed so they can't collide
@@ -1268,457 +1384,435 @@ html:has(.home-root) {
 }
 
 .home-root {
-  /* Nintendo 2001 Design System - Canonical Tokens (from references/nintendo-2001/DESIGN.md) */
-  --n2001-primary: #e60012;         /* Nintendo Red — racetrack logo, alert */
-  --n2001-signal: #f68d1f;          /* Signal Orange — forward cues, submit, "Bắt đầu tạo" */
-  --n2001-amber: #ecab37;           /* Amber — utility buttons, badges, chips */
-  --n2001-nav-gold: #e48600;        /* Nav Gold — top-nav menu links */
-  --n2001-canvas: #7a8aba;          /* Periwinkle metallic — primary interface body */
-  --n2001-canvas-soft: #9fbee7;     /* Pale Sky — subnav strip, light inset panels */
-  --n2001-lavender: #acace7;        /* Pale Lavender — hero panel background */
-  --n2001-ice: #c0d5e6;             /* Pale Ice — news/feature hero field */
-  --n2001-periwinkle: #8ba1d4;      /* Light Periwinkle — raised mid panels */
-  --n2001-chrome-indigo: #3d4f97;   /* Chrome Indigo — beveled borders, shadow lines */
-  --n2001-muted-indigo: #60619c;    /* Muted Indigo — inactive tabs, secondary chrome */
-  --n2001-platinum: #dedede;        /* Platinum Gray — list-row / inset content surface */
-  --n2001-surface: #ffffff;         /* White — content cards, logo pill */
-  --n2001-carbon: #21242e;          /* Carbon Navy — nav bar, dark command tiles, footer */
-  --n2001-hairline: #5a5f8c;        /* Blended bevel divider */
-  --n2001-ink: #21242e;             /* Primary text on light */
-  --n2001-ink-soft: #3d4f97;        /* Secondary text / chrome labels */
-  --n2001-on-primary: #ffffff;      /* Text on dark/red/orange chrome */
-
-  /* Aliased mapping to existing home variables */
-  --home-bg: var(--n2001-canvas);
-  --home-band: var(--n2001-periwinkle);
-  --home-surface: #ffffff;
-  --home-strong: var(--n2001-carbon);
-  --home-text: var(--n2001-carbon);
-  --home-dim: var(--n2001-ink-soft);
-  --home-faint: var(--n2001-hairline);
-  --home-rule: var(--n2001-chrome-indigo);
-  --home-rule-soft: rgba(61, 79, 151, 0.4);
-  --home-accent: var(--n2001-signal);
-  --home-amber: var(--n2001-amber);
-  --home-gold: var(--n2001-nav-gold);
-  --home-blue: var(--n2001-chrome-indigo);
-  --home-rose: var(--n2001-primary);
-  --home-radius: 4px;
+  /* MindMarket Design System Tokens mapped to Landing Page */
+  --home-bg: var(--color-cream-paper);
+  --home-band: var(--color-cream-paper);
+  --home-surface: var(--color-pure-white);
+  --home-strong: var(--color-ink-black);
+  --home-text: var(--color-ink-black);
+  --home-dim: var(--color-stone-gray);
+  --home-faint: var(--color-hairline-mist);
+  --home-rule: var(--color-hairline-mist);
+  --home-rule-soft: rgba(44, 46, 42, 0.12);
+  --home-accent: var(--color-fresh-grass);
+  --home-coral: var(--color-coral-pop);
+  --home-sky: var(--color-sky-pop);
+  --home-sunshine: var(--color-sunshine-pop);
+  --home-sandstone: var(--color-sandstone);
+  --home-radius: var(--radius-full);
   --home-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   background: var(--home-bg);
   color: var(--home-text);
-  font-family: var(--font-sans-main), sans-serif;
+  font-family: var(--font-inter);
 }
 
-/* Nintendo 2001 Bevel & Metallic Mixins */
-.n2001-bevel-raised {
-  border-top: 1px solid rgba(255, 255, 255, 0.75);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45), 0 2px 4px rgba(33, 36, 46, 0.25);
-}
-
-.n2001-bevel-inset {
-  border: 1px solid #3d4f97;
-  box-shadow: inset 1px 1px 3px rgba(33, 36, 46, 0.35);
-  background: #dedede;
-}
-
+/* MindMarket Pill Navigation */
+.mm-pill-nav,
 .n2001-carbon-bar {
-  background-color: #21242e;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-  background-size: 4px 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  border-bottom: 2px solid #14161d;
+  background-color: var(--color-pure-white);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(44, 46, 42, 0.04);
 }
 
-.n2001-wordmark {
-  font-family: var(--font-sans-main), sans-serif;
-  font-weight: 900;
-  color: #ffffff;
-  text-shadow:
-    -2px -2px 0 #3d4f97,
-    2px -2px 0 #3d4f97,
-    -2px 2px 0 #3d4f97,
-    2px 2px 0 #3d4f97,
-    3px 3px 0 #21242e,
-    0 4px 8px rgba(33, 36, 46, 0.4);
-}
-
+/* MindMarket Brand Mark Container */
+.mm-brand-mark,
 .n2001-racetrack {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #e60012;
-  border-radius: 9999px;
-  background: #ffffff;
-  color: #e60012;
-  font-family: var(--font-sans-main), sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  font-family: var(--font-inter);
+  font-weight: 700;
   letter-spacing: -0.02em;
-  padding: 2px 10px;
+  padding: 4px 14px;
+  border: 1px solid var(--color-hairline-mist);
 }
 
+.mm-wordmark,
+.n2001-wordmark {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  color: var(--color-ink-black);
+  text-shadow: none;
+}
+
+/* MindMarket Primary Buttons */
+/* Coral Action Trigger (pill shape, 50px radius, most prominent action) */
+.mm-btn-coral,
 .n2001-btn-signal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: #f68d1f;
+  gap: 8px;
+  background: var(--color-coral-pop);
   color: #ffffff;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 2px;
-  padding: 8px 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.65);
-  border-left: 1px solid rgba(255, 255, 255, 0.45);
-  border-right: 1px solid #c25f00;
-  border-bottom: 2px solid #994a00;
-  box-shadow: 0 1px 3px rgba(33, 36, 46, 0.25);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  padding: 10px 22px;
+  border: none;
+  box-shadow: none;
   cursor: pointer;
-  transition: filter 120ms ease, transform 120ms ease;
+  transition: transform 120ms ease, opacity 120ms ease, filter 120ms ease;
 }
+.mm-btn-coral:hover,
 .n2001-btn-signal:hover {
-  filter: brightness(1.08);
+  opacity: 0.92;
   transform: translateY(-1px);
 }
+.mm-btn-coral:active,
 .n2001-btn-signal:active {
   transform: translateY(1px);
-  border-top: 2px solid #994a00;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
 }
 
+/* Light / White Pill Button with subtle border and dot affordance */
+.mm-btn-light,
 .n2001-btn-amber {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: #ecab37;
-  color: #21242e;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 2px;
-  padding: 6px 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #b87c14;
-  border-bottom: 2px solid #8f5d04;
-  box-shadow: 0 1px 2px rgba(33, 36, 46, 0.2);
+  gap: 8px;
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  padding: 9px 20px;
+  border: 1px solid var(--color-hairline-mist);
+  box-shadow: none;
   cursor: pointer;
-  transition: filter 120ms ease, transform 120ms ease;
+  transition: background-color 120ms ease, transform 120ms ease;
 }
+.mm-btn-light:hover,
 .n2001-btn-amber:hover {
-  filter: brightness(1.06);
+  background: var(--color-sandstone);
   transform: translateY(-1px);
 }
+.mm-btn-light:active,
 .n2001-btn-amber:active {
-  background: #e48600;
   transform: translateY(1px);
 }
 
-.n2001-icon-arrow {
+/* Outline / Ghost Pill Button */
+.mm-btn-ghost,
+.n2001-btn-base {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  gap: 8px;
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  border: 1px solid var(--color-ink-black);
+  box-shadow: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+.mm-btn-ghost:hover,
+.n2001-btn-base:hover {
+  background: var(--color-sandstone);
+  transform: translateY(-1px);
+}
+
+/* Green Circular Menu / Toggle Button (40px diameter with #8ed462 fill) */
+.mm-toggle-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 9999px;
-  background: #f68d1f;
-  color: #ffffff;
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid #994a00;
-  flex-shrink: 0;
+  background: var(--color-fresh-grass);
+  color: var(--color-ink-black);
+  border: none;
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+.mm-toggle-circle:hover {
+  filter: brightness(1.05);
+  transform: scale(1.04);
 }
 
-.n2001-arrow-chip {
+/* Action dot indicators embedded at right of buttons */
+.mm-action-dot-sky {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 2px;
-  background: #f68d1f;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 900;
-  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-sky-pop);
+}
+.mm-action-dot-grass {
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-fresh-grass);
+}
+.mm-action-dot-coral {
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-coral-pop);
 }
 
+/* MindMarket Section Bar */
+.mm-section-bar,
 .n2001-section-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background: #7a8aba;
-  color: #21242e;
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
-  padding: 6px 14px;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-full);
+  padding: 8px 20px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.5px;
 }
 
+/* Subnav strip */
 .n2001-subnav {
-  background: #9fbee7;
-  border-bottom: 1px solid #3d4f97;
-  color: #21242e;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  background: var(--color-sandstone);
+  border-bottom: 1px solid var(--color-hairline-mist);
+  color: var(--color-ink-black);
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
 }
 
+/* MindMarket Hero Panel / Chassis */
+.mm-hero-card,
 .n2001-hero-plate {
-  background: linear-gradient(135deg, #acace7 0%, #8ba1d4 50%, #7a8aba 100%);
-  border-top: 2px solid rgba(255, 255, 255, 0.85);
-  border-left: 2px solid rgba(255, 255, 255, 0.65);
-  border-right: 2px solid #3d4f97;
-  border-bottom: 3px solid #3d4f97;
-  border-radius: 6px;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5), 0 4px 14px rgba(33, 36, 46, 0.35);
+  background: var(--color-cream-paper);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-full-2);
+  box-shadow: none;
 }
 
+/* MindMarket Mascot Speech Bubble */
+.mm-sticker-pill,
 .n2001-mascot-bubble {
   position: relative;
-  background: #ffffff;
-  color: #21242e;
-  border: 2px solid #3d4f97;
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  box-shadow: 2px 2px 0 #3d4f97;
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  border: 1px solid var(--color-fresh-grass);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: none;
 }
 .n2001-mascot-bubble::after {
   content: "";
   position: absolute;
-  bottom: -8px;
-  left: 18px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 8px solid #3d4f97;
+  bottom: -6px;
+  left: 20px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-pure-white);
+  border-bottom: 1px solid var(--color-fresh-grass);
+  border-right: 1px solid var(--color-fresh-grass);
+  transform: rotate(45deg);
 }
 
+/* Badges & Chips */
+.mm-tag-chip,
 .n2001-esrb-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #ecab37;
-  color: #21242e;
-  border: 1px solid #b87c14;
-  border-radius: 2px;
-  padding: 3px 8px;
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 1px 1px 0 #7a181b;
+  background: var(--color-sandstone);
+  color: var(--color-ink-black);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-lg);
+  padding: 4px 10px;
+  font-family: var(--font-inter);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: none;
 }
 
+/* Content Cards (White, 50px radius, 21px padding, flat cream-to-white elevation) */
+.mm-content-card,
 .n2001-hardware-card {
-  border-top: 1px solid rgba(255, 255, 255, 0.75);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
-  border-radius: 4px;
-  background: #dedede;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 2px 6px rgba(33, 36, 46, 0.2);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-full);
+  background: var(--color-pure-white);
+  box-shadow: none;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+.mm-content-card:hover,
+.n2001-hardware-card:hover {
+  border-color: var(--color-stone-gray);
+  transform: translateY(-2px);
 }
 
+.mm-card-recessed,
 .n2001-hardware-card-dark {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-  border-right: 1px solid #14161d;
-  border-bottom: 2px solid #14161d;
-  border-radius: 4px;
-  background-color: #21242e;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 4px 4px;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), 0 3px 8px rgba(33, 36, 46, 0.4);
+  border: 1px solid var(--color-sandstone);
+  border-radius: var(--radius-full);
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  box-shadow: none;
 }
 
-/* Section grounds resolve into one another */
+/* Section bands */
 .home-band {
-  background: linear-gradient(
-    180deg,
-    #7a8aba 0,
-    #8ba1d4 240px,
-    #8ba1d4 calc(100% - 90px),
-    #7a8aba 100%
-  );
-  border-top: 2px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
+  background: var(--color-cream-paper);
+  border-top: 1px solid var(--color-hairline-mist);
+  border-bottom: 1px solid var(--color-hairline-mist);
 }
 
 .home-inset {
-  --home-strong: #ffffff;
-  --home-text: #dedede;
-  --home-dim: #acace7;
-  --home-faint: #9fbee7;
-  --home-rule-soft: rgba(255, 255, 255, 0.15);
+  --home-strong: var(--color-ink-black);
+  --home-text: var(--color-ink-black);
+  --home-dim: var(--color-stone-gray);
+  --home-faint: var(--color-hairline-mist);
+  --home-rule-soft: rgba(44, 46, 42, 0.12);
 
-  background: #21242e;
-  border: 1px solid #3d4f97;
+  background: var(--color-sandstone);
+  border: 1px solid var(--color-hairline-mist);
   color: var(--home-text);
+  border-radius: var(--radius-full);
 }
 
+/* Footer Accent Block — Sunshine Pop Closing Band */
 .home-invert {
-  --home-bg: #21242e;
-  --home-surface: #2d313d;
-  --home-strong: #ffffff;
-  --home-text: #dedede;
-  --home-dim: #9fbee7;
-  --home-faint: #7a8aba;
-  --home-rule: #3d4f97;
-  --home-rule-soft: rgba(61, 79, 151, 0.4);
-  --home-accent: #f68d1f;
-  --home-blue: #8ba1d4;
-  --home-amber: #ecab37;
+  --home-bg: var(--color-sunshine-pop);
+  --home-surface: #ffffff;
+  --home-strong: var(--color-ink-black);
+  --home-text: var(--color-ink-black);
+  --home-dim: #3a3b37;
+  --home-faint: #4e504b;
+  --home-rule: rgba(44, 46, 42, 0.2);
+  --home-rule-soft: rgba(44, 46, 42, 0.12);
+  --home-accent: var(--color-coral-pop);
+  --home-blue: var(--color-sky-pop);
+  --home-amber: var(--color-fresh-grass);
 
-  background: var(--home-bg);
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 4px 4px;
+  background: var(--color-sunshine-pop);
   color: var(--home-text);
-  border-top: 3px solid #3d4f97;
+  border-top: 2px solid var(--color-ink-black);
 }
 
-/* Coarse static grain. Sits behind the content rather than over it: laying
-   noise on top of body copy is what makes textured pages hard to read, and
-   the point here is to give the ground a tooth, not to distress the type.
-   Deliberately not animated, so it costs one paint and reads like printed
-   stock instead of television static. The tile is upscaled past its natural
-   size, which is what makes the grain coarse rather than fine. */
+/* Coarse static grain */
 .home-grain {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.09;
+  opacity: 0.04;
   background-size: 128px 128px;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23g)' opacity='0.42'/%3E%3C/svg%3E");
 }
 
-/* Grotesque display face, used for every heading below the hero. Sizes are
-   shared with the serif steps; only the family, weight and tracking differ,
-   so the two voices stay on one scale. */
-
+/* Grotesque / Heading face */
 .home-grotesque {
-  font-family: var(--font-sans-main), sans-serif;
-  color: var(--home-strong);
-  font-weight: 800;
+  font-family: var(--font-inter);
+  color: var(--color-ink-black);
+  font-weight: 500;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -2.12px;
   text-wrap: balance;
 }
 
-/* Nintendo 2001 Outlined Display Wordmark */
+/* MindMarket Display Headline — 140–144px Inter weight 500, tight tracking -0.06em, line-height 0.95 */
 .home-display {
-  font-family: var(--font-sans-main), sans-serif;
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  text-shadow:
-    -2px -2px 0 var(--n2001-chrome-indigo),
-    2px -2px 0 var(--n2001-chrome-indigo),
-    -2px 2px 0 var(--n2001-chrome-indigo),
-    2px 2px 0 var(--n2001-chrome-indigo),
-    3px 3px 0 var(--n2001-carbon),
-    0 4px 8px rgba(33, 36, 46, 0.4);
+  font-family: var(--font-inter);
+  font-weight: 500;
+  color: var(--color-ink-black);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-shadow: none;
   text-wrap: balance;
 }
 .home-display-xl {
-  font-size: clamp(2rem, 3.8vw, 3.5rem);
-  letter-spacing: -0.02em;
-  line-height: 1.06;
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
 }
 .home-display-lg {
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
-  line-height: 1.05;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  letter-spacing: -0.05em;
+  line-height: 1.0;
 }
 .home-display-shout {
-  font-size: clamp(2.4rem, 5vw, 4.2rem);
-  letter-spacing: -0.02em;
-  line-height: 1;
+  font-size: clamp(2.6rem, 7vw, 6.5rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
 }
 .home-display-row {
-  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   line-height: 1.1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
 }
 .home-manifesto-num {
-  font-family: var(--font-sans-main), sans-serif;
-  font-weight: 900;
+  font-family: var(--font-inter);
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   font-size: clamp(2.4rem, 4.6vw, 4rem);
   line-height: 0.85;
-  letter-spacing: -0.02em;
-  color: var(--n2001-amber);
-  text-shadow: 1px 1px 0 #3d4f97;
+  letter-spacing: -0.04em;
+  color: var(--color-fresh-grass);
+  text-shadow: none;
 }
 .home-display-num {
   font-size: clamp(2rem, 3vw, 2.75rem);
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
 }
 
 .home-em {
   font-style: normal;
-  color: #ffffff;
-  letter-spacing: 0;
-  text-shadow:
-    -2px -2px 0 var(--n2001-chrome-indigo),
-    2px -2px 0 var(--n2001-chrome-indigo),
-    -2px 2px 0 var(--n2001-chrome-indigo),
-    2px 2px 0 var(--n2001-chrome-indigo),
-    3px 3px 0 var(--n2001-signal);
+  color: var(--color-fresh-grass);
+  letter-spacing: -0.06em;
+  text-shadow: none;
 }
 
 .home-footer-link {
-  font-size: 12px;
-  color: var(--n2001-canvas-soft);
+  font-size: 13px;
+  color: var(--color-ink-black);
   text-underline-offset: 4px;
+  font-weight: 500;
   transition: color 150ms ease;
 }
 .home-footer-link:hover {
-  color: var(--n2001-nav-gold);
+  color: #000000;
   text-decoration-line: underline;
 }
 .home-footer-link:focus-visible {
-  outline: 2px solid var(--n2001-amber);
+  outline: 2px solid var(--color-fresh-grass);
   outline-offset: 4px;
 }
 
 .home-label {
-  font-family: var(--font-sans-main), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--n2001-ink-soft);
+  color: var(--color-stone-gray);
 }
 .home-nums {
-  font-family: var(--font-sans-main), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2167,20 +2261,17 @@ html:has(.home-root) {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.55rem 0.95rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
-  border-radius: 2px;
-  background: #dedede;
-  color: #21242e;
-  font-family: var(--font-sans-main), sans-serif;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-full);
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  font-family: var(--font-inter), sans-serif;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.25;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(33, 36, 46, 0.15);
+  box-shadow: none;
   transition:
     color 120ms ease,
     background-color 120ms ease,
@@ -2188,80 +2279,77 @@ html:has(.home-root) {
     transform 120ms ease;
 }
 .home-chip:hover {
-  background: #eaeaea;
+  background: var(--color-sandstone);
   transform: translateY(-1px);
 }
 .home-chip:has(:checked) {
-  background: #ecab37;
-  color: #21242e;
-  border-top: 1px solid rgba(255, 255, 255, 0.85);
-  border-left: 1px solid rgba(255, 255, 255, 0.65);
-  border-right: 1px solid #b87c14;
-  border-bottom: 2px solid #8f5d04;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 3px rgba(33, 36, 46, 0.25);
+  background: var(--color-fresh-grass);
+  color: var(--color-ink-black);
+  border-color: var(--color-fresh-grass);
+  box-shadow: none;
 }
 .home-chip:has(:focus-visible) {
-  outline: 2px solid #f68d1f;
+  outline: 2px solid var(--color-fresh-grass);
   outline-offset: 2px;
 }
-/* The dot fills as the chip is taken, so the state is carried by a shape as
-   well as by colour. */
 .home-chip-dot {
   width: 7px;
   height: 7px;
   flex: none;
   border-radius: 9999px;
-  background: #3d4f97;
-  opacity: 0.4;
-  transform: scale(0.8);
+  background: var(--color-sky-pop);
+  opacity: 0.5;
+  transform: scale(0.85);
   transition:
     opacity 120ms ease,
     transform 120ms ease,
     background-color 120ms ease;
 }
 .home-chip:has(:checked) .home-chip-dot {
-  background: #e60012;
+  background: var(--color-ink-black);
   opacity: 1;
   transform: scale(1.15);
 }
 
 .home-quiet-link {
-  font-size: 12px;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #3d4f97;
+  color: var(--color-ink-black);
+  border-bottom: 1px solid var(--color-stone-gray);
   text-underline-offset: 3px;
   cursor: pointer;
-  transition: color 120ms ease;
+  transition: color 120ms ease, border-color 120ms ease;
 }
 .home-quiet-link:hover {
-  color: #e48600;
-  text-decoration-line: underline;
+  color: var(--color-ink-black);
+  border-bottom-color: var(--color-ink-black);
 }
 .home-quiet-link:focus-visible {
-  outline: 2px solid #f68d1f;
+  outline: 2px solid var(--color-fresh-grass);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-small);
 }
 
 .home-field {
-  border: 1px solid #3d4f97;
-  border-radius: 2px;
-  background: #ffffff;
-  color: #21242e;
-  box-shadow: inset 1px 1px 2px rgba(33, 36, 46, 0.2);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-lg);
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  box-shadow: none;
   transition:
     border-color 120ms ease,
     box-shadow 120ms ease;
 }
 .home-field::placeholder {
-  color: #60619c;
+  color: var(--color-stone-gray);
 }
 .home-field:focus-visible {
   outline: none;
-  border-color: #f68d1f;
-  box-shadow: 0 0 0 2px rgba(246, 141, 31, 0.35);
+  border-color: var(--color-fresh-grass);
+  box-shadow: 0 0 0 2px rgba(142, 212, 98, 0.35);
 }
 
 /* The brief turns to face the reader the moment they start filling it in, and
@@ -2269,9 +2357,10 @@ html:has(.home-root) {
    Stacked under them on a phone, a rotated document is just a document that is
    harder to read. */
 .home-brief-plate {
-  box-shadow:
-    0 2px 4px rgba(20, 54, 93, 0.08),
-    0 26px 46px -26px rgba(20, 54, 93, 0.42);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-3xl);
+  background: var(--color-pure-white);
+  box-shadow: none;
   transition:
     transform 600ms var(--home-ease),
     box-shadow 600ms var(--home-ease);
@@ -2287,9 +2376,7 @@ html:has(.home-root) {
   .home-commission:hover .home-brief-plate,
   .home-commission:focus-within .home-brief-plate {
     transform: rotateY(0deg) translateZ(34px);
-    box-shadow:
-      0 4px 10px rgba(20, 54, 93, 0.12),
-      0 48px 74px -30px rgba(20, 54, 93, 0.5);
+    box-shadow: 0 4px 14px rgba(44, 46, 42, 0.08);
   }
 }
 
@@ -2400,113 +2487,99 @@ html:has(.home-root) {
 }
 
 /* ---- The editor ------------------------------------------------------- */
-
-/* The editor wears the landing page's palette instead of Tailwind's zinc ramp
-   with dark: variants. In a dark browser that ramp resolved to near-black
-   panels on a near-black ground separated by hairlines, so the form fields
-   were not distinguishable from the page behind them.
-
-   The tokens come from .home-root, which the editor shell carries, so nothing
-   is redefined here and the two surfaces cannot drift apart. That palette is
-   unconditional by design: the landing page has no dark variant, and an editor
-   that disagreed with the page someone just came from would read as a
-   different product. */
-
 .ed-panel {
-  border-top: 1px solid rgba(255, 255, 255, 0.75);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid #3d4f97;
-  border-bottom: 2px solid #3d4f97;
-  border-radius: 4px;
-  background: #dedede;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(33, 36, 46, 0.2);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-2xl);
+  background: var(--color-pure-white);
+  box-shadow: none;
 }
 
-/* Inputs sit as recessed white wells with chrome-indigo borders */
+/* Inputs sit as clean white fields with MindMarket borders */
 .ed-field {
   width: 100%;
-  border: 1px solid #3d4f97;
-  border-radius: 2px;
-  background: #ffffff;
-  color: var(--n2001-carbon);
-  box-shadow: inset 1px 1px 2px rgba(33, 36, 46, 0.15);
+  border: 1px solid var(--color-hairline-mist);
+  border-radius: var(--radius-lg);
+  background: var(--color-pure-white);
+  color: var(--color-ink-black);
+  box-shadow: none;
   transition:
     border-color 160ms var(--home-ease),
     box-shadow 160ms var(--home-ease);
 }
 .ed-field::placeholder {
-  color: #60619c;
+  color: var(--color-stone-gray);
 }
 .ed-field:hover {
-  border-color: #21242e;
+  border-color: var(--color-stone-gray);
 }
 .ed-field:focus,
 .ed-field:focus-visible {
   outline: none;
-  border-color: #f68d1f;
-  box-shadow: 0 0 0 2px rgba(246, 141, 31, 0.35);
+  border-color: var(--color-fresh-grass);
+  box-shadow: 0 0 0 2px rgba(142, 212, 98, 0.35);
 }
 
 /* Focus treatment across controls */
 .ed-focus:focus-visible {
-  outline: 2px solid #f68d1f;
+  outline: 2px solid var(--color-fresh-grass);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-lg);
 }
 
 .ed-primary {
-  background: #f68d1f;
+  background: var(--color-coral-pop);
   color: #ffffff;
-  font-weight: 700;
+  font-family: var(--font-inter);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-top: 1px solid rgba(255, 255, 255, 0.65);
-  border-left: 1px solid rgba(255, 255, 255, 0.45);
-  border-right: 1px solid #c25f00;
-  border-bottom: 2px solid #994a00;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(33, 36, 46, 0.25);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  box-shadow: none;
+  cursor: pointer;
   transition: filter 120ms ease, transform 120ms ease;
 }
 .ed-primary:hover:not(:disabled) {
-  filter: brightness(1.08);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 .ed-primary:active:not(:disabled) {
-  transform: translateY(1px);
-  border-top: 2px solid #994a00;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  transform: translateY(0);
 }
 
 .ed-ghost {
-  color: var(--n2001-carbon);
-  font-weight: 700;
+  color: var(--color-ink-black);
+  font-family: var(--font-inter);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-radius: var(--radius-full);
   transition:
     color 160ms var(--home-ease),
     background-color 160ms var(--home-ease);
 }
 .ed-ghost:hover {
-  background: rgba(61, 79, 151, 0.15);
-  color: #3d4f97;
+  background: var(--color-sandstone);
+  color: var(--color-ink-black);
 }
 
 /* The dashed "add another" control */
 .ed-add {
-  border: 1px dashed #3d4f97;
-  border-radius: 4px;
-  color: var(--n2001-ink-soft);
-  background: rgba(255, 255, 255, 0.4);
+  border: 1.5px dashed var(--color-hairline-mist);
+  border-radius: var(--radius-lg);
+  color: var(--color-stone-gray);
+  background: var(--color-pure-white);
   transition:
     border-color 160ms var(--home-ease),
     background-color 160ms var(--home-ease),
     color 160ms var(--home-ease);
 }
 .ed-add:hover {
-  border-color: #21242e;
+  border-color: var(--color-fresh-grass);
   border-style: solid;
-  background: #ffffff;
-  color: var(--n2001-carbon);
+  background: var(--color-cream-paper);
+  color: var(--color-ink-black);
 }
 
 /* Retro Desktop: three real operating-system shells.

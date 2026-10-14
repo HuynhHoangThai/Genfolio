@@ -707,7 +707,7 @@ export default function WarmTemplate({ data }) {
           <p>
             © {new Date().getFullYear()} {name || "Your Name"}
           </p>
-          <p className="opacity-80">Made with Dev Portfolio Builder</p>
+          <p className="opacity-80">Được tạo bởi Genfolio</p>
         </footer>
       </main>
     </div>

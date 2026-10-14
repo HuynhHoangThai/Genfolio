@@ -20,20 +20,20 @@ import { ShareLinkIcon } from "@/components/icons/RetroIcons";
 
 function CenteredMessage({ title, body }) {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center bg-[#7a8aba] px-4 text-center">
-      <div className="n2001-hardware-card w-full max-w-sm overflow-hidden shadow-2xl">
-        <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
-          <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
-          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+    <div className="flex min-h-dvh flex-col items-center justify-center bg-[#f5f1e4] px-4 text-center">
+      <div className="w-full max-w-sm overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] shadow-xl">
+        <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
+          <span className="rounded-[10px] border border-[#d5d5d4] bg-[#ffffff] px-2 py-0.5 font-mono text-[9px] font-bold text-[#2c2e2a]">GENFOLIO</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
             SYSTEM PREVIEW
           </span>
         </div>
         <div className="p-6">
-          <h1 className="text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">{title}</h1>
-          {body && <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">{body}</p>}
+          <h1 className="text-sm font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">{title}</h1>
+          {body && <p className="mt-2 text-xs leading-relaxed text-[#80827f]">{body}</p>}
           <Link
             href="/"
-            className="n2001-btn-amber mt-5 inline-flex py-2 px-4 text-xs font-bold uppercase tracking-[0.5px]"
+            className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-5 inline-flex py-2 px-4 text-xs font-bold uppercase tracking-[0.5px]"
           >
             ← QUAY LẠI DANH SÁCH MẪU
           </Link>
@@ -110,28 +110,28 @@ export default function PreviewPage() {
 
       {/* Floating Action Bar */}
       {isMobile ? (
-        <div className="n2001-carbon-bar fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-[2px] px-2.5 py-1.5 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-3 py-1.5 shadow-lg">
           {palettes && (
-            <div className="flex items-center gap-1.5 border-r border-white/20 pr-2">
-              <span className="text-[9px] font-bold uppercase text-[#ecab37]">MÀU</span>
+            <div className="flex items-center gap-1.5 border-r border-[#d5d5d4] pr-2">
+              <span className="text-[9px] font-bold uppercase text-[#2c2e2a]">MÀU</span>
               <ThemeSwitcher palettes={palettes} selectedId={data.paletteId} onChange={handlePaletteChange} />
             </div>
           )}
           <button
             type="button"
             onClick={() => setIsShareModalOpen(true)}
-            className="n2001-btn-signal flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
+            className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white flex items-center gap-1 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
           >
             <ShareLinkIcon className="w-3 h-3 text-white" />
             <span>CHIA SẺ</span>
           </button>
         </div>
       ) : (
-        <div className="n2001-carbon-bar fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-[2px] px-2 py-3 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+        <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-3 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-2.5 py-4 shadow-lg">
           <button
             type="button"
             onClick={() => setIsShareModalOpen(true)}
-            className="n2001-btn-signal flex flex-col items-center gap-1 px-2 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
+            className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white flex flex-col items-center gap-1 px-2 py-2 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
             title="Tạo liên kết chia sẻ công khai"
           >
             <ShareLinkIcon className="w-3.5 h-3.5 text-white" />
@@ -139,9 +139,9 @@ export default function PreviewPage() {
           </button>
           {palettes && (
             <>
-              <span className="h-px w-full bg-white/20" />
+              <span className="h-px w-full bg-[#d5d5d4]" />
               <span
-                className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]"
+                className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]"
                 style={{ writingMode: "vertical-rl" }}
               >
                 MÀU

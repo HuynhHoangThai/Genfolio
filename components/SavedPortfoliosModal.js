@@ -22,23 +22,28 @@ export default function SavedPortfoliosModal({
 
   useEffect(() => {
     if (!isOpen || !user?.email) return;
-    loadPortfolios();
-  }, [isOpen, user?.email]);
 
-  async function loadPortfolios() {
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch(`/api/portfolios/user?email=${encodeURIComponent(user.email)}`);
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Không thể tải danh sách portfolio.");
-      setList(json.items || []);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    let cancelled = false;
+    async function fetchList() {
+      setLoading(true);
+      setError("");
+      try {
+        const res = await fetch(`/api/portfolios/user?email=${encodeURIComponent(user.email)}`);
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || "Không thể tải danh sách portfolio.");
+        if (!cancelled) setList(json.items || []);
+      } catch (err) {
+        if (!cancelled) setError(err.message);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
     }
-  }
+
+    fetchList();
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, user]);
 
   async function handleDelete(id, e) {
     e.stopPropagation();
@@ -64,25 +69,27 @@ export default function SavedPortfoliosModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#21242e]/80 p-4 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2e2a]/40 p-4 backdrop-blur-xs"
       onClick={onClose}
     >
       <div
-        className="n2001-hardware-card w-full max-w-2xl overflow-hidden border-2 border-[#3d4f97] bg-[#7a8aba] shadow-2xl max-h-[85vh] flex flex-col"
+        className="w-full max-w-2xl overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] shadow-xl max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="n2001-carbon-bar flex items-center justify-between px-4 py-2.5 shrink-0">
+        <div className="flex items-center justify-between px-5 py-3 shrink-0 bg-[#f5f1e4] border-b border-[#d5d5d4]">
           <div className="flex items-center gap-2">
-            <span className="n2001-racetrack text-[9px] py-0 px-2 tracking-tight">GENFOLIO</span>
-            <span className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
+            <span className="rounded-[10px] border border-[#d5d5d4] bg-[#ffffff] px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-tight text-[#2c2e2a]">
+              GENFOLIO
+            </span>
+            <span className="text-[12px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
               DANH SÁCH PORTFOLIO ĐÃ LƯU
             </span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#21242e] text-white hover:bg-[#e60012] transition cursor-pointer"
+            className="flex h-6 w-6 items-center justify-center rounded-full border border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer"
           >
             <RetroCloseIcon className="w-2.5 h-2.5" />
           </button>
@@ -92,23 +99,23 @@ export default function SavedPortfoliosModal({
         <div className="p-6 overflow-y-auto flex-1">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <span className="flex h-3 w-3 animate-ping rounded-full bg-[#f68d1f] mr-2" />
-              <span className="text-xs font-bold text-[#21242e]">Đang tải danh sách từ cơ sở dữ liệu…</span>
+              <span className="flex h-3 w-3 animate-ping rounded-full bg-[#8ed462] mr-2" />
+              <span className="text-xs font-bold text-[#2c2e2a]">Đang tải danh sách từ cơ sở dữ liệu…</span>
             </div>
           ) : error ? (
-            <div className="rounded-[2px] border border-[#e60012] bg-white p-4 text-xs text-[#e60012]">
+            <div className="rounded-[20px] border border-[#ff705d] bg-white p-4 text-xs text-[#ff705d]">
               {error}
             </div>
           ) : list.length === 0 ? (
             <div className="text-center py-12">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[2px] border border-[#3d4f97] bg-[#dedede] text-[#3d4f97] shadow-inner">
-                <SaveCartridgeIcon className="w-7 h-7 text-[#3d4f97]" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#d5d5d4] bg-[#f5f1e4] text-[#2c2e2a]">
+                <SaveCartridgeIcon className="w-6 h-6 text-[#2c2e2a]" />
               </div>
-              <h4 className="mt-3 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">
+              <h4 className="mt-3 text-sm font-bold text-[#2c2e2a]">
                 Chưa có portfolio nào được lưu
               </h4>
-              <p className="mt-1 text-xs text-[#3d4f97] max-w-sm mx-auto">
-                Khi chỉnh sửa hồ sơ, hãy bấm nút <strong>"LƯU DỰ ÁN"</strong> trên thanh công cụ để lưu dữ liệu vào cơ sở dữ liệu.
+              <p className="mt-1 text-xs text-[#80827f] max-w-sm mx-auto">
+                Khi chỉnh sửa hồ sơ, hãy bấm nút <strong>&quot;LƯU DỰ ÁN&quot;</strong> trên thanh công cụ để lưu dữ liệu vào cơ sở dữ liệu.
               </p>
             </div>
           ) : (
@@ -116,18 +123,18 @@ export default function SavedPortfoliosModal({
               {list.map((item) => (
                 <div
                   key={item.id}
-                  className="rounded-[4px] border border-[#3d4f97] bg-white p-3.5 shadow-xs hover:border-[#21242e] transition flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="rounded-[20px] border border-[#d5d5d4] bg-[#ffffff] p-4 shadow-none hover:border-[#8ed462] transition flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="rounded-[2px] bg-[#dedede] border border-[#3d4f97] px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#21242e]">
+                      <span className="rounded-[10px] bg-[#f5f1e4] border border-[#d5d5d4] px-2 py-0.5 text-[9px] font-bold uppercase text-[#2c2e2a]">
                         {item.template?.toUpperCase()}
                       </span>
-                      <h4 className="text-xs font-bold text-[#21242e]">
+                      <h4 className="text-xs font-bold text-[#2c2e2a]">
                         {item.title || "Portfolio Không Tên"}
                       </h4>
                     </div>
-                    <p className="mt-1 text-[10px] text-[#3d4f97]">
+                    <p className="mt-1 text-[11px] text-[#80827f]">
                       Cập nhật lần cuối: {new Date(item.updated_at).toLocaleString("vi-VN")}
                     </p>
                   </div>
@@ -139,7 +146,7 @@ export default function SavedPortfoliosModal({
                         onSelectPortfolio(item);
                         onClose();
                       }}
-                      className="n2001-btn-signal px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
+                      className="rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:border-[#8ed462] hover:bg-[#f5f1e4] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] transition cursor-pointer"
                     >
                       CHỈNH SỬA
                     </button>
@@ -150,10 +157,10 @@ export default function SavedPortfoliosModal({
                         onSharePortfolio(item);
                         onClose();
                       }}
-                      className="n2001-btn-amber flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] cursor-pointer"
+                      className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white flex items-center gap-1 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] transition cursor-pointer"
                       title="Chia sẻ portfolio này"
                     >
-                      <ShareLinkIcon className="w-3 h-3 text-[#21242e]" />
+                      <ShareLinkIcon className="w-3 h-3 text-white" />
                       <span>CHIA SẺ</span>
                     </button>
 
@@ -161,7 +168,7 @@ export default function SavedPortfoliosModal({
                       type="button"
                       disabled={deletingId === item.id}
                       onClick={(e) => handleDelete(item.id, e)}
-                      className="rounded-[2px] border border-[#3d4f97] bg-[#dedede] p-1.5 text-[10px] font-bold text-[#e60012] hover:bg-[#e60012] hover:text-white transition cursor-pointer flex items-center justify-center min-w-[22px] min-h-[22px]"
+                      className="rounded-full border border-[#d5d5d4] bg-[#ffffff] p-1.5 text-[10px] font-bold text-[#ff705d] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer flex items-center justify-center min-w-[26px] min-h-[26px]"
                       title="Xóa portfolio"
                     >
                       {deletingId === item.id ? "…" : <RetroCloseIcon className="w-2.5 h-2.5" />}

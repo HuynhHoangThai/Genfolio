@@ -524,7 +524,7 @@ export default function TerminalTemplate({ data }) {
             <p className="text-xs text-zinc-600">
               © {new Date().getFullYear()} {name || "Your Name"}
             </p>
-            <p className="mt-1 text-[10px] text-zinc-800">Made with Dev Portfolio Builder</p>
+            <p className="mt-1 text-[10px] text-zinc-800">Được tạo bởi Genfolio</p>
             <p className="mt-3 font-mono text-[11px] text-zinc-700">
               &gt; session active. thanks for stopping by.
             </p>
