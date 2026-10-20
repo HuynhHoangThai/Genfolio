@@ -51,3 +51,8 @@ components/templates/NetflixTemplate.js
 # local database files
 /data/
 
+# local scratch / sub-apps
+/.agents/
+/client/
+/server/
+
