@@ -21,9 +21,9 @@ export default function UserProfileNav() {
         onClick={() => openLoginModal()}
         type="button"
         title="Đăng nhập bằng tài khoản Google"
-        className="inline-flex items-center gap-1.5 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-3.5 py-1.5 text-[12px] font-semibold tracking-[0.2px] text-[#2c2e2a] transition hover:bg-[#e0dbce] active:translate-y-px cursor-pointer"
+        className="inline-flex items-center gap-1.5 rounded-[2px] border-t border-l border-white/70 border-r border-[#b87c14] border-b-2 border-b-[#8f5d04] bg-[#ecab37] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-xs transition hover:brightness-105 active:translate-y-px cursor-pointer"
       >
-        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#2c2e2a] text-[9px] font-bold text-white">
+        <span className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] bg-[#21242e] text-[8px] font-black text-white">
           G
         </span>
         ĐĂNG NHẬP
@@ -50,44 +50,44 @@ export default function UserProfileNav() {
         <button
           type="button"
           onClick={() => setIsSavedModalOpen(true)}
-          className="inline-flex items-center gap-1.5 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-3 py-1 text-[11px] font-medium tracking-[0.2px] text-[#2c2e2a] hover:bg-[#e0dbce] transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-[2px] border-t border-l border-white/40 border-r border-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-xs hover:bg-[#9fbee7] transition cursor-pointer"
           title="Xem các portfolio đã lưu của bạn"
         >
-          <FolderArchiveIcon className="w-3.5 h-3.5 text-[#2c2e2a]" />
+          <FolderArchiveIcon className="w-3.5 h-3.5 text-[#21242e]" />
           <span>DỰ ÁN</span>
         </button>
 
-        {/* User Identity Badge */}
+        {/* Player 1 Console Identity Badge */}
         <div
-          className="flex items-center gap-2 rounded-[50px] border border-[#d5d5d4] bg-[#f5f1e4] px-3 py-1 text-[11px] font-medium text-[#2c2e2a]"
+          className="flex items-center gap-2 rounded-[2px] border-t border-l border-white/20 border-r border-[#14161d] border-b border-[#14161d] bg-[#21242e] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.5px] text-white shadow-xs"
           title={user.email}
         >
-          <span className="text-[10px] font-bold text-[#8ed462]">
+          <span className="text-[9px] font-black tracking-widest text-[#ecab37]">
             P1:
           </span>
           {user.picture ? (
             <img
               src={user.picture}
               alt={user.name || "User"}
-              className="h-4 w-4 rounded-full object-cover"
+              className="h-4 w-4 rounded-[1px] object-cover"
               referrerPolicy="no-referrer"
             />
           ) : (
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#8ed462] text-[9px] font-bold text-[#2c2e2a]">
+            <span className="flex h-4 w-4 items-center justify-center rounded-[1px] bg-[#3d4f97] text-[9px] font-black text-white">
               {user.name?.charAt(0)?.toUpperCase() || "U"}
             </span>
           )}
-          <span className="max-w-[100px] truncate sm:max-w-[130px] font-normal lowercase text-[#2c2e2a]">
+          <span className="max-w-[100px] truncate sm:max-w-[130px] font-normal lowercase text-[#9fbee7]">
             {user.name}
           </span>
         </div>
 
-        {/* Sign Out Button */}
+        {/* Nintendo Red Sign Out Button */}
         <button
           onClick={logout}
           type="button"
           title="Đăng xuất khỏi tài khoản Google"
-          className="inline-flex items-center rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-3 py-1 text-[11px] font-medium tracking-[0.2px] text-[#2c2e2a] transition hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] active:translate-y-px cursor-pointer"
+          className="inline-flex items-center rounded-[2px] border-t border-l border-white/60 border-r border-[#a7282b] border-b-2 border-b-[#7a181b] bg-[#e60012] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-white shadow-xs transition hover:brightness-110 active:translate-y-px cursor-pointer"
         >
           ĐĂNG XUẤT
         </button>

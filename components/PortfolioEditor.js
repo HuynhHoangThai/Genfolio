@@ -98,10 +98,10 @@ function ExternalIcon(props) {
 function ThemeSwatchBar({ palettes, selectedId, onChange }) {
   return (
     <div
-      className="flex shrink-0 flex-wrap items-center justify-between gap-3 px-4 py-2 bg-[#ffffff] border-b border-[#d5d5d4]"
+      className="n2001-subnav flex shrink-0 flex-wrap items-center justify-between gap-3 px-4 py-2"
     >
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+        <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
           ≡ CHỦ ĐỀ MÀU (COLOR PALETTE)
         </span>
       </div>
@@ -218,8 +218,36 @@ export default function PortfolioEditor({ template }) {
     }
   }, [template.id]);
 
+  // The older path, for templates that still read their content from the
+  // database at request time. Deliberately doesn't auto-navigate on success:
+  // surfacing the constructed link means the save-draft step can be verified
+  // on its own without also committing to leaving the app.
+  async function saveDraftAndDeploy() {
+    setDeployStatus("saving");
+    setDeployError("");
+    try {
+      const res = await fetch("/api/portfolios", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          template: template.id,
+          data: sanitizePortfolioData(data),
+          origin: window.location.origin,
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || "Không thể bắt đầu triển khai.");
+      setDeployUrl(result.deployUrl);
+      setDeployStatus("ready");
+    } catch (err) {
+      setDeployStatus("error");
+      setDeployError(err.message);
+    }
+  }
+
   function handleDeploy() {
-    return runHandoff(data);
+    if (ownsItsData) return runHandoff(data);
+    return saveDraftAndDeploy();
   }
 
   async function handleSavePortfolio() {
@@ -428,40 +456,40 @@ export default function PortfolioEditor({ template }) {
   return (
     // home-root carries the landing page's palette, so every --home-* token
     // below resolves without the editor keeping a second copy of it.
-    <div className="home-root flex h-dvh flex-col bg-[#f5f1e4]">
-      <header className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 sm:px-6 bg-[#ffffff] border-b border-[#d5d5d4]">
+    <div className="home-root flex h-dvh flex-col">
+      <header className="n2001-carbon-bar flex flex-wrap items-center justify-between gap-3 px-4 py-2 sm:px-6">
         <div>
-          <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] hover:text-[#8ed462] transition">
+          <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.5px] text-[#e48600] hover:brightness-125 transition">
             ← QUAY LẠI MẪU GIAO DIỆN
           </Link>
-          <h1 className="text-[14px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
-            CHỈNH SỬA: <span className="font-extrabold text-[#2c2e2a]">{template.name}</span>
+          <h1 className="text-[14px] font-bold uppercase tracking-[0.5px] text-white">
+            CHỈNH SỬA: <span className="text-[#ecab37]">{template.name}</span>
           </h1>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-y-2 gap-x-3">
           <div className="flex items-center gap-2">
-            <span className="hidden text-[10px] font-bold uppercase tracking-[0.5px] text-[#80827f] sm:inline">
+            <span className="hidden text-[10px] font-bold uppercase tracking-[0.5px] text-[#9fbee7] sm:inline">
               XEM TRƯỚC
             </span>
-            <div className="flex items-center rounded-[50px] border border-[#d5d5d4] bg-[#f5f1e4] p-0.5">
+            <div className="flex items-center rounded-[2px] border border-[#3d4f97] bg-[#dedede] p-0.5 shadow-inner">
               <button
                 type="button"
                 onClick={openDesktopPreview}
                 title="Xem toàn bộ giao diện máy tính trong tab mới"
-                className="flex items-center gap-1.5 rounded-[50px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] hover:bg-[#ffffff] transition cursor-pointer"
+                className="flex items-center gap-1.5 rounded-[1px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
               >
                 <DesktopIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 MÁY TÍNH
                 <ExternalIcon className="h-2.5 w-2.5 shrink-0 opacity-60" aria-hidden="true" />
               </button>
 
-              <span className="h-3.5 w-px shrink-0 bg-[#d5d5d4]" aria-hidden="true" />
+              <span className="h-3.5 w-px shrink-0 bg-[#3d4f97]" aria-hidden="true" />
 
               <button
                 type="button"
                 onClick={() => setShowMobilePreview(true)}
                 title="Xem trước giao diện trên điện thoại"
-                className="flex items-center gap-1.5 rounded-[50px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] hover:bg-[#ffffff] transition cursor-pointer"
+                className="flex items-center gap-1.5 rounded-[1px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer"
               >
                 <MobileIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 DI ĐỘNG
@@ -469,7 +497,7 @@ export default function PortfolioEditor({ template }) {
             </div>
           </div>
 
-          <span className="hidden sm:inline-flex rounded-[50px] border border-[#d5d5d4] bg-[#f5f1e4] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#80827f]">
+          <span className="hidden sm:inline-flex rounded-[2px] border border-[#3d4f97] bg-[#7a8aba] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e]">
             AUTO-SAVE ACTIVE
           </span>
 
@@ -477,26 +505,26 @@ export default function PortfolioEditor({ template }) {
             type="button"
             onClick={handleSavePortfolio}
             disabled={saveStatus === "saving"}
-            className={`flex items-center gap-1.5 rounded-[50px] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] transition cursor-pointer shadow-none ${
+            className={`flex items-center gap-1.5 rounded-[2px] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] transition cursor-pointer shadow-sm ${
               saveStatus === "saved"
-                ? "bg-[#8ed462] text-[#2c2e2a] border border-[#8ed462]"
-                : "rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:border-[#8ed462] hover:bg-[#f5f1e4] text-[#2c2e2a]"
+                ? "bg-[#21242e] text-[#ecab37] border border-[#ecab37]"
+                : "n2001-btn-amber"
             }`}
             title="Lưu bản thiết kế này vào cơ sở dữ liệu"
           >
             {saveStatus === "saving" ? (
               <>
-                <span className="flex h-2 w-2 animate-ping rounded-full bg-[#2c2e2a]" />
+                <span className="flex h-2 w-2 animate-ping rounded-full bg-[#21242e]" />
                 <span>ĐANG LƯU…</span>
               </>
             ) : saveStatus === "saved" ? (
               <>
-                <RetroCheckIcon className="w-3.5 h-3.5 text-[#2c2e2a]" />
+                <RetroCheckIcon className="w-3.5 h-3.5 text-[#ecab37]" />
                 <span>ĐÃ LƯU</span>
               </>
             ) : (
               <>
-                <SaveCartridgeIcon className="w-3.5 h-3.5 text-[#2c2e2a]" />
+                <SaveCartridgeIcon className="w-3.5 h-3.5 text-[#21242e]" />
                 <span>LƯU DỰ ÁN</span>
               </>
             )}
@@ -505,10 +533,10 @@ export default function PortfolioEditor({ template }) {
           <button
             type="button"
             onClick={() => handleOpenShare()}
-            className="rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:border-[#8ed462] hover:bg-[#f5f1e4] flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] transition cursor-pointer"
+            className="n2001-btn-base flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-sm transition cursor-pointer"
             title="Tạo liên kết xem trực tiếp và chia sẻ"
           >
-            <ShareLinkIcon className="w-3.5 h-3.5 text-[#2c2e2a]" />
+            <ShareLinkIcon className="w-3.5 h-3.5 text-[#21242e]" />
             <span>CHIA SẺ</span>
           </button>
 
@@ -516,10 +544,10 @@ export default function PortfolioEditor({ template }) {
             <button
               type="button"
               onClick={() => setIsSavedModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:border-[#8ed462] hover:bg-[#f5f1e4] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] transition cursor-pointer"
+              className="flex items-center gap-1.5 rounded-[2px] border border-[#3d4f97] bg-[#dedede] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] hover:bg-[#9fbee7] transition cursor-pointer shadow-sm"
               title="Xem danh sách các portfolio đã lưu của bạn"
             >
-              <FolderArchiveIcon className="w-3.5 h-3.5 text-[#2c2e2a]" />
+              <FolderArchiveIcon className="w-3.5 h-3.5 text-[#21242e]" />
               <span>ĐÃ LƯU</span>
             </button>
           )}
@@ -528,7 +556,7 @@ export default function PortfolioEditor({ template }) {
             type="button"
             onClick={handleDeploy}
             disabled={deployStatus === "saving"}
-            className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white text-[11px] font-bold uppercase tracking-[0.5px] py-1.5 px-3.5 flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
+            className="n2001-btn-signal text-[11px] py-1.5 px-3.5 disabled:opacity-50"
           >
             <span>{deployStatus === "saving" ? "ĐANG LƯU…" : "XUẤT BẢN PORTFOLIO"}</span>
             <span className="font-mono">▶</span>
@@ -544,7 +572,8 @@ export default function PortfolioEditor({ template }) {
         style={{ "--left-width": "50%" }}
       >
         <div
-          className="overflow-y-auto border-b px-6 py-6 lg:w-[var(--left-width)] lg:shrink-0 lg:border-b-0 lg:border-r border-[#d5d5d4] bg-[#f5f1e4]"
+          className="overflow-y-auto border-b px-6 py-6 lg:w-[var(--left-width)] lg:shrink-0 lg:border-b-0 lg:border-r"
+          style={{ borderColor: "var(--home-rule)", background: "var(--home-bg)" }}
         >
           <EditForm data={data} onChange={setData} templateId={template.id} />
         </div>
@@ -552,8 +581,8 @@ export default function PortfolioEditor({ template }) {
         <div
           onMouseDown={handleDividerMouseDown}
           onDoubleClick={handleDividerDoubleClick}
-          className="hidden w-1.5 shrink-0 cursor-col-resize select-none transition-colors lg:block border-x border-[#d5d5d4]"
-          style={{ background: isDragging ? "var(--color-fresh-grass)" : "var(--color-sandstone)" }}
+          className="hidden w-1.5 shrink-0 cursor-col-resize select-none transition-colors lg:block"
+          style={{ background: isDragging ? "var(--home-strong)" : "var(--home-rule)" }}
           title="Kéo để đổi kích thước. Nhấp đúp để đặt lại."
         />
 
@@ -606,27 +635,27 @@ export default function PortfolioEditor({ template }) {
       )}
 
       {deployStatus === "saving" && ownsItsData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2e2a]/40 p-6 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-[2px]">
           <div
             role="status"
             aria-live="polite"
-            className="w-full max-w-sm overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] text-center shadow-xl"
+            className="n2001-hardware-card w-full max-w-sm overflow-hidden text-center shadow-2xl"
           >
-            <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
-              <span className="rounded-[10px] border border-[#d5d5d4] bg-[#ffffff] px-2 py-0.5 font-mono text-[9px] font-bold text-[#2c2e2a]">GENFOLIO</span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+            <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
+              <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
                 MEMORY CARD 59 // SAVING
               </span>
             </div>
             <div className="p-6">
               <span
                 aria-hidden="true"
-                className="mx-auto block h-9 w-9 animate-spin rounded-full border-3 border-[#d5d5d4] border-t-[#8ed462]"
+                className="mx-auto block h-9 w-9 animate-spin rounded-full border-3 border-[#3d4f97] border-t-[#f68d1f]"
               />
-              <h2 className="mt-4 text-sm font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+              <h2 className="mt-4 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]">
                 ĐANG KHỞI TẠO REPOSITORY GITHUB
               </h2>
-              <p className="mt-2 text-xs leading-relaxed text-[#80827f]">
+              <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
                 Đang tạo repo trong tài khoản GitHub của bạn và commit nội dung vào đó. Quá trình này mất vài giây, vui lòng giữ tab này mở.
               </p>
             </div>
@@ -636,29 +665,29 @@ export default function PortfolioEditor({ template }) {
 
       {(deployStatus === "ready" || deployStatus === "error") && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2e2a]/40 p-6 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-[2px]"
           onClick={() => setDeployStatus("idle")}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="deploy-dialog-title"
-            className="relative w-full max-w-md overflow-hidden rounded-[25.5px] border border-[#d5d5d4] bg-[#ffffff] shadow-xl"
+            className="n2001-hardware-card relative w-full max-w-md overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
+            <div className="n2001-carbon-bar flex items-center justify-between px-3.5 py-2">
               <div className="flex items-center gap-2">
-                <span className="rounded-[10px] border border-[#d5d5d4] bg-[#ffffff] px-2 py-0.5 font-mono text-[9px] font-bold text-[#2c2e2a]">GENFOLIO</span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+                <span className="n2001-racetrack text-[9px] py-0 px-2">GENFOLIO</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">
                   {deployStatus === "ready" ? "SYSTEM DEPLOYMENT // READY" : "SYSTEM ALERT // ERROR"}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setDeployStatus("idle")}
-                className="flex h-6 w-6 items-center justify-center rounded-full border border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer"
+                className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white hover:brightness-110"
               >
-                <RetroCloseIcon className="w-2.5 h-2.5" />
+                <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
                 <span className="sr-only">Đóng</span>
               </button>
             </div>
@@ -670,24 +699,24 @@ export default function PortfolioEditor({ template }) {
                     {vercelOpened && buildState === "pending" ? (
                       <span
                         aria-hidden="true"
-                        className="mx-auto block h-10 w-10 animate-spin rounded-full border-3 border-[#d5d5d4] border-t-[#8ed462]"
+                        className="mx-auto block h-10 w-10 animate-spin rounded-full border-3 border-[#3d4f97] border-t-[#f68d1f]"
                       />
                     ) : vercelOpened && buildState === "failed" ? (
                       <span
                         aria-hidden="true"
-                        className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#ff705d] text-white shadow-sm"
+                        className="mx-auto flex h-10 w-10 items-center justify-center rounded-[2px] bg-[#e60012] text-white shadow-sm"
                       >
                         <RetroCloseIcon className="w-5 h-5 text-white" />
                       </span>
                     ) : vercelOpened && buildState === "success" ? (
                       <div className="mx-auto mb-3 flex flex-col items-center">
-                        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-[#8ed462] bg-[#f5f1e4] p-2 text-center shadow-xs">
+                        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-3 border-[#ecab37] bg-[#fdf8e6] p-2 text-center shadow-md">
                           <div className="flex flex-col items-center">
-                            <span className="text-[7px] font-bold uppercase tracking-wider text-[#2c2e2a]">OFFICIAL</span>
-                            <span className="text-[8px] font-black uppercase text-[#2c2e2a]">GENFOLIO</span>
-                            <span className="text-[7px] font-bold uppercase text-[#2c2e2a]">SEAL OF</span>
-                            <span className="text-[7px] font-bold uppercase tracking-wider text-[#2c2e2a]">QUALITY</span>
-                            <div className="flex items-center gap-0.5 text-[#8ed462] mt-0.5">
+                            <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">OFFICIAL</span>
+                            <span className="text-[8px] font-black uppercase text-[#e60012]">GENFOLIO</span>
+                            <span className="text-[7px] font-bold uppercase text-[#21242e]">SEAL OF</span>
+                            <span className="text-[7px] font-black uppercase tracking-wider text-[#b87c14]">QUALITY</span>
+                            <div className="flex items-center gap-0.5 text-[#f68d1f] mt-0.5">
                               <RetroStarIcon className="w-2 h-2" />
                               <RetroStarIcon className="w-2 h-2" />
                               <RetroStarIcon className="w-2 h-2" />
@@ -699,10 +728,10 @@ export default function PortfolioEditor({ template }) {
                       </div>
                     ) : (
                       <div className="mb-2 flex items-center gap-2">
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8ed462] text-[#2c2e2a]">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-[2px] bg-[#ecab37] text-[#21242e]">
                           <CheckIcon className="h-4 w-4" />
                         </span>
-                        <span className="text-xs font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+                        <span className="text-xs font-bold uppercase tracking-[0.5px] text-[#21242e]">
                           KHỞI TẠO THÀNH CÔNG
                         </span>
                       </div>
@@ -710,16 +739,17 @@ export default function PortfolioEditor({ template }) {
 
                     {buildState === "success" && vercelOpened ? (
                       <>
-                        <p className="text-[10px] font-extrabold uppercase tracking-[0.5px] text-[#8ed462]">
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.5px] text-[#e48600]">
                           SYSTEM ONLINE // VERIFIED
                         </p>
                         <h2
                           id="deploy-dialog-title"
-                          className="home-display text-2xl font-black text-[#2c2e2a]"
+                          className="home-display text-2xl font-black"
+                          style={{ color: "#ffffff" }}
                         >
                           {firstName ? `CHÚC MỪNG, ${firstName.toUpperCase()}!` : "CHÚC MỪNG BẠN!"}
                         </h2>
-                        <p className="mx-auto mt-2 max-w-[34ch] text-xs leading-relaxed text-[#80827f]">
+                        <p className="mx-auto mt-2 max-w-[34ch] text-xs leading-relaxed text-[#3d4f97]">
                           Portfolio của bạn đã chính thức xuất bản trên internet, lưu trữ an toàn trên tài khoản GitHub & Vercel của bạn.
                         </p>
                       </>
@@ -727,7 +757,7 @@ export default function PortfolioEditor({ template }) {
                       <>
                         <h2
                           id="deploy-dialog-title"
-                          className="mt-2 text-sm font-bold uppercase tracking-[0.5px] text-[#2c2e2a]"
+                          className="mt-2 text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]"
                         >
                           {!vercelOpened
                             ? "REPOSITORY GITHUB ĐÃ SẴN SÀNG"
@@ -737,7 +767,7 @@ export default function PortfolioEditor({ template }) {
                                 ? "ĐANG BUILD TRANG WEB TRÊN VERCEL"
                                 : "ĐANG HOÀN TẤT TRÊN VERCEL"}
                         </h2>
-                        <p className="mt-1.5 text-xs leading-relaxed text-[#80827f]">
+                        <p className="mt-1.5 text-xs leading-relaxed text-[#3d4f97]">
                           {!vercelOpened
                             ? "Toàn bộ thông tin bạn nhập đã được commit vào repository trên tài khoản GitHub của bạn. Bạn hoàn toàn sở hữu và kiểm soát mã nguồn này."
                             : buildState === "failed"
@@ -755,7 +785,7 @@ export default function PortfolioEditor({ template }) {
                       href={buildUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                      className="n2001-btn-signal mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                     >
                       MỞ TRANG WEB TRỰC TIẾP ▶
                       <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -767,7 +797,7 @@ export default function PortfolioEditor({ template }) {
                       href={buildUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                      className="n2001-btn-signal mt-4 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                     >
                       XEM NHẬT KÝ BUILD LỖI ▶
                       <ExternalIcon className="h-3.5 w-3.5" aria-hidden="true" />
@@ -778,17 +808,17 @@ export default function PortfolioEditor({ template }) {
                     href={handoff.repoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-[20px] border border-[#d5d5d4] bg-[#ffffff] hover:bg-[#f5f1e4] mt-3 flex items-center gap-2.5 p-3 text-left transition-colors"
+                    className="n2001-hardware-card mt-3 flex items-center gap-2.5 p-3 text-left transition-colors hover:brightness-105"
                   >
                     <GitHubIcon
-                      className="h-4 w-4 shrink-0 text-[#2c2e2a]"
+                      className="h-4 w-4 shrink-0 text-[#21242e]"
                       aria-hidden="true"
                     />
-                    <span className="min-w-0 flex-1 truncate font-mono text-xs font-bold text-[#2c2e2a]">
+                    <span className="min-w-0 flex-1 truncate font-mono text-xs font-bold text-[#21242e]">
                       {handoff.owner}/{handoff.repo}
                     </span>
                     <ExternalIcon
-                      className="h-3 w-3 shrink-0 text-[#80827f]"
+                      className="h-3 w-3 shrink-0 text-[#3d4f97]"
                       aria-hidden="true"
                     />
                   </a>
@@ -800,31 +830,31 @@ export default function PortfolioEditor({ template }) {
                     onClick={() => setVercelOpened(true)}
                     className={
                       !vercelOpened
-                        ? "rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-3 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                        ? "n2001-btn-signal mt-3 flex w-full items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                         : buildState === "success"
                           ? "home-quiet-link mt-3 flex items-center justify-center gap-1.5 text-xs font-bold"
-                          : "rounded-[50px] border border-[#d5d5d4] bg-[#f5f1e4] hover:bg-[#e0dbce] text-[#2c2e2a] mt-3 flex w-full items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-[0.5px]"
+                          : "n2001-btn-amber mt-3 flex w-full items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-[0.5px]"
                     }
                   >
                     {!vercelOpened ? "TRIỂN KHAI LÊN VERCEL ▶" : "MỞ LẠI VERCEL ▶"}
                     <ExternalIcon className={vercelOpened ? "h-3 w-3" : "h-3.5 w-3.5"} aria-hidden="true" />
                   </a>
 
-                  <div className="mt-4 rounded-[20px] border border-[#d5d5d4] bg-[#f5f1e4] p-3 text-left">
+                  <div className="n2001-bevel-inset mt-4 rounded-[2px] p-3 text-left">
                     <div className="flex items-start gap-2.5">
                       <span
                         aria-hidden="true"
-                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ffffff] border border-[#d5d5d4] text-[#2c2e2a]"
+                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-[2px] bg-[#21242e] text-[#ecab37]"
                       >
                         <FileIcon className="h-3.5 w-3.5" />
                       </span>
                       <div className="min-w-0">
-                        <h3 className="text-xs font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+                        <h3 className="text-xs font-bold uppercase tracking-[0.5px] text-[#21242e]">
                           SỞ HỮU & CẬP NHẬT MÃ NGUỒN
                         </h3>
-                        <p className="mt-1 text-[11px] leading-relaxed text-[#80827f]">
+                        <p className="mt-1 text-[11px] leading-relaxed text-[#3d4f97]">
                           Toàn bộ dữ liệu nằm trong file{" "}
-                          <span className="font-mono font-bold text-[#2c2e2a]">
+                          <span className="font-mono font-bold text-[#21242e]">
                             data/portfolio.js
                           </span>
                           . Sửa file trên GitHub rồi commit, website sẽ tự động cập nhật.
@@ -833,7 +863,7 @@ export default function PortfolioEditor({ template }) {
                           href={handoff.editUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:bg-[#e0dbce] text-[#2c2e2a] mt-2 inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px]"
+                          className="n2001-btn-amber mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px]"
                         >
                           MỞ FILE DỮ LIỆU ▶
                         </a>
@@ -848,7 +878,7 @@ export default function PortfolioEditor({ template }) {
                         setDeployStatus("idle");
                         router.push("/");
                       }}
-                      className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-4 w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                      className="n2001-btn-signal mt-4 w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                     >
                       HOÀN TẤT ▶
                     </button>
@@ -858,18 +888,18 @@ export default function PortfolioEditor({ template }) {
                 <div className="text-center">
                   <h2
                     id="deploy-dialog-title"
-                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#2c2e2a]"
+                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#21242e]"
                   >
                     ĐÃ LƯU BẢN NHÁP
                   </h2>
-                  <p className="mt-2 text-xs leading-relaxed text-[#80827f]">
+                  <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
                     Tiếp theo, tiếp tục đến Vercel để hoàn tất triển khai: hệ thống sẽ tạo repo thật và xuất bản website trực tiếp dưới tài khoản GitHub và Vercel của bạn.
                   </p>
                   <a
                     href={deployUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-4 block w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
+                    className="n2001-btn-signal mt-4 block w-full py-2.5 text-xs font-bold uppercase tracking-[0.5px]"
                   >
                     TIẾP TỤC ĐẾN VERCEL ▶
                   </a>
@@ -878,17 +908,17 @@ export default function PortfolioEditor({ template }) {
                 <div className="text-center">
                   <h2
                     id="deploy-dialog-title"
-                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#ff705d]"
+                    className="text-sm font-bold uppercase tracking-[0.5px] text-[#e60012]"
                   >
                     KHÔNG THỂ BẮT ĐẦU TRIỂN KHAI
                   </h2>
-                  <p className="mt-2 text-xs leading-relaxed text-[#80827f]">
+                  <p className="mt-2 text-xs leading-relaxed text-[#3d4f97]">
                     {deployError}
                   </p>
                   <button
                     type="button"
                     onClick={() => setDeployStatus("idle")}
-                    className="rounded-[50px] border border-[#d5d5d4] bg-[#f5f1e4] hover:bg-[#e0dbce] text-[#2c2e2a] mt-4 w-full py-2 text-xs font-bold uppercase tracking-[0.5px]"
+                    className="n2001-btn-amber mt-4 w-full py-2 text-xs font-bold uppercase tracking-[0.5px]"
                   >
                     ĐÓNG
                   </button>
@@ -901,7 +931,7 @@ export default function PortfolioEditor({ template }) {
 
       {/* Toast Notification */}
       {saveToast && (
-        <div className="fixed bottom-6 left-6 z-50 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-4 py-2 text-xs font-bold text-[#2c2e2a] shadow-lg animate-bounce">
+        <div className="fixed bottom-6 left-6 z-50 rounded-[3px] border-2 border-[#3d4f97] bg-[#21242e] px-4 py-2 text-xs font-bold text-[#ecab37] shadow-2xl animate-bounce">
           {saveToast}
         </div>
       )}

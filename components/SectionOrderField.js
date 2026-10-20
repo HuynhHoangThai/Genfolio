@@ -44,30 +44,30 @@ function SortableRow({ id }) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    background: isDragging ? "var(--color-sandstone)" : "var(--color-pure-white)",
-    borderColor: isDragging ? "var(--color-fresh-grass)" : "var(--color-hairline-mist)",
-    color: "var(--color-ink-black)",
+    background: isDragging ? "#ecab37" : "#dedede",
+    borderColor: "#3d4f97",
+    color: "#21242e",
   };
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-2.5 rounded-[10px] border px-3 py-2 text-xs font-bold uppercase tracking-[0.5px] transition-colors ${
-        isDragging ? "z-10 shadow-md ring-2 ring-[#8ed462]" : "shadow-none"
+      className={`flex items-center gap-2.5 rounded-[2px] border px-3 py-2 text-xs font-bold uppercase tracking-[0.5px] transition-colors border-t-[rgba(255,255,255,0.75)] border-l-[rgba(255,255,255,0.5)] border-r-[#3d4f97] border-b-2 border-b-[#3d4f97] ${
+        isDragging ? "z-10 shadow-lg brightness-105" : "shadow-sm"
       }`}
     >
       <button
         type="button"
         {...attributes}
         {...listeners}
-        className="ed-focus flex h-6 w-6 shrink-0 cursor-grab items-center justify-center rounded-[6px] bg-[#f5f1e4] border border-[#d5d5d4] text-[#2c2e2a] hover:bg-[#8ed462] transition-colors active:cursor-grabbing"
+        className="ed-focus flex h-6 w-6 shrink-0 cursor-grab items-center justify-center rounded-[2px] bg-[#21242e] text-[#ecab37] transition-opacity hover:opacity-100 active:cursor-grabbing"
         aria-label={`Kéo để sắp xếp lại ${LABELS[id]}`}
       >
         <GripIcon className="h-3.5 w-3.5" />
       </button>
-      <span className="flex-1 font-bold text-[#2c2e2a]">{LABELS[id]}</span>
-      <span className="font-mono text-[10px] text-[#80827f]">SLOT</span>
+      <span className="flex-1 font-bold text-[#21242e]">{LABELS[id]}</span>
+      <span className="font-mono text-[10px] text-[#3d4f97]">SLOT</span>
     </div>
   );
 }

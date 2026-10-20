@@ -34,9 +34,9 @@ export default function ThemeSwitcher({ palettes, selectedId, onChange, vertical
             aria-label={p.label}
             aria-pressed={active}
             onClick={() => onChange(p.id)}
-            style={active ? { "--tw-ring-color": "#8ed462" } : undefined}
+            style={active ? { "--tw-ring-color": "#f68d1f" } : undefined}
             className={`group relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-150 hover:scale-110 ${
-              active ? "scale-110 ring-2 ring-[#8ed462]" : "ring-1 ring-[#d5d5d4] hover:ring-2 hover:ring-[#8ed462]"
+              active ? "scale-110 ring-2 ring-[#f68d1f] shadow-md" : "ring-1 ring-[#3d4f97]/40 hover:ring-2 hover:ring-[#3d4f97]"
             }`}
           >
             <span

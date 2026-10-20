@@ -71,22 +71,22 @@ function ResumeImport({ onImport }) {
 
   return (
     <div className="ed-panel overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
+      <div className="n2001-section-bar">
         <div className="flex items-center gap-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#8ed462] text-[#2c2e2a]">
+          <span className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#21242e] text-[#f68d1f]">
             <IconUpload className="h-3 w-3" />
           </span>
-          <span className="text-[12px] font-bold text-[#2c2e2a]">≡ EXPANSION PAK // NHẬP DỮ LIỆU TỪ CV</span>
+          <span>≡ EXPANSION PAK // NHẬP DỮ LIỆU TỪ CV</span>
         </div>
-        <span className="rounded-[10px] bg-[#ffffff] border border-[#d5d5d4] px-1.5 py-0.5 text-[9px] font-bold text-[#2c2e2a]">AUTO-FILL</span>
+        <span className="rounded-[2px] bg-[#ecab37] px-1.5 py-0.5 text-[9px] font-extrabold text-[#21242e]">AUTO-FILL</span>
       </div>
       <div className="p-4">
-        <p className="text-xs leading-relaxed text-[#80827f]">
+        <p className="text-xs leading-relaxed text-[#3d4f97]">
           Tải lên tệp PDF hoặc DOCX để hệ thống tự động điền các mục bên dưới. Vui lòng kiểm tra lại thông tin sau khi trích xuất.
         </p>
 
         <label
-          className={`rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white mt-3.5 inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-[0.5px] transition cursor-pointer ${
+          className={`n2001-btn-signal mt-3.5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.5px] ${
             status === "loading" ? "cursor-not-allowed opacity-60" : "cursor-pointer"
           }`}
         >
@@ -102,12 +102,12 @@ function ResumeImport({ onImport }) {
         </label>
 
         {status === "loading" && fileName && (
-          <p className="mt-2 text-xs text-[#80827f]">
+          <p className="mt-2 text-xs text-[#3d4f97]">
             Đang phân tích {fileName}…
           </p>
         )}
         {status === "error" && (
-          <p className="mt-2 text-xs font-bold text-[#ff705d]" role="alert">
+          <p className="mt-2 text-xs font-bold text-[#e60012]" role="alert">
             {errorMessage}
           </p>
         )}
@@ -129,19 +129,19 @@ function IconLayers(props) {
 function SectionOrderCard({ order, onChange }) {
   return (
     <div className="ed-panel overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
+      <div className="n2001-section-bar">
         <div className="flex items-center gap-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#8ed462] text-[#2c2e2a]">
+          <span className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#21242e] text-[#ecab37]">
             <IconLayers className="h-3 w-3" />
           </span>
-          <span className="text-[12px] font-bold text-[#2c2e2a]">≡ CONTROLLER PAK // SẮP XẾP THỨ TỰ</span>
+          <span>≡ CONTROLLER PAK // SẮP XẾP THỨ TỰ</span>
         </div>
-        <span className="rounded-[10px] bg-[#ffffff] border border-[#d5d5d4] px-1.5 py-0.5 text-[9px] font-bold text-[#2c2e2a]">
+        <span className="rounded-[2px] bg-[#ecab37] px-1.5 py-0.5 text-[9px] font-extrabold text-[#21242e]">
           MỚI
         </span>
       </div>
       <div className="p-4">
-        <p className="mb-3 text-xs leading-relaxed text-[#80827f]">
+        <p className="mb-3 text-xs leading-relaxed text-[#3d4f97]">
           Kéo thả để sắp xếp thứ tự ưu tiên: hiển thị Dự án lên trước nếu đó là thế mạnh của bạn, hoặc Kinh nghiệm làm việc. Giới thiệu và Liên hệ luôn cố định ở đầu và cuối.
         </p>
         <SectionOrderField order={order} onChange={onChange} />
@@ -153,13 +153,13 @@ function SectionOrderCard({ order, onChange }) {
 function FormSection({ title, hint, children }) {
   return (
     <section className="ed-panel overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f1e4] border-b border-[#d5d5d4]">
-        <span className="text-[12px] font-bold text-[#2c2e2a]">≡ {title.toUpperCase()}</span>
-        <span className="font-mono text-[9px] text-[#80827f]">SLOT-ACTIVE</span>
+      <div className="n2001-section-bar">
+        <span>≡ {title.toUpperCase()}</span>
+        <span className="font-mono text-[9px] text-[#21242e]/70">SLOT-ACTIVE</span>
       </div>
       <div className="p-4">
         {hint && (
-          <p className="mb-3 text-[11px] font-medium text-[#80827f]">
+          <p className="mb-3 text-[11px] font-semibold text-[#3d4f97]">
             {hint}
           </p>
         )}
@@ -171,7 +171,7 @@ function FormSection({ title, hint, children }) {
 
 function FieldLabel({ children }) {
   return (
-    <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">
+    <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.5px] text-[#3d4f97]">
       {children}
     </span>
   );
@@ -183,7 +183,7 @@ function Field({ label, hint, ...props }) {
       <FieldLabel>{label}</FieldLabel>
       <input {...props} className="ed-field px-3 py-1.5 text-xs font-medium" />
       {hint && (
-        <span className="mt-1 block text-[10px] text-[#80827f]">
+        <span className="mt-1 block text-[10px] text-[#60619c]">
           {hint}
         </span>
       )}
@@ -245,15 +245,15 @@ function CommaListField({ label, hint, value, onChange }) {
 function RemovableRow({ onRemove, children }) {
   return (
     <div
-      className="relative rounded-[20px] border border-[#d5d5d4] p-3.5 bg-[#f5f1e4] shadow-none"
+      className="relative rounded-[2px] border p-3.5 border-t-[rgba(255,255,255,0.7)] border-l-[rgba(255,255,255,0.5)] border-r-[#3d4f97] border-b-2 border-b-[#3d4f97] bg-[#f0f2f8] shadow-sm"
     >
       <button
         type="button"
         onClick={onRemove}
-        className="ed-focus absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#ffffff] border border-[#d5d5d4] text-[#2c2e2a] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer"
+        className="ed-focus absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-[2px] bg-[#e60012] text-white border-t border-t-[rgba(255,255,255,0.6)] border-b border-b-[#7a181b] shadow-sm hover:brightness-110 active:translate-y-[1px] cursor-pointer"
         aria-label="Xóa"
       >
-        <RetroCloseIcon className="w-2.5 h-2.5" />
+        <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
       </button>
       <div className="space-y-3">{children}</div>
     </div>
@@ -265,7 +265,7 @@ function AddButton({ onClick, children }) {
     <button
       type="button"
       onClick={onClick}
-      className="ed-focus w-full py-2.5 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:border-[#8ed462] hover:bg-[#f5f1e4] text-[#2c2e2a] text-xs font-bold uppercase tracking-[0.5px] transition cursor-pointer"
+      className="n2001-btn-amber ed-focus w-full py-2 text-xs font-bold uppercase tracking-[0.5px]"
     >
       {children}
     </button>

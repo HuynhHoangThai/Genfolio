@@ -51,19 +51,19 @@ export default function ShareViewClient({
     <div className="relative min-h-screen">
       {/* Top Floating Control Bar for Shared Portfolio */}
       {showBanner && (
-        <div className="sticky top-0 z-50 border-b border-[#d5d5d4] bg-[#ffffff]/95 px-4 py-2.5 text-[#2c2e2a] shadow-xs backdrop-blur-md">
+        <div className="sticky top-0 z-50 border-b border-[#3d4f97] bg-[#21242e]/95 px-3 py-2 text-[#dedede] shadow-lg backdrop-blur-md">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <Link href="/" className="flex items-center gap-1.5 focus:outline-none">
-                <span className="rounded-[10px] border border-[#d5d5d4] bg-[#f5f1e4] px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-tight text-[#2c2e2a]">GENFOLIO</span>
+                <span className="n2001-racetrack text-[10px] py-0 px-2 tracking-tight">GENFOLIO</span>
               </Link>
-              <span className="hidden h-3 w-px bg-[#d5d5d4] sm:inline" />
+              <span className="hidden h-3 w-px bg-white/20 sm:inline" />
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-[#2c2e2a]">
-                  {data?.name || "Portfolio"} <span className="font-extrabold text-[#2c2e2a]">({templateName})</span>
+                <span className="text-[11px] font-bold text-white">
+                  {data?.name || "Portfolio"} <span className="text-[#ecab37]">({templateName})</span>
                 </span>
                 {formattedExpiry && (
-                  <span className="text-[9px] text-[#80827f]">
+                  <span className="text-[9px] text-[#9fbee7]">
                     Hết hạn: {formattedExpiry}
                   </span>
                 )}
@@ -74,16 +74,16 @@ export default function ShareViewClient({
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] hover:bg-[#f5f1e4] flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a] transition cursor-pointer"
+                className="n2001-btn-base flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.5px] text-[#21242e] shadow-sm cursor-pointer"
               >
                 {copied ? (
                   <>
-                    <RetroCheckIcon className="w-3 h-3 text-[#8ed462]" />
+                    <RetroCheckIcon className="w-3 h-3 text-[#f68d1f]" />
                     <span>ĐÃ SAO CHÉP</span>
                   </>
                 ) : (
                   <>
-                    <RetroCopyIcon className="w-3 h-3 text-[#2c2e2a]" />
+                    <RetroCopyIcon className="w-3 h-3 text-[#21242e]" />
                     <span>SAO CHÉP LINK</span>
                   </>
                 )}
@@ -91,7 +91,7 @@ export default function ShareViewClient({
 
               <Link
                 href="/"
-                className="rounded-[50px] bg-[#ff705d] hover:bg-[#e05a48] text-white flex items-center gap-1.5 px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] transition"
+                className="n2001-btn-signal flex items-center gap-1.5 px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.5px] shadow-sm"
               >
                 <span>TẠO PORTFOLIO TƯƠNG TỰ</span>
                 <span className="font-mono text-[9px]">▶</span>
@@ -100,10 +100,10 @@ export default function ShareViewClient({
               <button
                 type="button"
                 onClick={() => setShowBanner(false)}
-                className="ml-1 flex h-5 w-5 items-center justify-center rounded-full border border-[#d5d5d4] bg-[#ffffff] text-[#2c2e2a] hover:bg-[#ff705d] hover:text-white hover:border-[#ff705d] transition cursor-pointer"
+                className="ml-1 flex h-4 w-4 items-center justify-center rounded-[1px] bg-white/10 text-white hover:bg-[#e60012] cursor-pointer"
                 title="Ẩn thanh công cụ"
               >
-                <RetroCloseIcon className="w-2.5 h-2.5" />
+                <RetroCloseIcon className="w-2.5 h-2.5 text-white" />
               </button>
             </div>
           </div>
@@ -115,8 +115,8 @@ export default function ShareViewClient({
 
       {/* Floating Theme Palette Switcher if available */}
       {palettes && palettes.length > 0 && (
-        <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-[50px] border border-[#d5d5d4] bg-[#ffffff] px-3.5 py-2 shadow-lg">
-          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#2c2e2a]">MÀU</span>
+        <div className="n2001-carbon-bar fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-[2px] px-3 py-2 shadow-2xl border-t border-t-[rgba(255,255,255,0.4)] border-b-2 border-b-[#14161d]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.5px] text-[#ecab37]">MÀU</span>
           <ThemeSwitcher
             palettes={palettes}
             selectedId={data.paletteId}
